@@ -1,0 +1,21 @@
+\babel@toc {english}{}
+\babel@toc {english}{}
+\contentsline {listasf}{Resumen}{III}{section*.4}
+\contentsline {listasf}{Abstract}{V}{section*.6}
+\contentsline {listasf}{Abbreviated index}{VII}{section*.7}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Estado del arte}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Detecci\IeC {\'o}n de fallos (\textit {Fault Detection})}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Diagn\IeC {\'o}stico de fallos o localizaci\IeC {\'o}n de fallos}{3}{section.2.2}
+\contentsline {chapter}{\numberline {3}Conclusiones y trabajos futuros}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Conclusiones}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Trabajos futuros}{6}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Otras t\IeC {\'e}cnicas de tratamiento de im\IeC {\'a}genes}{6}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Distancia en flip-flops. Mejora de la distancia temporal}{6}{subsection.3.2.2}
+\mbox {}\hspace *{0pt}\par 
+\contentsline {listasb}{List of Figures}{7}{section*.11}
+\contentsline {listasb}{List of Tables}{9}{section*.13}
+\contentsline {listasb}{List of Codes}{11}{section*.15}
+\contentsline {listasb}{Bibliography}{13}{section*.17}
+\contentsline {listasb}{Index}{17}{section*.19}
+\contentsline {listasb}{Glossary}{17}{section*.20}
