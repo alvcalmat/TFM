@@ -1,113 +1,21 @@
 \chapter{State of the art}
 \label{ch:StateOfTheArt}
 
-% Poner en contexto las tecnologías que hay hoy día y demás
+% Poner en contexto las tecnologías que hay hoy día y demás.
 % Related work: buscar artículos que tengan que ver con mi proyecto para poner en contexto lo que voy a aportar.
 
-\section{Detección de fallos (\textit{Fault Detection})}
-\label{sec:FaultDetection}
-Dado que no es posible realizar
-un diagnóstico de \gls{SEU} sin detectarlo primero, numerosos estudios se centran
-en desarrollar técnicas que permitan detectarlos a tiempo para suprimir sus 
-efectos. Por ejemplo, en 2014, un equipo chino presentó una técnica de detección 
-de \gls{SEU} basada en la \textit{Máquina de Boltzman Restringida o \gls{RBM}}, 
-bloque fundamental en muchos algoritmos de \textit{Deep Learning} 
-\cite{RBMSEUdetection}. En \cite{SCARA} abordan el problema de \textit{faul 
-detection} por el modelo dinámico del sistema. Comparan las lecturas tomadas por
-los sensores con los valores teóricos que se obtienen del modelo dinámico del
-robot SCARA. De esta forma detectan anomalías debidas a radiación. En un estudio
-más reciente, enfocado a sistemas embebidos, emplean programas de detección por
-software. Multitud de hilos se ejecutan simultáneamente y se encargan de examinar
-el circuito con el objetivo de detectar alguna irregularidad causada por
-radiación \cite{DetectingSEUs}.
+% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV. Poner en contexto lo que voy a aportar con mi TFM.
+\section{Task planning in multi-drone teams}
+\label{sec:TaskPlanning}
 
+% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante. Poner en contexto lo que voy a aportar con mi TFM.
+\section{Drone behavior management}
+\label{sec:DroneBehaviorManagement}
 
-% En esta seccion contaría que lo que existe principalmente es para fallos de
-% fabricación.
-% FAULT LOCATION
-\section{Diagnóstico de fallos o localización de fallos}
-\label{sec:FaultLocation}
-Hasta ahora, el diagnóstico de fallos ha sido poco estudiado, siendo los fallos de
-fabricación a los que más esfuerzos de investigación se les ha dedicado
-\cite{VLSI, EfficientSA0SA1, RepairSA0SA1, LargeComb, ANewRep, FILC, FDIRC}.
-Estos no son el tipo de fallos que nos interesa diagnosticar en esta
-investigación, ya que no son causados por radiación, si no que se producen, como
-su nombre indica, en el momento de fabricación del circuito (\textit{stuck-at-0,
-stuck-at-1}).
+\subsection{Finite state machines}
+\label{sec:FiniteStateMachines}
 
-Las técnicas existentes para localización de fallos provocados por radiación se
-basan principalmente en el uso de diccionarios de fallos, aunque también se
-emplean vectores de prueba, listas de fallos, tabla de verdad de nodos
-(\textit{"node truth table"}) y tabla de conexiones de pines (\textit{pin
-connection table}) \cite{DiagnosisTechniques, LASAR, RTFDandD}. 
-
-A excepción de contados estudios, la mayoría de los revisados modelan al 
-circuito bajo prueba o \textit{\gls{CUT}} como una caja negra, es decir, el diseño
-del circuito no se conoce y solo las salidas pueden ser monitorizadas.
-Normalmente, el número de biestables del circuito es mucho mayor que el número de
-salidas, por lo que es necesario observar el circuito el suficiente tiempo como
-para detectar patrones que puedan ser asociados a la localización de un
-determinado \gls{SEU} \cite{SEUDiagnosis}. Estas huellas son registradas y
-almacenadas en un diccionario durante una fase previa al diagnóstico.
-
-El diccionario de fallos se genera mediante inyección de fallos, en alguna
-plataforma que lo permita \cite{FastFI, LeonFI, FTU}, y contiene información de 
-la localización de los \gls{SEU} inyectados y el patrón de salidas que produce. 
-Si el diccionario recoge todas las posibilidades, se habla de diccionario 
-completo o exhaustivo, tomando el nombre de la campaña de inyección de fallos 
-necesaria para generarlo (\textit{Campaña Exhaustiva}). En el caso contrario, es 
-un diccionario incompleto o no exhaustivo, es decir, no todas las posibles 
-combinaciones de (biestable, ciclo) han sido inyectadas y almacenadas en el 
-diccionario. 
-
-% La localización del \gls{SEU}, una vez detectado, se consigue comparando el 
-% patrón de salida generado con la información contenida en los diccionarios.
-Durante la fase de diagnóstico, para localizar un \gls{SEU} detectado, se compara
-el patrón de error que genera en las salidas del circuito con los patrones
-almacenados en el diccionario. Debido al largo tiempo de observación comentado, la
-información a comparar puede tener un tamaño considerable, y por tanto el tiempo
-necesario para procesar la comparación es alto. Una solución para reducir esta
-cantidad de información y por tanto, el tiempo, permitiendo incluso localización
-de \gls{SEU} en tiempo real, es comprimirla. Un ejemplo sería el uso de códigos 
-HASH \cite{SEUDiagnosis}.
-
-% This premise is pretty ambitious since supposes thatthere  is  an  unique
-% signature  for  a  couple  of  clock  cycle  andFF  and  viceversa,  i.e.  this
-% relation  is  univocal.  In  general,  itis not true, and several different
-% injected faults can give placeto exactly the same signature at the outputs. In
-% this scenario,it  is  also  obvious  that  the  greater  the  time  we  analyze
-% theoutputs,  the  greater  the  possibility  to  get  different  signaturesfor
-% different injected faults.
-
-% Problema de que no se llegue a un único candidato, sino a una lista
-% Problema de las colisiones
-% There is another problem affecting injectivity related to theCUT  itself.  In  a
-% fault  injection  campaign,  when  several  runsare  performed,  it  is
-% possible  that  the  CUT  shows  exactly  thesame outputs for different fault
-% injections, and not only for theGOLDEN outputs but also for wrong outputs. In
-% such cases,the fault dictionary is no longer univocal or unambiguous.
-Dada la gran cantidad de biestables existentes en comparación con el reducido
-número de salidas, no es difícil imaginar la posibilidad de que dos \gls{SEU}
-localizados en biestables y/o ciclos distintos produzcan exactamente el mismo
-patrón de error a la salida, al menos durante el tiempo y test programados. 
-Cuando esto ocurre, se habla de \textit{"Colisión"}. Además, es posible que un
-\gls{SEU} no produzca error alguno a la salida durante el test, siendo
-indistinguible de una situación libre de conmutaciones. Ante estas situaciones,
-existirá más de una entada del diccionario que coincida con la buscada. Como
-resultado del diagnóstico se obtienen no una si no una lista de posibles
-localizaciones para el \gls{SEU} bajo diagnóstico.
-
-% Explicar que el problema de la técnica basada en códigos hash es que necesita 
-% de diccionarios exhaustivos, y generarlos es inviable para circuitos grandes.
-Hasta ahora hemos hablado de diagnóstico empleando diccionarios de fallos
-completos, pero si el \gls{CUT} es grande, obtener un diccionario exhaustivo es
-una operación inviable, ya que la cantidad de combinaciones biestable-ciclo a
-inyectar para ello se vuelve inabarcable. Si se intenta diagnosticar un \gls{SEU}
-empleando un diccionario de fallos incompleto, aparecen nuevos problemas, ya que
-puede ocurrir que la ubicación correcta no se haya inyectado durante la prueba, y
-por tanto no se encuentre en el diccionario. Si además existe una colisión que sí
-se ha inyectado, el diagnóstico concluirá con una localización única
-aparentemente correcta que puede no se acerque nada a la real.
-
+\subsection{Behaviour Trees}
+\label{sec:FiniteStateMachines}
 
 \endinput

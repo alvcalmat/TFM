@@ -2,74 +2,20 @@
 \label{ch:Introduction}
 
 % Hablar en general del proyecto y de lo que quiero hacer.
-\lettrine[lraise=-0.1, lines=2, loversize=0.2]{L}{a} primera vez que se observaron
-los efectos de la radiación en satélites en órbita fue a mediados de la década de
-1970. Desde entonces, los investigadores han estudiado sus efectos sobre
-diferentes circuitos y tecnologías. La radiación puede ser un problema para los
-circuitos destinados a trabajar en su presencia. Si esta es ionizante, puede dar
-lugar a un \textit{\gls{SEE}}, o un efecto de evento singular, provocando un error 
-en el circuito. Los daños que provoca la radiación se clasifican en dos grandes 
-grupos: \textit{errores físicos ('hard errors')} y \textit{errores lógicos ('soft
-errors')} \cite{TesisPoli}. Las \textit{conmutaciones por evento singular o 
-\acrlong{SEU} (\acrshort{SEU})} son errores lógicos inducidos por radiación en el 
-circuito que consisten en el cambio de valor de un biestable del mismo. No son 
-daños permanentes, pero sí que pueden afectar al correcto funcionamiento del 
-sistema.
 
-% Importante decir que con la miniaturizacion de los circuitos esto también aplica
-% en aviónica y a nivel del mar (referencia "Cosmic radiation comes to ASIC and SOC
-% design" de Santarini y otras que encuentre)
-Con la miniaturización de los circuitos, la dosis de radiación necesaria para 
-provocar un \gls{SEU} es cada vez menor, con la consiguiente aparición de sus 
-efectos cada vez a menor altitud \cite{EDN}. Esto acerca el problema de la 
-radiación a aplicaciones más comunes como puede ser la aviación o las 
-telecomunicaciones. A veces no importa, o es asumible, que un bit del circuito 
-conmute a causa de radiación. Blindar un móvil frente a radiación o reforzar sus
-circuitos con técnicas como la \textit{Redundancia Modular Triple o \gls{TMR}}
-\cite{TMR} puede ser innecesario dado que el mayor riesgo al que nos exponemos es 
-mínimo, pero esto no siempre es así. Cuando se trata de satélites, aviones, o 
-incluso bases militares armadas, existen sistemas críticos cuyas misiones pueden 
-ser el control orbital, la estabilización del vuelo o el lanzamiento de misiles, 
-donde no son asumibles los errores que pueda provocar un \gls{SEU}.
+% Estudio teórico
+% Programas usados, software empleado, entorno de programación
+% Metodología de trabajo
 
-% Dar razones de por qué puede ser interesante tener cierta capacidad de
-% diagnístico de SEU
-Diseñar circuitos resistentes a radiación puede ser un proceso costoso, complicado
-y lento. Además, aplicar técnicas de refuerzo contra radiación a circuitos 
-completos puede ser una pérdida de recursos \cite{SelectiveHardening}. Uno de los
-pasos del diseño suele ser emplear una plataforma de inyección de fallos para
-estudiar qué zonas del circuito son críticas y cuáles no necesitan ser reforzadas 
-\cite{SelectiveHardening}. Si todo ha ido bien, uno de los últimos pasos suele ser
-irradiar el circuito de forma real para verificar el diseño. Si se detectan 
-irregularidades a la salida a causa de un \gls{SEU} ocurrido durante la prueba,
-sería necesario rediseñar el circuito para reforzar aquellas zonas donde se hayan producido las conmutaciones.
-Este proceso se vería enormemente beneficiado de una técnica que permita localizar
-los \gls{SEU}, es decir, calcular el ciclo de reloj y biestable en el que ha
-tenido lugar. Determinar la localización espacial y temporal de un \gls{SEU} se
-denomina \textit{\gls{SEU} diagnosis} \cite{SEUDiagnosis}.
+% Dar razones de por qué es útil diseñar un planificador de tareas para equipos multi-UAV
 
-El problema al que nos enfrentamos al tratar de localizar un \gls{SEU} a partir de
-la información de salida de un circuito crece exponencialmente con el tamaño del
-circuito. Las escasas técnicas de diagnóstico  existentes hasta el momento 
-requieren de diccionarios de fallos completos o exhaustivos, requisito que no
-siempre es posible cumplir.
+% Enumerar las hipótesis realizadas para diseñar el planificador
 
-En la presente investigación hemos desarrollado una nueva técnica de diagnóstico
-de \gls{SEU} basada en diccionarios de fallos incompletos o no exhaustivos. La
-hipótesis de la que partimos es que: 
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{L}{o}rem itsum
 
 \begin{hypothesis}\label{hyp:inicial}
     "Dos \gls{SEU} próximos entre sí provocarán patrones de error similares a la 
     salida".
 \end{hypothesis}
-
-La mayor parte de la investigación se ha centrado en obtener métricas para 
-examinar los patrones de salida desde distintas aproximaciones, ya que el parecido
-o no de dos salidas depende mucho de cómo las observemos. En el desarrollo del
-presente documento analizaremos y compararemos las métricas desarrolladas. Veremos
-si alguna de ellas es mejor que otras, cómo podemos combinarlas en un único
-algoritmo que realice el diagnóstico, si este mejora o empeora al prescindir
-de alguna de las métricas fusionadas, y hasta qué punto podemos elevar la calidad
-del diagnóstico empleando esta técnica.
 
 \endinput
