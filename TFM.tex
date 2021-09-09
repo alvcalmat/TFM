@@ -88,18 +88,6 @@ twoside}
 \newacronym[type=main]{ETSI}{ETSI}{Escuela Técnica Superior de Ingeniería}
 \newacronym[type=main]{US}{US}{Universidad de Sevilla}
 %\newacronym[type=main]{}{}{}
-\newacronym[type=main]{SEU}{SEU}{Single Event Upset}
-\newacronym[type=main]{SEE}{SEE}{Single Event Effect}
-\newacronym[type=main]{TMR}{TMR}{Triple Modular Redundancy}
-\newacronym[type=main]{RBM}{RBM}{Restricted Boltzmann Machine}
-\newacronym[type=main]{CUT}{CUT}{Circuit Under Test}
-\newacronym[type=main]{FF}{FF}{flip-flop}
-\newacronym[type=main]{ESA}{ESA}{European Space Agency}
-\newacronym[type=main]{FPGA}{FPGA}{Field Programmable Gate Array}
-\newacronym[type=main]{FFT}{FFT}{Fast Fourier Transform}
-\newacronym[type=main]{FIFO}{FIFO}{First in, First out}
-\newacronym[type=main]{FSM}{FSM}{Finite State Machine}
-\newacronym[type=main]{UART}{UART}{Universal Asynchronous Receiver and Transmitter}
 
 
 \makeindex
@@ -125,7 +113,7 @@ twoside}
 \centro{Escuela Técnica Superior de Ingeniería}
 \universidad{Universidad de Sevilla}
 %\universidad{University of Seville}
-\titulacion{Máster en Ingeniería Electrónica, Robótica y Automática}
+\titulacion{Máster en Ingeniería Electrónica, Robótica y \mbox{Automática}}
 %\titulacion{Master in Electronic, Robotic and Automation Engineering}
 \fecha{2021}
 \nombretrabajo{Trabajo Fin de Máster} 
@@ -160,9 +148,9 @@ twoside}
 % El índice abreviado se incluye también en algunos libros, con menor detalle que el completo. Descomentar las siguientes líneas.
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{listasf}{Abbreviated index}
+\addcontentsline{toc}{listasf}{Short Outline}
 \pagestyle{especial}
-\shorttoc{Abbreviated index}{1}
+\shorttoc{Short Outline}{1}
 
 %Índice normal, el completo
 \cleardoublepage
@@ -187,7 +175,7 @@ twoside}
 %
 \include{Introduction/Introduction}
 %
-\include{StateOfTheArt/StateOfTheArt}
+\include{Preliminaries/Preliminaries}
 % 
 %\include{TeoricApproach/TeoricApproach}
 %
@@ -195,8 +183,8 @@ twoside}
 %
 \include{DesignOfTheProposedSolution/DesignOfTheProposedSolution}
 %
-% Diseño de los experimentos, simulaciones
-% código, conclusiones, líneas futuras.
+\include{Results/Results}
+%
 \include{Conclusions/Conclusions}
 %
 %\include{References/References}

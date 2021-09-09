@@ -21,11 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{TesisPoli}
-H.~G. Miranda, ``Aportaciones a las técnicas de emulación y protección de
-  sistemas microelectrónicos complejos bajo efectos de la radiación,'' Ph.D.
-  dissertation, Universidad de Sevilla, May 2010.
-
 \bibitem{EDN}
 \BIBentryALTinterwordspacing
 M.~Santarini, ``Cosmic radiation comes to asic and soc design,'' May 2005.
@@ -33,15 +28,10 @@ M.~Santarini, ``Cosmic radiation comes to asic and soc design,'' May 2005.
   \url{https://www.edn.com/cosmic-radiation-comes-to-asic-and-soc-design/}
 \BIBentrySTDinterwordspacing
 
-\bibitem{TMR}
-C.~Carmichael, ``Triple module redundancy design techniques for virtex fpgas,''
-  \emph{Xilinx Application Note XAPP197}, vol.~1, 2001.
-
-\bibitem{SelectiveHardening}
-M.~G. {Valderas}, M.~P. {García}, C.~{López}, and L.~{Entrena}, ``Extensive
-  seu impact analysis of a pic microprocessor for selective hardening,'' in
-  \emph{2009 European Conference on Radiation and Its Effects on Components and
-  Systems}, 2009, pp. 333--336.
+\bibitem{TesisPoli}
+H.~G. Miranda, ``Aportaciones a las técnicas de emulación y protección de
+  sistemas microelectrónicos complejos bajo efectos de la radiación,'' Ph.D.
+  dissertation, Universidad de Sevilla, May 2010.
 
 \bibitem{SEUDiagnosis}
 J.~M. {Mogollón}, J.~{Nápoles}, H.~{Guzmán-Miranda}, and M.~A. {Aguirre},
@@ -50,20 +40,51 @@ J.~M. {Mogollón}, J.~{Nápoles}, H.~{Guzmán-Miranda}, and M.~A. {Aguirre},
   Conference on Radiation and Its Effects on Components and Systems}, 2011, pp.
   705--710.
 
-\bibitem{RBMSEUdetection}
-S.~{Jian}, J.~{Jiang}, K.~{Lu}, and Y.~{Zhang}, ``Seu-tolerant restricted
-  boltzmann machine learning on dsp-based fault detection,'' in \emph{2014 12th
-  International Conference on Signal Processing (ICSP)}, 2014, pp. 1503--1506.
+\bibitem{SelectiveHardening}
+M.~G. {Valderas}, M.~P. {García}, C.~{López}, and L.~{Entrena}, ``Extensive
+  seu impact analysis of a pic microprocessor for selective hardening,'' in
+  \emph{2009 European Conference on Radiation and Its Effects on Components and
+  Systems}, 2009, pp. 333--336.
+
+\bibitem{TMR}
+C.~Carmichael, ``Triple module redundancy design techniques for virtex fpgas,''
+  \emph{Xilinx Application Note XAPP197}, vol.~1, 2001.
+
+\bibitem{AFLS}
+{Zhou Jing}, {Liu Zengrong}, {Chen Lei}, {Wang Shuo}, {Wen Zhiping}, {Chen
+  Xun}, and {Qi Chang}, ``An accurate fault location method based on
+  configuration bitstream analysis,'' in \emph{NORCHIP 2012}, 2012, pp. 1--5.
 
 \bibitem{SCARA}
 W.~{Tao} and W.~{Xingsong}, ``Fault diagnosis of a scara robot,'' in \emph{2008
   15th International Conference on Mechatronics and Machine Vision in
   Practice}, 2008, pp. 352--356.
 
+\bibitem{RBMSEUdetection}
+S.~{Jian}, J.~{Jiang}, K.~{Lu}, and Y.~{Zhang}, ``Seu-tolerant restricted
+  boltzmann machine learning on dsp-based fault detection,'' in \emph{2014 12th
+  International Conference on Signal Processing (ICSP)}, 2014, pp. 1503--1506.
+
 \bibitem{DetectingSEUs}
 R.~{Pettit} and A.~{Pettit}, ``Detecting single event upsets in embedded
   software,'' in \emph{2018 IEEE 21st International Symposium on Real-Time
   Distributed Computing (ISORC)}, 2018, pp. 142--145.
+
+\bibitem{RTFDandD}
+N.~{Naber}, T.~{Getz}, Y.~{Kim}, and J.~{Petrosky}, ``Real-time fault detection
+  and diagnostics using fpga-based architectures,'' in \emph{2010 International
+  Conference on Field Programmable Logic and Applications}, 2010, pp. 346--351.
+
+\bibitem{DiagnosisTechniques}
+{Su Wei}, {Fan Tongshun}, and {Du Mingfang}, ``Research for digital circuit
+  fault testing and diagnosis techniques,'' in \emph{2009 International
+  Conference on Test and Measurement}, vol.~1, 2009, pp. 330--333.
+
+\bibitem{LASAR}
+S.~{Wei}, Z.~{Shide}, and X.~{Lijun}, ``Research on digital circuit fault
+  location procedure based on lasar,'' in \emph{2008 ISECS International
+  Colloquium on Computing, Communication, Control, and Management}, vol.~2,
+  2008, pp. 322--326.
 
 \bibitem{VLSI}
 B.~K. {Sikdar}, N.~{Ganguly}, and P.~P. {Chaudhuri}, ``Fault diagnosis of vlsi
@@ -101,22 +122,6 @@ J.~P. {Roth}, W.~G. {Bouricius}, and P.~R. {Schneider}, ``Programmed algorithms
 A.~D. {Friedman}, ``Fault detection in redundant circuits,'' \emph{IEEE
   Transactions on Electronic Computers}, vol. EC-16, no.~1, pp. 99--100, 1967.
 
-\bibitem{DiagnosisTechniques}
-{Su Wei}, {Fan Tongshun}, and {Du Mingfang}, ``Research for digital circuit
-  fault testing and diagnosis techniques,'' in \emph{2009 International
-  Conference on Test and Measurement}, vol.~1, 2009, pp. 330--333.
-
-\bibitem{LASAR}
-S.~{Wei}, Z.~{Shide}, and X.~{Lijun}, ``Research on digital circuit fault
-  location procedure based on lasar,'' in \emph{2008 ISECS International
-  Colloquium on Computing, Communication, Control, and Management}, vol.~2,
-  2008, pp. 322--326.
-
-\bibitem{RTFDandD}
-N.~{Naber}, T.~{Getz}, Y.~{Kim}, and J.~{Petrosky}, ``Real-time fault detection
-  and diagnostics using fpga-based architectures,'' in \emph{2010 International
-  Conference on Field Programmable Logic and Applications}, 2010, pp. 346--351.
-
 \bibitem{FastFI}
 R.~{Zhang}, L.~{Xiao}, J.~{Li}, X.~{Cao}, C.~{Qi}, and M.~{Wang}, ``A fast
   fault injection platform of multiple seus for sram-based fpgas,'' in
@@ -133,16 +138,6 @@ J.~M. {Mogollon}, H.~{Guzmán-Miranda}, J.~{Nápoles}, J.~{Barrientos}, and
   M.~A. {Aguirre}, ``Ftunshades2: A novel platform for early evaluation of
   robustness against see,'' in \emph{2011 12th European Conference on Radiation
   and Its Effects on Components and Systems}, 2011, pp. 169--174.
-
-\bibitem{YOSYS}
-C.~Wolf, J.~Glaser, and J.~Kepler, ``Yosys-a free verilog synthesis suite,'' in
-  \emph{Proceedings of the 21st Austrian Workshop on Microelectronics
-  (Austrochip)}, 2013.
-
-\bibitem{AFLS}
-{Zhou Jing}, {Liu Zengrong}, {Chen Lei}, {Wang Shuo}, {Wen Zhiping}, {Chen
-  Xun}, and {Qi Chang}, ``An accurate fault location method based on
-  configuration bitstream analysis,'' in \emph{NORCHIP 2012}, 2012, pp. 1--5.
 
 \bibitem{Wikipedia}
 \BIBentryALTinterwordspacing
@@ -186,5 +181,10 @@ Wikipedia, ``Momentos de imagen --- wikipedia{,} la enciclopedia libre,'' 2020,
   [Internet; descargado 18-junio-2020]. [Online]. Available:
   \url{https://es.wikipedia.org/w/index.php?title=Momentos_de_imagen&oldid=124767713}
 \BIBentrySTDinterwordspacing
+
+\bibitem{YOSYS}
+C.~Wolf, J.~Glaser, and J.~Kepler, ``Yosys-a free verilog synthesis suite,'' in
+  \emph{Proceedings of the 21st Austrian Workshop on Microelectronics
+  (Austrochip)}, 2013.
 
 \end{thebibliography}
