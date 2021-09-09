@@ -4,9 +4,10 @@ The top-level auxiliary file: TFM.aux
 A level-1 auxiliary file: Acknowledgment/Acknowledgment.aux
 A level-1 auxiliary file: Abstract/Abstract.aux
 A level-1 auxiliary file: Introduction/Introduction.aux
-A level-1 auxiliary file: StateOfTheArt/StateOfTheArt.aux
-A level-1 auxiliary file: ProblemDescription/ProblemDescription.aux
+A level-1 auxiliary file: Preliminaries/Preliminaries.aux
+A level-1 auxiliary file: ProblemFormulation/ProblemFormulation.aux
 A level-1 auxiliary file: DesignOfTheProposedSolution/DesignOfTheProposedSolution.aux
+A level-1 auxiliary file: Results/Results.aux
 A level-1 auxiliary file: Conclusions/Conclusions.aux
 The style file: IEEEtran.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -22,7 +23,7 @@ Database file #1: bibliography.bib
 Done.
 You've used 31 entries,
             4087 wiz_defined-function locations,
-            1017 strings with 13170 characters,
+            1018 strings with 13189 characters,
 and the built_in function-call counts, 21657 in all, are:
 = -- 1716
 > -- 447

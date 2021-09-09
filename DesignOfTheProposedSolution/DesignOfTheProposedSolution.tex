@@ -2,10 +2,33 @@
 \label{ch:DesignOfTheProposedSolution}
 \lettrine[lraise=-0.1, lines=2, loversize=0.2]{L}{o}rem itsum
 
-\section{Task planner}
-\label{sec:TaskPlanner}
+\section{Node diagram}
+\label{sec:NodeDiagram}
+% Explicar las comunicaciones que hay entre el planner y el manager
+% Explicar que se ha hecho de forma que toda la inteligencia y las decisiones estén y se tomen en el planner
 
+\section{Centralized module: task planner}
+\label{sec:Centralized module:TaskPlanner}
 
-\section{Drone behaviour manager}
-\label{sec:DroneBehavioutManager}
+\section{Distributed module: behavior manager}
+\label{sec:Distributed module: behavior manager}
+% Explicar que se ha hecho con árboles de comportamiento en paralelo a algunos procesos de ros
 
+\subsection{Main tree}
+\label{sec:MainTree}
+% Recalcar que se ha hecho de forma que toda la inteligencia y las decisiones estén y se tomen en el planner
+% Hablar aqui dentro de como se gestionan las desconexiones, la batería y las replanificaciones
+
+\subsection{Inspection task tree}
+\label{sec:InspectionTaskTree}
+
+\subsection{Monitoring task tree}
+\label{sec:MonitoringTaskTree}
+
+\subsection{Tool delivery task tree}
+\label{sec:ToolDeliveryTaskTree}
+
+\section{Lower and upper level modules faker}
+\label{sec:LowerAndUpperLevelModulesFaker}
+% GoToWP, Recharge, Monitoring, Inspection, ToolDelivery
+% Battery sensor
