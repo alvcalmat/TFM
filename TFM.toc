@@ -14,12 +14,13 @@
 \contentsline {subsection}{\numberline {2.2.1}Inspection applications with UAVs}{3}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Task planning in multi-drone teams}{3}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Drone behavior management}{3}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}Previous study}{3}{section.2.3}
+\contentsline {section}{\numberline {2.3}Tools}{3}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}ROS}{3}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}Gazebo}{3}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Behaviour Trees}{3}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Groot}{3}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Rviz}{3}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.3}Rviz}{3}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}UAL}{3}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Behaviour Trees}{3}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}Groot}{3}{subsection.2.3.6}
 \contentsline {chapter}{\numberline {3}Problem Formulation}{5}{chapter.3}
 \contentsline {section}{\numberline {3.1}Description of tasks}{5}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Inspection tasks}{5}{subsection.3.1.1}
