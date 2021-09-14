@@ -5,3 +5,9 @@ References/Behavior-Trees-Paper.pdf
 References/Behavior-Trees-in-Robotics-and-AI.pdf
 References/Software_Architecture_AERIAL_CORE.pdf
 aux/*
+.vscode/*
+*.fdb_latexmk
+*.fls
+*.ilg
+*.ind
+*.gz
