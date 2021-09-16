@@ -17,3 +17,8 @@ pdf:
 vim:
 	vi "+setlocal spell" "+setlocal spell spelllang=en" "+setlocal spellfile=~/.vim/dict_es.add" $(tex).tex
 
+aux:
+	zathura aux/*.pdf &
+
+ref:
+	zathura References/*.pdf &

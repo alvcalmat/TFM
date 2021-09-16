@@ -5,7 +5,7 @@
 \addcontentsline{toc}{listasf}{Abstract}
 
 %%% Tal about the problem that TFM addresses.
-\lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{his} Master's Thesis has addressed problems arising from the recent increase in the applications of cooperative \glossary{UAV} teams, which are the autonomy to operate over a long period of time with robustness to possible failures, and the difficulty of providing the team with cognitive capabilities to be able to operate in dynamic environments with humans.
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{his} Master's Thesis has addressed problems arising from the recent increase in the applications of cooperative \gls{UAV} teams, which are the autonomy to operate over a long period of time with robustness to possible failures, and the difficulty of providing the team with cognitive capabilities to be able to operate in dynamic environments with humans.
 
 %%% Talk about the importance or interest in solving the problem.
 Many of these applications are currently being executed by humans, making the activities much more expensive, time-consuming, and in some cases even dangerous. This is why there is currently a great deal of interest and effort being put into developing solutions to the problems posed. 
@@ -14,7 +14,27 @@ Many of these applications are currently being executed by humans, making the ac
 The aim of the work was to develop cognitive planning techniques for coordinating fleets of quadrotors to assist human operators in inspection and maintenance tasks on high-voltage power lines. These techniques should also extend the autonomy of the system, ensure that safety requirements between drones and human workers are met, and ensure the success of the mission.
 
 %%% Description of the proposed solution. How was it done? Used techniques?
-A software architecture has been proposed based on a central planner and a distributed behaviour manager. To carry out the planning, a cost has been defined, which is calculated for each task. Thus, each one is assigned to the \gls{UAV} that costs the least to execute. On the other hand, to control the behaviour of the drones and ensure the safety of the aerial equipment, a behaviour tree has been implemented.
+A software architecture has been proposed based on a central planner and a distributed behaviour manager. To carry out the planning, a cost has been defined, which is calculated for each task. Thus, each one is assigned to the \gls{UAV} that consumes the least executing it. On the other hand, to control the behaviour of the drones and ensure the safety of the aerial equipment, a behaviour tree has been implemented.
 
 %%% Results: Most important data that respond to the objectives and hypothesis set.
 As a result, it has been possible to develop a software architecture capable of dynamically planning missions while ensuring the safety of the equipment involved. This provides a good base that can be easily adapted and from which more complex planners can be developed in the future. Compared to the typical way of implementing behaviour managers, involving complex finite state machines that are difficult to read, reuse and extend, the use of behaviour trees is a great improvement and will allow the creation of increasingly complex behaviours.
+
+\chapter*{Resumen}
+\pagestyle{especial}
+\chaptermark{Resumen}
+\phantomsection
+\addcontentsline{toc}{listasf}{Resumen}
+%%% Hablar del problema que aborda el TFM.
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{E}{ste} Trabajo de Fin de Máster ha afrontado problemas que surgen del reciente aumento de las aplicaciones de equipos cooperativos de \gls{UAV}, los cuales son la autonomía para operar de forma prolongada en el tiempo con robustez ante posibles fallos, y la dificultad de aportar al equipo capacidades cognitivas para poder operar en entornos dinámicos con humanos. 
+
+%%% Hablar de la importancia o del interés que hay por solucionar el problema.
+Muchas de estas aplicaciones están siendo ejecutadas actualmente por humanos, haciendo las actividaded mucho más costosas, lentas, e incluso en algunos casos, peligrosas. Es por eso que actualmente existe un gran interés y se están destinando muchos esfuerzos para desarrollar soluciones para los problemas planteados.
+
+%%% Objetivos que se persiguen: ¿Por qué realizo esta investigación? ¿Qué se busca lograr? ¿Objetivo? ¿Hipótesis de partida?
+El objetivo del trabajo era desarrollar técnicas cognitvas de planificación para coordinar flotas de drones que asistan a operarios humanos en tareas de inspección y mantenimiento en líneas eléctricas de alta tensión. Estas técnicas debían además extender la autonomía del sistema, garantizar que se cumplen los requisitos de seguridad entre drones y trabajadores humanos, y asegurar el éxito de la misión.
+
+%%% Descripción de la solución propuesta. ¿Cómo lo he hecho? ¿Técnicas utilizadas?
+Se ha propuesto una arquitectura de software basada en un planificador central y un gestor de comportamiento distribuido. Para llevar a cabo la planificación se ha definido un coste, que es calculado para cada tarea. De esta forma, cada una se asigna al \gls{UAV} al que cueste menos. Por el otro lado, para controlar el comportamiento de los drones y asegurar la seguridad de los equipos aéreos, se ha implementado un árbol de comportamiento.
+
+%%% Resultados: Datos más importantes que respondan a las hipótesis y los objetivos marcados.
+Como resultado, se ha conseguido desarrollar una arquitectura de software capaz realizar la planificación de las misiones de forma dinámica asegurando mientras tanto la seguridad de los equipos involucrados. Esto constituye una buena base que se puede adaptar fácilmente y a partir de la cual se pueden desarrollar futuros planificadores más complejos. Comparado con la forma típica de implementar gestores de comportamiento, ivolucrando complejas máquinas de estados finitas difíciles de leer, reutilizar y ampliar, el uso de árboles de comportamiento supone una gran mejora y permitirá la creación de comportamientos cada vez más complejos.
