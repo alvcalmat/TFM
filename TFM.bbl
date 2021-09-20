@@ -21,6 +21,23 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{CivilAplications}
+H.~Shakhatreh, A.~H. Sawalmeh, A.~Al-Fuqaha, Z.~Dou, E.~Almaita, I.~Khalil,
+  N.~S. Othman, A.~Khreishah, and M.~Guizani, ``Unmanned aerial vehicles
+  (uavs): A survey on civil applications and key research challenges,''
+  \emph{IEEE Access}, vol.~7, pp. 48\,572--48\,634, 2019.
+
+\bibitem{PowerOutagesCauses}
+J.-Y. Park, S.-T. Kim, J.-K. Lee, J.-W. Ham, and K.-Y. Oh, ``Method of
+  operating a gis-based autopilot drone to inspect ultrahigh voltage power
+  lines and its field tests,'' \emph{Journal of Field Robotics}, vol.~37,
+  no.~3, pp. 345--361, 2020.
+
+\bibitem{AerialCoreMulti-Layer}
+G.~Silano, J.~Bednar, T.~Nascimento, J.~Capitan, M.~Saska, and A.~Ollero, ``A
+  multi-layer software architecture for aerial cognitive multi-robot systems in
+  power line inspection tasks,'' 2021.
+
 \bibitem{EDN}
 \BIBentryALTinterwordspacing
 M.~Santarini, ``Cosmic radiation comes to asic and soc design,'' May 2005.

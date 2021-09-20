@@ -2,7 +2,7 @@
 main = TFM
 tex  = TFM
 
-pdf:
+tex:
 	pdflatex $(main).tex
 	pdflatex $(main).tex
 	bibtex $(main).aux
@@ -22,3 +22,6 @@ aux:
 
 ref:
 	zathura References/*.pdf &
+
+pdf:
+	zathura TFM.pdf &
