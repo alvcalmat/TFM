@@ -5,7 +5,7 @@
 \contentsline {listasf}{Short Outline}{VII}{section*.7}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Objectives}{1}{section.1.2}
+\contentsline {section}{\numberline {1.2}Objectives}{2}{section.1.2}
 \contentsline {chapter}{\numberline {2}Preliminaries}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Current technology}{3}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}UAVs}{3}{subsection.2.1.1}
@@ -53,9 +53,9 @@
 \contentsline {section}{\numberline {6.2}Future work}{11}{section.6.2}
 \contentsline {subsection}{\numberline {6.2.1}Augmented reality}{11}{subsection.6.2.1}
 \mbox {}\hspace *{0pt}\par 
-\contentsline {listasb}{List of Figures}{13}{section*.11}
-\contentsline {listasb}{List of Tables}{15}{section*.13}
-\contentsline {listasb}{List of Codes}{17}{section*.15}
-\contentsline {listasb}{Bibliography}{19}{section*.17}
-\contentsline {listasb}{Index}{23}{section*.19}
-\contentsline {listasb}{Glossary}{23}{section*.20}
+\contentsline {listasb}{List of Figures}{13}{section*.12}
+\contentsline {listasb}{List of Tables}{15}{section*.14}
+\contentsline {listasb}{List of Codes}{17}{section*.16}
+\contentsline {listasb}{Bibliography}{19}{section*.18}
+\contentsline {listasb}{Index}{23}{section*.20}
+\contentsline {listasb}{Glossary}{23}{section*.21}

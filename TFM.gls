@@ -3,5 +3,6 @@
 \glsgroupheading{U}\relax \glsresetentrylist %
 \glossentry{UAV}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{III}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{V}}}%
+		\setentrycounter[]{page}\glsnumberformat{V}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{1}}}%
 \end{theglossary}\glossarypostamble

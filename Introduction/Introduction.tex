@@ -7,10 +7,22 @@
 \section{Motivation}
 \label{sec:Motivation}
 %%% Capi: motivación del problema:
-% Con el incremento que ha sufrido la demanda eléctrica mundial, ha aparecido un reto para las compañías encargadas del suministro eléctrico relacionado con el mantenimiento y la reparación de las redes eléctricas de forma que se puedan minimizar la frecuencia de las averías. Según [PowerOutagesCauses], una de las principales causas de cortes eléctricos es el daño de las líneas de transmisión debido al mal tiempo o a campañas de inspección ineficientes.
+With the increase in global electricity demand, a challenge has arisen for electricity supply companies to maintain and repair power grids in a way that minimizes the frequency of outages. According to \cite{PowerOutagesCauses}, one of the main causes of power outages is damage to transmission lines due to bad weather or inefficient inspection campaigns.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\linewidth]
+    {Introduction/figures/helicopter.jpg}
+    \caption{Operators getting off the helicopter during a maintenance mission}
+    \label{fig:helicopter}
+\end{figure}
+
+The strategy often used by electric companies to reduce power outages is to schedule periodic maintenance operations on active lines. This is the most suitable method if the correct functioning of the system is to be ensured and when replacing a circuit is unacceptable \cite{PowerOutagesCauses}. These maintenance missions are carried out by experienced crews on board helicopters and equipped with safety suits and harnesses among other things that prevent the operators from receiving an electric shock (see figure \ref{fig:helicopter}). The problem with this solution is that these activities are dangerous for the operators, as they are working at high altitude and on electrified lines, are extremely time-consuming and expensive (\$1500 per hour) and are subject to human error \cite{MaintenanceCost}.
 
 % Por qué interesan los equipos multi-UAV para la inspección, principales barreras, etc. Puedes hablar del proyecto AERIAL-CORE como contexto del trabajo. Coje texto del paper que te pasé y del proyecto de tesis.
+These are the reasons why distribution companies have the need to develop more efficient and safer maintenance methods. Multiple solutions have been proposed to automate this task \cite{MaintenanceSolutions}, but the best of them seems to be the use of \glspl{UAV} because of their flexibility and ability to inspect at different levels \cite{PowerOutagesCauses}. To achieve this, there are still some important barriers to overcome, such as the limited autonomy of these devices, the strong electromagnetic interference to which they would be subjected due to being close to power lines and the ability to detect and avoid obstacles of different nature that can be found in this type of environment \cite{MaintenanceCost}. Providing UAVs with the cognitive capability to operate autonomously in such dynamic environments and with the presence of humans, and providing them with a rapid on-line planning method \cite{FastOnlinePlanning}, is key to address these complexities and to safely and successfully accomplish the assigned mission with UAV fleets.
 
+A 
 %%% Contexto y justificación del trabajo: 
 % Dar razones de por qué es útil diseñar un planificador de tareas para equipos multi-UAV
 

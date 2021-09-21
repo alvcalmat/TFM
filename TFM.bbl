@@ -33,6 +33,23 @@ J.-Y. Park, S.-T. Kim, J.-K. Lee, J.-W. Ham, and K.-Y. Oh, ``Method of
   lines and its field tests,'' \emph{Journal of Field Robotics}, vol.~37,
   no.~3, pp. 345--361, 2020.
 
+\bibitem{MaintenanceCost}
+H.~Baik and J.~Valenzuela, ``Unmanned aircraft system path planning for
+  visually inspecting electric transmission towers,'' \emph{Journal of
+  Intelligent \& Robotic Systems}, vol.~95, no.~3, pp. 1097--1111, 2019.
+
+\bibitem{MaintenanceSolutions}
+C.~Martinez, C.~Sampedro, A.~Chauhan, J.~F. Collumeau, and P.~Campoy, ``The
+  power line inspection software (polis): A versatile system for automating
+  power line inspection,'' \emph{Engineering applications of artificial
+  intelligence}, vol.~71, pp. 293--314, 2018.
+
+\bibitem{FastOnlinePlanning}
+R.~P{\v{e}}ni{\v{c}}ka, J.~Faigl, and M.~Saska, ``Physical orienteering problem
+  for unmanned aerial vehicle data collection planning in environments with
+  obstacles,'' \emph{IEEE Robotics and Automation Letters}, vol.~4, no.~3, pp.
+  3005--3012, 2019.
+
 \bibitem{AerialCoreMulti-Layer}
 G.~Silano, J.~Bednar, T.~Nascimento, J.~Capitan, M.~Saska, and A.~Ollero, ``A
   multi-layer software architecture for aerial cognitive multi-robot systems in
