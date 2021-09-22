@@ -2,7 +2,7 @@
 \label{ch:Introduction}
 %%% Presentar el tema: Aerial co-workers: a task planning approach for multi-drone teams supporting inspection operations
 % Definir el problema
-\lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{he} use of \glspl{UAV} has grown considerably in recent years for numerous applications including real-time monitoring, search and rescue, providing wireless coverage, security and surveillance, precision agriculture, package delivery and infrastructure inspection \cite{CivilAplications}. With the rapidly developing technology in this area, and demonstrations of what \glspl{UAV} can do, there are increasing efforts to bring this technology to other applications. With the expected increase in applications for this technology, new problems and challenges arise, including autonomy, safety, obstacle avoidance and coordination of multi-\gls{UAV} teams. Developing the technology to solve these problems will be a major effort, but as \glspl{UAV} have proven to be critical in situations where humans are at high risk or highly inefficient and their capacity to evolve and develop even more potential in the short term, companies are investing in developing all sort of \gls{UAV}-based solutions.
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{he} use of \glspl{UAV} has grown considerably in recent years for numerous applications including real-time monitoring, search and rescue, providing wireless coverage, security and surveillance, precision agriculture, package delivery and infrastructure inspection \cite{CivilAplications}. With the rapidly developing technology in this area, and demonstrations of what \glspl{UAV} can do, there are increasing efforts to bring this technology to other applications. With the expected increase in applications for this technology, new problems and challenges arise, including autonomy, safety, obstacle avoidance and coordination of multi-\gls{UAV} teams. Developing the technology to solve these problems will be a major effort, but as \glspl{UAV} have proven to be critical in situations where humans are at high risk or highly inefficient, and they have proven their capacity to evolve and develop even more potential in the short term, companies are investing in developing all sort of \gls{UAV}-based solutions.
 
 \section{Motivation}
 \label{sec:Motivation}
@@ -11,7 +11,7 @@ With the increase in global electricity demand, a challenge has arisen for elect
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\linewidth]
+    \includegraphics[width=0.6\linewidth]
     {Introduction/figures/helicopter.jpg}
     \caption{Operators getting off the helicopter during a maintenance mission}
     \label{fig:helicopter}
@@ -24,27 +24,27 @@ These are the reasons why distribution companies have the need to develop more e
 
 %%% Contexto y justificación del trabajo: 
 % Dar razones de por qué es útil diseñar un planificador de tareas para equipos multi-UAV
-A versatile and reliable software architecture will be essential to integrate and interconnect all the heterogeneous components that compose these cognitive multi-\gls{UAV} systems. 
-
-
-In \cite{AerialCoreMulti-Layer} a multi-layer software architecture is presented that aims to carry out maintenance and inspection missions in high-voltage power lines in a cooperative way between human operators and a fleet of quadrotors. This architecture is part of the European Aerial-Core project, and this master's thesis has been responsible for the development of one of the stages that make up the software architecture presented.
+A versatile and reliable software architecture will be essential to integrate and interconnect all the heterogeneous components that compose these cognitive multi-\gls{UAV} systems. In \cite{AerialCoreMulti-Layer}, as part of the AERIAL-CORE European project\footnote{AERIAL-CORE European project homepage: \url{https://aerial-core.eu/}}, a multi-layer software architecture is presented for carrying out such missions cooperatively between human operators and a fleet of quadrotors. One of the layers of software that compose it is a high-level task planner. Its function is to coordinate the entire fleet of \glspl{UAV} to generate high-level behaviours in order to efficiently, safely and successfully complete the maintenance or inspection mission. This type of work has the characteristic of being dynamic, since it is not possible to know in advance what the outcome of the inspection as such will be in order to plan offline, but rather, as the mission develops, new tasks will arise that the fleet will have to attend to. Therefore, the task planner should be able to react to unexpected events (new task, failure of a \gls{UAV}, loss of connection, less autonomy than calculated, etc.) and to replan online. Thus, this layer will be the main cognitive block of the system \cite{AerialCoreMulti-Layer}.
 
 \section{Objectives}
 \label{sec:Objectives}
-% Situación actual del ámbito investigado
-% Antecedentes teóricos y teorías existentes (resultados de la revisión bibliográfica)
-% Conceptos y definiciones clave
-
 %%%: objetivos que se quieren alcanzar en tu TFM en concreto, dentro de todo el problema.
 % Hablar en general del proyecto y de lo que quiero hacer.
+The overall objective of this project was to develop a cognitive task planner that would be in charge of governing the behaviour of multi-\gls{UAV} teams for the inspection and maintenance of power lines in a collaborative way with human operators, being one of the software layers that compose the aforementioned software architecture \cite{AerialCoreMulti-Layer} developed for the AERIAL-CORE European project. The fleet of governed \glspl{UAV} acts as an aerial co-worker and can perform various tasks such as delivering a tool to an operator, inspecting regions of the power line or monitoring a worker while operating to ensure his safety. The planner receives both high-level input and feedback from the different equipments that make up the fleet, and processes all the information to elaborate a plan to manage the \gls{UAV} team or modify it in reaction to an unforeseen event. To achieve this, the following objectives were defined:
+
+\begin{itemize}
+    \item Ensure that resources are used and tasks are executed efficiently.
+    \item Comply with all security requirements and ensure the integrity of equipment and mission success.
+    \item Be able to replan online to react to unforeseen events.
+    \item Implement the software layer in \gls{ROS} and manage the necessary communications with the rest of the software layers and modules that make up the architecture.
+    \item Carry out \gls{SITL} simulations to prove that the algorithm is able to govern the behaviour of the fleet efficiently and safely, and that it is able to react to unforeseen events dynamically, demonstrating cognitive capabilities.
+\end{itemize}
 
 %%% Preguntas de investigación e hipótesis: 
 % Enumerar las hipótesis realizadas para diseñar el planificador
 
 %\begin{hypothesis}\label{hyp:inicial}
-%    "Dos \gls{ETSI} próximos entre sí provocarán patrones de error similares a la salida".
+%    "".
 %\end{hypothesis}
 
 \endinput
-
-% Los UAV inteligentes son la siguiente gran revolución en esta tecnología, permitiendo su uso en aplicaciones como la inspección de infraestructuras de forma conjunta con humanos.
