@@ -55,6 +55,27 @@ G.~Silano, J.~Bednar, T.~Nascimento, J.~Capitan, M.~Saska, and A.~Ollero, ``A
   multi-layer software architecture for aerial cognitive multi-robot systems in
   power line inspection tasks,'' 2021.
 
+\bibitem{UAVhandbook}
+K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
+  vehicles}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2015, vol. 2077.
+
+\bibitem{COLIBRI}
+A.~Roshanbin, H.~Altartouri, M.~Kar{\'a}sek, and A.~Preumont, ``Colibri: A
+  hovering flapping twin-wing robot,'' \emph{International Journal of Micro Air
+  Vehicles}, vol.~9, no.~4, pp. 270--282, 2017.
+
+\bibitem{GRIFFING}
+A.~G. Egu{\'\i}luz, J.~Rodr{\'\i}guez-G{\'o}mez, J.~Paneque, P.~Grau, J.~M.
+  de~Dios, and A.~Ollero, ``Towards flapping wing robot visual perception:
+  Opportunities and challenges,'' in \emph{2019 Workshop on Research, Education
+  and Development of Unmanned Aerial Systems (RED UAS)}.\hskip 1em plus 0.5em
+  minus 0.4em\relax IEEE, 2019, pp. 335--343.
+
+\bibitem{ollero2004control}
+A.~Ollero and L.~Merino, ``Control and perception techniques for aerial
+  robotics,'' \emph{Annual reviews in Control}, vol.~28, no.~2, pp. 167--178,
+  2004.
+
 \bibitem{EDN}
 \BIBentryALTinterwordspacing
 M.~Santarini, ``Cosmic radiation comes to asic and soc design,'' May 2005.
