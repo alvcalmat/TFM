@@ -22,45 +22,45 @@ Database file #1: bibliography.bib
 Warning--empty journal in AerialCoreMulti-Layer
 
 Done.
-You've used 41 entries,
+You've used 24 entries,
             4087 wiz_defined-function locations,
-            1086 strings with 15668 characters,
-and the built_in function-call counts, 30759 in all, are:
-= -- 2449
-> -- 704
-< -- 261
-+ -- 410
-- -- 123
-* -- 1438
-:= -- 4491
-add.period$ -- 83
-call.type$ -- 41
-change.case$ -- 47
-chr.to.int$ -- 603
-cite$ -- 42
-duplicate$ -- 2210
-empty$ -- 2525
-format.name$ -- 147
-if$ -- 7253
+            987 strings with 13538 characters,
+and the built_in function-call counts, 21469 in all, are:
+= -- 1694
+> -- 644
+< -- 195
++ -- 355
+- -- 124
+* -- 1065
+:= -- 3056
+add.period$ -- 50
+call.type$ -- 24
+change.case$ -- 24
+chr.to.int$ -- 447
+cite$ -- 25
+duplicate$ -- 1483
+empty$ -- 1604
+format.name$ -- 141
+if$ -- 5017
 int.to.chr$ -- 0
-int.to.str$ -- 41
-missing$ -- 393
-newline$ -- 152
-num.names$ -- 36
-pop$ -- 932
+int.to.str$ -- 24
+missing$ -- 273
+newline$ -- 95
+num.names$ -- 24
+pop$ -- 633
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 2413
+skip$ -- 1632
 stack$ -- 0
-substring$ -- 1480
-swap$ -- 1795
-text.length$ -- 60
+substring$ -- 1091
+swap$ -- 1290
+text.length$ -- 46
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 41
+type$ -- 24
 warning$ -- 1
-while$ -- 125
-width$ -- 43
-write$ -- 412
+while$ -- 95
+width$ -- 26
+write$ -- 259
 (There was 1 warning)

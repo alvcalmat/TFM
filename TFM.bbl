@@ -55,9 +55,47 @@ G.~Silano, J.~Bednar, T.~Nascimento, J.~Capitan, M.~Saska, and A.~Ollero, ``A
   multi-layer software architecture for aerial cognitive multi-robot systems in
   power line inspection tasks,'' 2021.
 
-\bibitem{UAVhandbook}
-K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
-  vehicles}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2015, vol. 2077.
+\bibitem{predator}
+{Wikipedia contributors}, ``General atomics mq-1 predator --- {Wikipedia}{,}
+  the free encyclopedia,''
+  \url{https://en.wikipedia.org/w/index.php?title=General_Atomics_MQ-1_Predator&oldid=1041584540},
+  2021, [Online; accessed 27-September-2021].
+
+\bibitem{BIGBLUE}
+A.~Simpson, O.~Rawashdeh, S.~Smith, J.~Jacob, W.~Smith, and J.~Lumpp, ``Big
+  blue: high-altitude uav demonstrator of mars airplane technology,'' in
+  \emph{2005 IEEE Aerospace Conference}, 2005, pp. 4461--4471.
+
+\bibitem{AURORA}
+S.~S. Bueno, J.~R. Azinheira, J.~Ramos, E.~Paiva, P.~Rives, A.~Elfes, J.~R.
+  Carvalho, and G.~F. Silveira, ``Project aurora: Towards an autonomous robotic
+  airship,'' in \emph{Workshop on Aerial Robotics, IEEE International
+  Conference on Intelligent Robots and Systems}, 2002, pp. 43--54.
+
+\bibitem{quadrotorsreview}
+S.~N. Ghazbi, Y.~Aghli, M.~Alimohammadi, and A.~A. Akbari, ``Quadrotors
+  unmanned aerial vehicles: A review,'' \emph{International journal on smart
+  sensing and Intelligent Systems}, vol.~9, no.~1, 2016.
+
+\bibitem{mesicopter}
+I.~Kroo, F.~Prinz, M.~Shantz, P.~Kunz, G.~Fay, S.~Cheng, T.~Fabian, and
+  C.~Partridge, ``The mesicopter: A miniature rotorcraft concept phase ii
+  interim report,'' \emph{Stanford university}, 2000.
+
+\bibitem{pounds}
+P.~Pounds, R.~Mahony, P.~Hynes, and J.~M. Roberts, ``Design of a four-rotor
+  aerial robot,'' in \emph{The Australian Conference on Robotics and Automation
+  (ACRA 2002)}, 2002, pp. 145--150.
+
+\bibitem{miniquadrotor}
+E.~Capello, A.~Scola, G.~Guglieri, and F.~Quagliotti, ``Mini quadrotor uav:
+  design and experiment,'' \emph{Journal of Aerospace Engineering}, vol.~25,
+  no.~4, pp. 559--573, 2012.
+
+\bibitem{fullyactuated}
+R.~Rashad, J.~Goerres, R.~Aarts, J.~B. Engelen, and S.~Stramigioli, ``Fully
+  actuated multirotor uavs: A literature review,'' \emph{IEEE Robotics \&
+  Automation Magazine}, vol.~27, no.~3, pp. 97--107, 2020.
 
 \bibitem{COLIBRI}
 A.~Roshanbin, H.~Altartouri, M.~Kar{\'a}sek, and A.~Preumont, ``Colibri: A
@@ -71,175 +109,49 @@ A.~G. Egu{\'\i}luz, J.~Rodr{\'\i}guez-G{\'o}mez, J.~Paneque, P.~Grau, J.~M.
   and Development of Unmanned Aerial Systems (RED UAS)}.\hskip 1em plus 0.5em
   minus 0.4em\relax IEEE, 2019, pp. 335--343.
 
+\bibitem{GRIFFIN2021}
+R.~Zufferey, J.~Tormo-Barbero, M.~M. Guzm{\'a}n, F.~J. Maldonado,
+  E.~Sanchez-Laulhe, P.~Grau, M.~P{\'e}rez, J.~{\'A}. Acosta, and A.~Ollero,
+  ``Design of the high-payload flapping wing robot e-flap,'' \emph{IEEE
+  Robotics and Automation Letters}, vol.~6, no.~2, pp. 3097--3104, 2021.
+
+\bibitem{OffBoard}
+T.~Tomic, K.~Schmid, P.~Lutz, A.~Domel, M.~Kassecker, E.~Mair, I.~L. Grixa,
+  F.~Ruess, M.~Suppa, and D.~Burschka, ``Toward a fully autonomous uav:
+  Research platform for indoor and outdoor urban search and rescue,''
+  \emph{IEEE robotics \& automation magazine}, vol.~19, no.~3, pp. 46--56,
+  2012.
+
+\bibitem{SenseAndAvoid}
+B.~N. Chand, P.~Mahalakshmi, and V.~Naidu, ``Sense and avoid technology in
+  unmanned aerial vehicles: A review,'' in \emph{2017 International Conference
+  on Electrical, Electronics, Communication, Computer, and Optimization
+  Techniques (ICEECCOT)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2017,
+  pp. 512--517.
+
+\bibitem{aasen2018quantitative}
+H.~Aasen, E.~Honkavaara, A.~Lucieer, and P.~J. Zarco-Tejada, ``Quantitative
+  remote sensing at ultra-high resolution with uav spectroscopy: A review of
+  sensor technology, measurement procedures, and data correction workflows,''
+  \emph{Remote Sensing}, vol.~10, no.~7, p. 1091, 2018.
+
+\bibitem{miningSensors}
+H.~Ren, Y.~Zhao, W.~Xiao, and Z.~Hu, ``A review of uav monitoring in mining
+  areas: Current status and future perspectives,'' \emph{International Journal
+  of Coal Science \& Technology}, vol.~6, no.~3, pp. 320--333, 2019.
+
+\bibitem{UAVhandbook}
+K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
+  vehicles}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2015, vol. 2077.
+
 \bibitem{ollero2004control}
 A.~Ollero and L.~Merino, ``Control and perception techniques for aerial
   robotics,'' \emph{Annual reviews in Control}, vol.~28, no.~2, pp. 167--178,
   2004.
 
-\bibitem{EDN}
-\BIBentryALTinterwordspacing
-M.~Santarini, ``Cosmic radiation comes to asic and soc design,'' May 2005.
-  [Online]. Available:
-  \url{https://www.edn.com/cosmic-radiation-comes-to-asic-and-soc-design/}
-\BIBentrySTDinterwordspacing
-
-\bibitem{TesisPoli}
-H.~G. Miranda, ``Aportaciones a las técnicas de emulación y protección de
-  sistemas microelectrónicos complejos bajo efectos de la radiación,'' Ph.D.
-  dissertation, Universidad de Sevilla, May 2010.
-
-\bibitem{SEUDiagnosis}
-J.~M. {Mogollón}, J.~{Nápoles}, H.~{Guzmán-Miranda}, and M.~A. {Aguirre},
-  ``Real time seu detection and diagnosis for safety or mission-critical ics
-  using hash library-based fault dictionaries,'' in \emph{2011 12th European
-  Conference on Radiation and Its Effects on Components and Systems}, 2011, pp.
-  705--710.
-
-\bibitem{SelectiveHardening}
-M.~G. {Valderas}, M.~P. {García}, C.~{López}, and L.~{Entrena}, ``Extensive
-  seu impact analysis of a pic microprocessor for selective hardening,'' in
-  \emph{2009 European Conference on Radiation and Its Effects on Components and
-  Systems}, 2009, pp. 333--336.
-
-\bibitem{TMR}
-C.~Carmichael, ``Triple module redundancy design techniques for virtex fpgas,''
-  \emph{Xilinx Application Note XAPP197}, vol.~1, 2001.
-
-\bibitem{AFLS}
-{Zhou Jing}, {Liu Zengrong}, {Chen Lei}, {Wang Shuo}, {Wen Zhiping}, {Chen
-  Xun}, and {Qi Chang}, ``An accurate fault location method based on
-  configuration bitstream analysis,'' in \emph{NORCHIP 2012}, 2012, pp. 1--5.
-
-\bibitem{SCARA}
-W.~{Tao} and W.~{Xingsong}, ``Fault diagnosis of a scara robot,'' in \emph{2008
-  15th International Conference on Mechatronics and Machine Vision in
-  Practice}, 2008, pp. 352--356.
-
-\bibitem{RBMSEUdetection}
-S.~{Jian}, J.~{Jiang}, K.~{Lu}, and Y.~{Zhang}, ``Seu-tolerant restricted
-  boltzmann machine learning on dsp-based fault detection,'' in \emph{2014 12th
-  International Conference on Signal Processing (ICSP)}, 2014, pp. 1503--1506.
-
-\bibitem{DetectingSEUs}
-R.~{Pettit} and A.~{Pettit}, ``Detecting single event upsets in embedded
-  software,'' in \emph{2018 IEEE 21st International Symposium on Real-Time
-  Distributed Computing (ISORC)}, 2018, pp. 142--145.
-
-\bibitem{RTFDandD}
-N.~{Naber}, T.~{Getz}, Y.~{Kim}, and J.~{Petrosky}, ``Real-time fault detection
-  and diagnostics using fpga-based architectures,'' in \emph{2010 International
-  Conference on Field Programmable Logic and Applications}, 2010, pp. 346--351.
-
-\bibitem{DiagnosisTechniques}
-{Su Wei}, {Fan Tongshun}, and {Du Mingfang}, ``Research for digital circuit
-  fault testing and diagnosis techniques,'' in \emph{2009 International
-  Conference on Test and Measurement}, vol.~1, 2009, pp. 330--333.
-
-\bibitem{LASAR}
-S.~{Wei}, Z.~{Shide}, and X.~{Lijun}, ``Research on digital circuit fault
-  location procedure based on lasar,'' in \emph{2008 ISECS International
-  Colloquium on Computing, Communication, Control, and Management}, vol.~2,
-  2008, pp. 322--326.
-
-\bibitem{VLSI}
-B.~K. {Sikdar}, N.~{Ganguly}, and P.~P. {Chaudhuri}, ``Fault diagnosis of vlsi
-  circuits with cellular automata based pattern classifier,'' \emph{IEEE
-  Transactions on Computer-Aided Design of Integrated Circuits and Systems},
-  vol.~24, no.~7, pp. 1115--1131, 2005.
-
-\bibitem{EfficientSA0SA1}
-S.~S. {Yau} and {Yu-Shan Tang}, ``An efficient algorithm for generating
-  complete test sets for combinational logic circuits,'' \emph{IEEE
-  Transactions on Computers}, vol. C-20, no.~11, pp. 1245--1251, 1971.
-
-\bibitem{RepairSA0SA1}
-S.~S. {Yau} and M.~{Orsic}, ``Fault diagnosis and repair of cutpoint cellular
-  arrays,'' \emph{IEEE Transactions on Computers}, vol. C-19, no.~3, pp.
-  259--262, 1970.
-
-\bibitem{LargeComb}
-V.~{Amar} and N.~{Condulmari}, ``Diagnosis of large combinational networks,''
-  \emph{IEEE Transactions on Electronic Computers}, vol. EC-16, no.~5, pp.
-  675--680, 1967.
-
-\bibitem{ANewRep}
-D.~R. {Schertz} and G.~{Metze}, ``A new representation for faults in
-  combinational digital circuits,'' \emph{IEEE Transactions on Computers}, vol.
-  C-21, no.~8, pp. 858--866, 1972.
-
-\bibitem{FILC}
-J.~P. {Roth}, W.~G. {Bouricius}, and P.~R. {Schneider}, ``Programmed algorithms
-  to compute tests to detect and distinguish between failures in logic
-  circuits,'' \emph{IEEE Transactions on Electronic Computers}, vol. EC-16,
-  no.~5, pp. 567--580, 1967.
-
-\bibitem{FDIRC}
-A.~D. {Friedman}, ``Fault detection in redundant circuits,'' \emph{IEEE
-  Transactions on Electronic Computers}, vol. EC-16, no.~1, pp. 99--100, 1967.
-
-\bibitem{FastFI}
-R.~{Zhang}, L.~{Xiao}, J.~{Li}, X.~{Cao}, C.~{Qi}, and M.~{Wang}, ``A fast
-  fault injection platform of multiple seus for sram-based fpgas,'' in
-  \emph{2017 Prognostics and System Health Management Conference (PHM-Harbin)},
-  2017, pp. 1--5.
-
-\bibitem{LeonFI}
-A.~{da Silva} and S.~{Sanchez}, ``Leon3 vip: A virtual platform with fault
-  injection capabilities,'' in \emph{2010 13th Euromicro Conference on Digital
-  System Design: Architectures, Methods and Tools}, 2010, pp. 813--816.
-
-\bibitem{FTU}
-J.~M. {Mogollon}, H.~{Guzmán-Miranda}, J.~{Nápoles}, J.~{Barrientos}, and
-  M.~A. {Aguirre}, ``Ftunshades2: A novel platform for early evaluation of
-  robustness against see,'' in \emph{2011 12th European Conference on Radiation
-  and Its Effects on Components and Systems}, 2011, pp. 169--174.
-
-\bibitem{Wikipedia}
-\BIBentryALTinterwordspacing
-Wikipedia, ``Distancia de levenshtein --- wikipedia{,} la enciclopedia libre,''
-  2020, [Internet; descargado 15-junio-2020]. [Online]. Available:
-  \url{https://es.wikipedia.org/w/index.php?title=Distancia_de_Levenshtein&oldid=125248609}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Triplelogic}
-M.~Mu{\~n}oz-Quijada, S.~Sanchez-Barea, D.~Vela-Calderon, and
-  H.~Guzman-Miranda, ``Fine-grain circuit hardening through vhdl datatype
-  substitution,'' \emph{Electronics}, vol.~8, no.~1, p.~24, 2019.
-
-\bibitem{FFT}
-``Vhdl implementation of fft algorithm(s),'' Available online:
-  \url{https://github.com/thasti/fft}, accessed on 17 June 2020.
-
-\bibitem{FIFO}
-``Vhdl standard fifo,'' Available online:
-  \url{http://www.deathbylogic.com/2013/07/vhdl-standard-fifo/}, accessed on 17
-  June 2020.
-
-\bibitem{FIR}
-``Fpga4student. a low pass fir filter for ecg denoising in vhdl,'' Available
-  online:
-  \url{https://www.fpga4student.com/2017/01/a-low-pass-fir-filter-in-vhdl.html},
-  accessed on 17 June 2020.
-
-\bibitem{PCM}
-``I$^{2}$s interface designed for the pcm3168 audio interface from texas
-  instruments,'' Available online: \url{https://github.com/wklimann/PCM3168},
-  accessed on 17 June 2020.
-
-\bibitem{UART}
-``Simple uart controller for fpga written in vhdl,'' Available online:
-  \url{https://github.com/jakubcabal/uart-for-fpga}, acceded on 17 June 2020.
-
-\bibitem{Hu}
-\BIBentryALTinterwordspacing
-Wikipedia, ``Momentos de imagen --- wikipedia{,} la enciclopedia libre,'' 2020,
-  [Internet; descargado 18-junio-2020]. [Online]. Available:
-  \url{https://es.wikipedia.org/w/index.php?title=Momentos_de_imagen&oldid=124767713}
-\BIBentrySTDinterwordspacing
-
-\bibitem{YOSYS}
-C.~Wolf, J.~Glaser, and J.~Kepler, ``Yosys-a free verilog synthesis suite,'' in
-  \emph{Proceedings of the 21st Austrian Workshop on Microelectronics
-  (Austrochip)}, 2013.
+\bibitem{multiUAVclassification}
+I.~Maza, A.~Ollero, E.~Casado, and D.~Scarlatti, ``Classification of multi-uav
+  architectures,'' \emph{Handbook of unmanned aerial vehicles}, pp. 953--975,
+  2014.
 
 \end{thebibliography}

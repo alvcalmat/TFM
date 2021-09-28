@@ -7,18 +7,36 @@
 \label{sec:CurrentTechnology}
 %% Origen de los drones (vehículos aéreos no tripulados, controlados por radiocontrol, no son autonomos, forma tipica de aeronave).
 % Aunque en la última década el uso de UAVs se ha extendido a un gran número de aplicaciones [CivilAplications, UAVhandbook], el origen de esta tecnología se remonta a 1898 con la invención del radio control y la aparición de las primeras aeronaves no tripuladas, bautizadas con el nombre de dron. Estos no eran aun vehículos aéreos no manejados, y se empleaban principalmente para fines militares. 
+Although in the last decade the use of \glspl{UAV} has spread to a large number of applications, the origin of this technology dates back to 1898 with the invention of radio control and the appearance of the first unmanned aircraft, baptised with the name of drone. These were not yet unmanned aerial vehicles, and were mainly used for military purposes.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\linewidth]
+    {Preliminaries/figures/Predator.jpg}
+    \caption{General Atomics MQ-1 Predator. A \gls{RPA}. Source: \href{https://en.wikipedia.org/wiki/General_Atomics_MQ-1_Predator}{Wikipedia}}
+    \label{fig:predator}
+\end{figure}
 
 %% Primeros UAV (drones autónomos). 
+% Posteriormente, con el desarrollo de la tecnología, aparecieron los primeros ordenadores con el tamaño y la capacidad de cómputo suficiente para ejecutar el software necesario para operar un UAV de forma autónoma e incluso para controlar aeronaves con dinámicas más complejas e incluso inestables (planeadores [predator, BIGBLUE], dirigibles [AURORA], quadrotores [quadrotorsreview, mesicopter, pounds, miniquadrotor], multirotores [fullyactuated], alas batientes [COLIBRI, GRIFFING], etc.). A pesar de que la capacidad de cómputo seguía siendo insuficiente para algunas aplicaciones, desarrollar sistemas uav era posible gracias a la realzación de cálculos en tierra. Lo que se hacía era ejecutar los sistemas críticos y más importantes para el vuelo autónomo en el ordenador a bordo (controles, adquisición de datos, evitación de obstáculos, etc.), y ejecutar aquellos cálculos más demandantes y que no son necesarios a tiempo real sobre ordenadores en tierra [OffBoard, ollero2004control].
+Later, with the development of technology, the first computers of sufficient size and computing power to run the software necessary to operate a \gls{UAV} autonomously and even to control aircraft with more complex and even unstable dynamics (gliders \cite{predator, BIGBLUE}, airships \cite{AURORA}, quadrotors \cite{quadrotorsreview, mesicopter, pounds, miniquadrotor}, multirotors \cite{fullyactuated}, flapping wings \cite{COLIBRI, GRIFFING, GRIFFIN2021}, etc.) appeared. Even though computational capacity was still insufficient for some applications, the development of \gls{UAV} systems was made possible by performing calculations on the ground. What was done was to run the critical and most important systems for autonomous flight on the on-board computer (controls, data acquisition, obstacle avoidance, etc.), and to run the more demanding calculations that are not necessary in real time on the ground computers \cite{OffBoard}.
 
-% Posteriormente, con el desarrollo de la tecnología, aparecieron los primeros ordenadores con el tamaño y la capacidad de cómputo suficiente para ejecutar el software necesario para operar un UAV de forma autónoma e incluso para controlar aeronaves con dinámicas más complejas e incluso inestables (planeadores [], quadrotores [], multirotores [], alas batientes [COLIBRI, GRIFFING], etc.). Lo que se hacía era ejecutar los sistemas críticos y esenciales para que el dron volase de forma autónoma en el ordenador a bordo (controles, adquisición de datos, evitación de obstáculos, etc.), y ejecutar aquellos cálculos que requieren una gran cantidad de recursos y que no son necesarios a tiempo real sobre ordenadores centralizados [buscar algun paper antiguo que haga esto (ollero2004control puede que sirva)].
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\linewidth]
+    {Preliminaries/figures/GRIFFIN.png}
+    \caption{GRIFFIN's flapping wing robot \cite{GRIFFIN2021}}
+    \label{fig:predator}
+\end{figure}
 
 %% Adquisición de datos (para ser autónomos necesitan recolectar datos del entorno)
 % Para que un vehículo aéreo pueda operar de forma autónoma es necesaria la adquisición de datos del entorno y su posterior procesado en tiempo real. En la literatura actual se pueden encontrar un gran número de configuraciones de sensores diferentes así como numerosas técnicas de adquisición y procesamiento de datos [buscar algun paper que haga un resumen de todas]. Citando algunos ejemplos, [,,,] descripción, [,,,] descripción, [,,,] descripción.
+For an aerial vehicle to operate autonomously, it is necessary to acquire data from the environment and process it in real time. A large number of different sensor configurations as well as numerous data acquisition and processing techniques can be found in the current literature \cite{SenseAndAvoid, aasen2018quantitative, miningSensors}.
 
 %% Aplicaciones para UAV existentes (que necesitan de un piloto humano que supervise, no son cognitivos)
 
 
-%% Equipos multi-UAV (con supervisión humana)
+%% Equipos multi-UAV (con supervisión humana) [multiUAVclassification]
 
 %% Explosión de la tecnología.
 % La tecnología UAV ha evolucionado muy rápidamente en los últimos años beneficiandose de los avances que se están produciendo en computación. Gracias a que los procesadores son cada vez más potentes, eficientes y pequeños, los UAVs disponen cada vez de una mayor capacidad de cálculo sin aumentar con ello su peso y comprometer su autonomía. Con el aumento en el número de operaciones por segundo que estos equipos pueden realizar, se abre la posibilidad de emplear drones para aplicaciones antes impensables, aplicaciones que requieren de una gran cantidad de procesamiento y que, por lo general, hay que realizar en tiempo real.
