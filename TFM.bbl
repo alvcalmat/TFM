@@ -140,6 +140,84 @@ H.~Ren, Y.~Zhao, W.~Xiao, and Z.~Hu, ``A review of uav monitoring in mining
   areas: Current status and future perspectives,'' \emph{International Journal
   of Coal Science \& Technology}, vol.~6, no.~3, pp. 320--333, 2019.
 
+\bibitem{nex2014uav}
+F.~Nex and F.~Remondino, ``Uav for 3d mapping applications: a review,''
+  \emph{Applied geomatics}, vol.~6, no.~1, pp. 1--15, 2014.
+
+\bibitem{radoglou2020compilation}
+P.~Radoglou-Grammatikis, P.~Sarigiannidis, T.~Lagkas, and I.~Moscholios, ``A
+  compilation of uav applications for precision agriculture,'' \emph{Computer
+  Networks}, vol. 172, p. 107148, 2020.
+
+\bibitem{drummond2015uav}
+C.~D. Drummond, M.~D. Harley, I.~L. Turner, A.~N. A~Matheen, W.~C. Glamore
+  \emph{et~al.}, ``Uav applications to coastal engineering,'' in
+  \emph{Australasian Coasts \& Ports Conference 2015: 22nd Australasian Coastal
+  and Ocean Engineering Conference and the 15th Australasian Port and Harbour
+  Conference}.\hskip 1em plus 0.5em minus 0.4em\relax Engineers Australia and
+  IPENZ, 2015, p. 267.
+
+\bibitem{martinez2007multi}
+J.~Mart{\'\i}nez-de Dios, L.~Merino, A.~Ollero, L.~M. Ribeiro, and X.~Viegas,
+  ``Multi-uav experiments: application to forest fires,'' in \emph{Multiple
+  heterogeneous unmanned aerial vehicles}.\hskip 1em plus 0.5em minus
+  0.4em\relax Springer, 2007, pp. 207--228.
+
+\bibitem{gu2018multiple}
+J.~Gu, T.~Su, Q.~Wang, X.~Du, and M.~Guizani, ``Multiple moving targets
+  surveillance based on a cooperative network for multi-uav,'' \emph{IEEE
+  Communications Magazine}, vol.~56, no.~4, pp. 82--89, 2018.
+
+\bibitem{scherer2015autonomous}
+J.~Scherer, S.~Yahyanejad, S.~Hayat, E.~Yanmaz, T.~Andre, A.~Khan,
+  V.~Vukadinovic, C.~Bettstetter, H.~Hellwagner, and B.~Rinner, ``An autonomous
+  multi-uav system for search and rescue,'' in \emph{Proceedings of the First
+  Workshop on Micro Aerial Vehicle Networks, Systems, and Applications for
+  Civilian Use}, 2015, pp. 33--38.
+
+\bibitem{multiUAVclassification}
+I.~Maza, A.~Ollero, E.~Casado, and D.~Scarlatti, ``Classification of multi-uav
+  architectures,'' \emph{Handbook of unmanned aerial vehicles}, pp. 953--975,
+  2014.
+
+\bibitem{pascarella2015parallel}
+D.~Pascarella, S.~Venticinque, R.~Aversa, M.~Mattei, and L.~Blasi, ``Parallel
+  and distributed computing for uavs trajectory planning,'' \emph{Journal of
+  Ambient Intelligence and Humanized Computing}, vol.~6, no.~6, pp. 773--782,
+  2015.
+
+\bibitem{guo2021coded}
+Y.~Guo, S.~Gu, Q.~Zhang, N.~Zhang, and W.~Xiang, ``A coded distributed
+  computing framework for task offloading from multi-uav to edge servers,'' in
+  \emph{2021 IEEE Wireless Communications and Networking Conference
+  (WCNC)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2021, pp. 1--6.
+
+\bibitem{zhou2020uav}
+Y.~Zhou, B.~Rao, and W.~Wang, ``Uav swarm intelligence: Recent advances and
+  future trends,'' \emph{IEEE Access}, vol.~8, pp. 183\,856--183\,878, 2020.
+
+\bibitem{campion2018uav}
+M.~Campion, P.~Ranganathan, and S.~Faruque, ``Uav swarm communication and
+  control architectures: a review,'' \emph{Journal of Unmanned Vehicle
+  Systems}, vol.~7, no.~2, pp. 93--106, 2018.
+
+\bibitem{chen2020sidr}
+M.~Chen, H.~Wang, C.-Y. Chang, and X.~Wei, ``Sidr: a swarm intelligence-based
+  damage-resilient mechanism for uav swarm networks,'' \emph{IEEE Access},
+  vol.~8, pp. 77\,089--77\,105, 2020.
+
+\bibitem{kopeikin2012flight}
+A.~Kopeikin, A.~Clare, O.~Toupet, J.~How, and M.~Cummings, ``Flight testing a
+  heterogeneous multi-uav system with human supervision,'' in \emph{AIAA
+  Guidance, Navigation, and Control Conference}, 2012, p. 4825.
+
+\bibitem{shakeri2019design}
+R.~Shakeri, M.~A. Al-Garadi, A.~Badawy, A.~Mohamed, T.~Khattab, A.~K. Al-Ali,
+  K.~A. Harras, and M.~Guizani, ``Design challenges of multi-uav systems in
+  cyber-physical applications: A comprehensive survey and future directions,''
+  \emph{IEEE Communications Surveys \& Tutorials}, vol.~21, no.~4, pp.
+  3340--3385, 2019.
+
 \bibitem{UAVhandbook}
 K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
   vehicles}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2015, vol. 2077.
@@ -148,10 +226,5 @@ K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
 A.~Ollero and L.~Merino, ``Control and perception techniques for aerial
   robotics,'' \emph{Annual reviews in Control}, vol.~28, no.~2, pp. 167--178,
   2004.
-
-\bibitem{multiUAVclassification}
-I.~Maza, A.~Ollero, E.~Casado, and D.~Scarlatti, ``Classification of multi-uav
-  architectures,'' \emph{Handbook of unmanned aerial vehicles}, pp. 953--975,
-  2014.
 
 \end{thebibliography}
