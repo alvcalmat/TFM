@@ -54,5 +54,4 @@
 \contentsline {listasb}{List of Tables}{19}{section*.16}
 \contentsline {listasb}{List of Codes}{21}{section*.18}
 \contentsline {listasb}{Bibliography}{23}{section*.20}
-\contentsline {listasb}{Index}{27}{section*.22}
-\contentsline {listasb}{Glossary}{27}{section*.23}
+\contentsline {listasb}{Glossary}{27}{section*.22}
