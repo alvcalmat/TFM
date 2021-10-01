@@ -46,32 +46,38 @@ Mentioning some of the research that is currently being carried out, we can reca
 % Related work: buscar artículos que tengan que ver con mi proyecto para poner en contexto lo que voy a aportar.
 \section{Related work}
 \label{sec:RelatedWork}
-%% Parrafo de introducción del trabajo relacionado con el mío: planificador de tareas cognitivo
-% Volver a hablar de UAV para inspección, centrandose en multi-UAV y explicar la necesidad de diseñar planificadores cognitivos. Enumerar las partes de las que se compone el planificador diseñado a modo de enlace con los siguientes párafos 
+%%% Parrafo de introducción del trabajo relacionado con el mío: planificador de tareas cognitivo para  operaciones de inspección
+%% Volver a hablar de UAV para inspección, centrandose en multi-UAV y explicar la necesidad de diseñar planificadores cognitivos. Enumerar las partes de las que se compone el planificador diseñado a modo de enlace con los siguientes párafos 
+% Según la revisión de la literatura realizada por HAZIM SHAKHATREH et al. en 2019 [CivilAplications], se espera que el valor de mercado de los UAVs para la inspección de insfraestructuras civiles sea más de \$45 billones, representando un 45\% del mercado total de UAVs. El desarrollo de flotas heterogéneas de UAVs y de algoritmos eficientes para su comunicación y coordinación es importante para disponer de equipos multi-UAV capaces de llevar a cabo una misión de inspección y mantenimiento de forma exitosa. Si se quiere que el equipo de inspección sea completamente autónomo, de forma que pueda ser operado por personal no especializado en el manejo de vehículos aéreos, es necesario módulo capaz de reaccionar ante cualquier imprevisto y modificar la planificación en tiempo real si fuera necesario. Este módulo, al que se le podría llamar planificador de tareas, generalmente forma parte de una arquitectura de software mayor encargada del manejo de la flota y que trata de dotar de inteligencia al equipo. El planificador desarrollado en esta tésis se compone a su vez de dos módulos bien diferenciados, el planificador de tareas propiamente dicho y el gestor de comportamiento.
+According to the literature review conducted by Hazim Shakhatreh et al. in 2019 \cite{CivilAplications}, the market value of \glspl{UAV} for civil infrastructure inspection is expected to be more than \$45 billion, representing 45\% of the total \gls{UAV} market. The development of heterogeneous \gls{UAV} fleets and efficient algorithms for their communication and coordination is important to have multi-\gls{UAV} teams capable of carrying out a successful inspection and maintenance mission. If the inspection equipment is to be fully autonomous, so that it can be operated by personnel not specialized in the piloting of aerial vehicles, a module capable of reacting to any unforeseen event and modifying the planning in real time if necessary is required. This module, which could be called a task planner, is usually part of a larger software architecture in charge of fleet management and which tries to provide intelligence to the equipment. The task planner developed in this thesis consists of two distinct modules, the task planner itself and the behaviour manager.
 
-%% Task planning in multi-drone teams 
-% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV. Poner en contexto lo que voy a aportar con mi TFM.
+%%% Task planning in multi-drone teams 
+%% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV. Poner en contexto lo que voy a aportar con mi TFM.
 
-%% Drone behavior management
-% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante. Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
+%%% Drone behavior management
+%% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante. Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
 
-% Capi: quitar las subsecciones si veo que se puede integrar todo junto. Si veo que queda largo, dividir en subsecciones como tengo.
+%%% Capi: quitar las subsecciones si veo que se puede integrar todo junto. Si veo que queda largo, dividir en subsecciones como tengo.
 \subsection{Inspection applications with UAVs}
 \label{subsec:InspectionApplicationsWithUAVs}
 
-% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV. Poner en contexto lo que voy a aportar con mi TFM.
 \subsection{Task planning in multi-drone teams}
 \label{subsec:TaskPlanning}
+%% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV.
+% \cite{ramchurn2015study} the planner is a human. control interfaces and coordination algorithm help them in the decision taking process. Suma de noseque. Suguir leyendo
+%% Poner en contexto lo que voy a aportar con mi TFM.
 
-% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante. Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
+
 \subsection{Drone behavior management}
 \label{subsec:DroneBehaviorManagement}
+% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante.
+% Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
 
 
-% Estudio previo / Herramientas
-% No hace falta explayarse mucho en ROS, Gazebo y Rviz, se da por supuesto en los que leen el documento, se cuenta brevemente en qué consisten esas herramientas y para qué se van a usar en el TFM
 \section{Tools}
 \label{sec:PreviousStudy}
+% Estudio previo / Herramientas
+% No hace falta explayarse mucho en ROS, Gazebo y Rviz, se da por supuesto en los que leen el documento, se cuenta brevemente en qué consisten esas herramientas y para qué se van a usar en el TFM
 
 \subsection{ROS}
 \label{subsec:ROS}

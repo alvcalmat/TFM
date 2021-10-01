@@ -264,4 +264,10 @@ A.~Ollero and L.~Merino, ``Control and perception techniques for aerial
   robotics,'' \emph{Annual reviews in Control}, vol.~28, no.~2, pp. 167--178,
   2004.
 
+\bibitem{ramchurn2015study}
+S.~D. Ramchurn, J.~E. Fischer, Y.~Ikuno, F.~Wu, J.~Flann, and A.~Waldock, ``A
+  study of human-agent collaboration for multi-uav task allocation in dynamic
+  environments,'' in \emph{Twenty-Fourth International Joint Conference on
+  Artificial Intelligence}, 2015.
+
 \end{thebibliography}
