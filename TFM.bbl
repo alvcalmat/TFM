@@ -270,4 +270,40 @@ S.~D. Ramchurn, J.~E. Fischer, Y.~Ikuno, F.~Wu, J.~Flann, and A.~Waldock, ``A
   environments,'' in \emph{Twenty-Fourth International Joint Conference on
   Artificial Intelligence}, 2015.
 
+\bibitem{nikou2016cooperative}
+A.~Nikou, J.~Tumova, and D.~V. Dimarogonas, ``Cooperative task planning of
+  multi-agent systems under timed temporal specifications,'' in \emph{2016
+  American Control Conference (ACC)}.\hskip 1em plus 0.5em minus 0.4em\relax
+  IEEE, 2016, pp. 7104--7109.
+
+\bibitem{jolly2010intelligent}
+K.~Jolly, R.~S. Kumar, and R.~Vijayakumar, ``Intelligent task planning and
+  action selection of a mobile robot in a multi-agent system through a fuzzy
+  neural network approach,'' \emph{Engineering Applications of Artificial
+  Intelligence}, vol.~23, no.~6, pp. 923--933, 2010.
+
+\bibitem{gao2018multi}
+Y.~Gao, Y.~Zhang, S.~Zhu, and Y.~Sun, ``Multi-uav task allocation based on
+  improved algorithm of multi-objective particle swarm optimization,'' in
+  \emph{2018 International Conference on Cyber-Enabled Distributed Computing
+  and Knowledge Discovery (CyberC)}.\hskip 1em plus 0.5em minus 0.4em\relax
+  IEEE, 2018, pp. 443--4437.
+
+\bibitem{sanner2010relational}
+S.~Sanner, ``Relational dynamic influence diagram language (rddl): Language
+  description,'' \emph{Unpublished ms. Australian National University},
+  vol.~32, p.~27, 2010.
+
+\bibitem{jiang2019task}
+Y.-q. Jiang, S.-q. Zhang, P.~Khandelwal, and P.~Stone, ``Task planning in
+  robotics: an empirical comparison of pddl-and asp-based systems,''
+  \emph{Frontiers of Information Technology \& Electronic Engineering},
+  vol.~20, no.~3, pp. 363--373, 2019.
+
+\bibitem{canal2019probabilistic}
+G.~Canal, M.~Cashmore, S.~Krivi{\'c}, G.~Aleny{\`a}, D.~Magazzeni, and
+  C.~Torras, ``Probabilistic planning for robotics with rosplan,'' in
+  \emph{Annual Conference Towards Autonomous Robotic Systems}.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 2019, pp. 236--250.
+
 \end{thebibliography}

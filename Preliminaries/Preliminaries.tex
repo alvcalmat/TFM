@@ -58,13 +58,25 @@ According to the literature review conducted by Hazim Shakhatreh et al. in 2019 
 %% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante. Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
 
 %%% Capi: quitar las subsecciones si veo que se puede integrar todo junto. Si veo que queda largo, dividir en subsecciones como tengo.
-\subsection{Inspection applications with UAVs}
-\label{subsec:InspectionApplicationsWithUAVs}
+%\subsection{Inspection applications with UAVs}
+%\label{subsec:InspectionApplicationsWithUAVs}
 
 \subsection{Task planning in multi-drone teams}
 \label{subsec:TaskPlanning}
 %% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV.
-% \cite{ramchurn2015study} the planner is a human. control interfaces and coordination algorithm help them in the decision taking process. Suma de noseque. Suguir leyendo
+
+% \cite{jolly2010intelligent} proponen un planificador de tareas inteligente enfocado a través de redes neuronales borrosas. Este selecciona la mejor acción de un conjunto de acciones posibles.
+
+% \cite{ramchurn2015study} the planner is a human. control interfaces and coordination algorithm help them in the decision taking process. El algoritmo computa el camino más corto para cada UAV teniendo en cuenta las prioridades de las tareas y el tipo de UAV requerido en cada una de ellas. El comandante humano puede modificar el plan o incluir restricciones, como asignar una tarea a un UAV concreto por ejempmlo, y tendrá que revisar y aceptar el plan sugerido por el algoritmo una vez que este termine.
+
+% \cite{nikou2016cooperative} incorporan restricciones temporales en la planificación de sistemas multi-agentes. La solución propuesta se compone de dos fases, primero se precomputan de forma descentralizada todos los tiempos de ejecución y posteriormente se prueban las posibles configuraciones de forma que se garantice el tiempo de ejecución colectivo.
+
+% \cite{gao2018multi} usan un algoritmo mejorado de optimización multiobjetivo por enjambre de partículas para resolver el problema de asignación de tareas para múltiples UAVs. El sistema consta de dos fases con las que intentan acelerar la convergencia y evitar la caída dle algoritmo en mínimos locales. Los resultados mostrados por este estudio muestran una buena actuación en solucionar este tipo de problemas.
+
+% \cite{jiang2019task} compararon el desempeño de los diferentes planificadores existentes en el estado del arte. Concluyeron que los planificadores basados en PDDL son mejores en problemas que requieren soluciones largas, mientras que los basados en ASP menos susceptibles al aumento de objetos de dominio. Cuando se requieren razonamientos complejos, las soluciones basadas en ASP pueden ser considerablemente más rápidas que las soluciones basadas en PDDL.
+
+% \cite{canal2019probabilistic} presentan una integración estandarizada de planificadores probabilisticos en ROSPlan, que es un marco para la planificación de tareas en ROS. Al integrar RDDL en ROSPlan, permiten combinar planificación determinista y probabilística dentro de un mismo sistema.
+
 %% Poner en contexto lo que voy a aportar con mi TFM.
 
 
