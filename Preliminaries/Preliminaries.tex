@@ -64,26 +64,17 @@ According to the literature review conducted by Hazim Shakhatreh et al. in 2019 
 \subsection{Task planning in multi-drone teams}
 \label{subsec:TaskPlanning}
 %% Hablar de las formas existentes que hay para abordar el problema del reparto de tareas en equivos multi-UAV.
+There are numerous proposals for solving the task planning problem, each with its strengths and weaknesses. Given the lack of a rule of when one planner or another is better, Jiang et al. \cite{jiang2019task} compared the performance of the different planners in the literature. The conclusion they reached was that \gls{PDDL}-based planners are better on problems requiring long solutions, while \gls{ASP}-based planners are less susceptible to domain object augmentation. When complex reasoning is required, \gls{ASP}-based solutions can be considerably faster than \gls{PDDL}-based solutions. On the other hand, in \cite{canal2019probabilistic} they present a standardised integration of probabilistic planners in ROSPlan, which is a framework for task planning in the \gls{ROS}. By integrating \acrshort{RDDL} (\acrlong{RDDL}) into ROSPlan, they allow combining deterministic and probabilistic planning within the same system.
 
-% \cite{jolly2010intelligent} proponen un planificador de tareas inteligente enfocado a través de redes neuronales borrosas. Este selecciona la mejor acción de un conjunto de acciones posibles.
-
-% \cite{ramchurn2015study} the planner is a human. control interfaces and coordination algorithm help them in the decision taking process. El algoritmo computa el camino más corto para cada UAV teniendo en cuenta las prioridades de las tareas y el tipo de UAV requerido en cada una de ellas. El comandante humano puede modificar el plan o incluir restricciones, como asignar una tarea a un UAV concreto por ejempmlo, y tendrá que revisar y aceptar el plan sugerido por el algoritmo una vez que este termine.
-
-% \cite{nikou2016cooperative} incorporan restricciones temporales en la planificación de sistemas multi-agentes. La solución propuesta se compone de dos fases, primero se precomputan de forma descentralizada todos los tiempos de ejecución y posteriormente se prueban las posibles configuraciones de forma que se garantice el tiempo de ejecución colectivo.
-
-% \cite{gao2018multi} usan un algoritmo mejorado de optimización multiobjetivo por enjambre de partículas para resolver el problema de asignación de tareas para múltiples UAVs. El sistema consta de dos fases con las que intentan acelerar la convergencia y evitar la caída dle algoritmo en mínimos locales. Los resultados mostrados por este estudio muestran una buena actuación en solucionar este tipo de problemas.
-
-% \cite{jiang2019task} compararon el desempeño de los diferentes planificadores existentes en el estado del arte. Concluyeron que los planificadores basados en PDDL son mejores en problemas que requieren soluciones largas, mientras que los basados en ASP menos susceptibles al aumento de objetos de dominio. Cuando se requieren razonamientos complejos, las soluciones basadas en ASP pueden ser considerablemente más rápidas que las soluciones basadas en PDDL.
-
-% \cite{canal2019probabilistic} presentan una integración estandarizada de planificadores probabilisticos en ROSPlan, que es un marco para la planificación de tareas en ROS. Al integrar RDDL en ROSPlan, permiten combinar planificación determinista y probabilística dentro de un mismo sistema.
+An example of probabilistic planning is presented in \cite{gao2018multi}, where they use an improved multi-objective particle swarm optimisation algorithm to solve the task allocation problem for multiple \glspl{UAV}. The system consists of two phases with which they try to accelerate convergence and avoid the algorithm falling into local minimum. The results shown by this study reveal a good performance in solving this kind of problems. From a completely different approach, \cite{jolly2010intelligent} proposes an intelligent task planner focused on fuzzy neural networks. This system selects the best action from a set of possible actions. Time-constrained planning is also something that has been researched, e.g. \cite{nikou2016cooperative} incorporates time constraints into the planning of multi-agent systems. The proposed solution consists of two phases, first all execution times are pre-computed in a decentralised way and then the possible configurations are tested so that the collective execution time is guaranteed. Finally, mention can be made of \cite{ramchurn2015study}, where the final planning is done by humans, but they have a series of control interfaces and coordination algorithms that assist them in the decision-making process and compute the shortest path for each \gls{UAV} taking into account the priorities of the tasks and the type of \gls{UAV} required in each of them. The human commander can modify the plan or include constraints, such as assigning a task to a particular \gls{UAV} for example, and will have to review and accept the plan suggested by the algorithm once it is finished.
 
 %% Poner en contexto lo que voy a aportar con mi TFM.
-
+The task planner proposed in this work tries to group in the same system strong points such as robustness to failures, the capacity to react and replan online in case of any unforeseen event, the incorporation of restrictions and the consideration of factors such as the type of \gls{UAV}, the priorities of each task or the battery level of each equipment in an automatic way, without the need for human supervision.
 
 \subsection{Drone behavior management}
 \label{subsec:DroneBehaviorManagement}
-% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante.
-% Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
+%% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante.
+%% Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
 
 
 \section{Tools}

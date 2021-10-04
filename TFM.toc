@@ -10,14 +10,14 @@
 \contentsline {section}{\numberline {2.1}Current technology}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Related work}{7}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Task planning in multi-drone teams}{7}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Drone behavior management}{7}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}Tools}{7}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}ROS}{7}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Gazebo}{7}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Rviz}{7}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}UAL}{7}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Behaviour Trees}{7}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}Groot}{7}{subsection.2.3.6}
+\contentsline {subsection}{\numberline {2.2.2}Drone behavior management}{8}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Tools}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}ROS}{8}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Gazebo}{8}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Rviz}{8}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}UAL}{8}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Behaviour Trees}{8}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}Groot}{8}{subsection.2.3.6}
 \contentsline {chapter}{\numberline {3}Problem Formulation}{9}{chapter.3}
 \contentsline {section}{\numberline {3.1}Description of tasks}{9}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Inspection tasks}{9}{subsection.3.1.1}
