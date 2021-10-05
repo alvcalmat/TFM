@@ -292,6 +292,36 @@ S.~D. Ramchurn, J.~E. Fischer, Y.~Ikuno, F.~Wu, J.~Flann, and A.~Waldock, ``A
   environments,'' in \emph{Twenty-Fourth International Joint Conference on
   Artificial Intelligence}, 2015.
 
+\bibitem{monterrosa2016design}
+N.~Monterrosa, J.~Montoya, F.~Jarqu{\'\i}n, and C.~Bran, ``Design, development
+  and implementation of a uav flight controller based on a state machine
+  approach using a fpga embedded system,'' in \emph{2016 IEEE/AIAA 35th Digital
+  Avionics Systems Conference (DASC)}.\hskip 1em plus 0.5em minus 0.4em\relax
+  IEEE, 2016, pp. 1--8.
+
+\bibitem{kugler2017autoland}
+M.~E. K{\"u}gler and F.~Holzapfel, ``Autoland for a novel uav as a
+  state-machine-based extension to a modular automatic flight guidance and
+  control system,'' in \emph{2017 American Control Conference (ACC)}.\hskip 1em
+  plus 0.5em minus 0.4em\relax IEEE, 2017, pp. 2231--2236.
+
+\bibitem{de2014parallel}
+V.~de~Araujo, A.~P.~G. Almeida, C.~T. Miranda, and F.~de~Barros~Vidal, ``A
+  parallel hierarchical finite state machine approach to uav control for search
+  and rescue tasks,'' in \emph{2014 11th International Conference on
+  Informatics in Control, Automation and Robotics (ICINCO)}, vol.~1.\hskip 1em
+  plus 0.5em minus 0.4em\relax IEEE, 2014, pp. 410--415.
+
+\bibitem{klockner2013behavior}
+A.~Kl{\"o}ckner, ``Behavior trees for uav mission management,''
+  \emph{INFORMATIK 2013: informatik angepasst an Mensch, Organisation und
+  Umwelt}, pp. 57--68, 2013.
+
+\bibitem{ogren2012increasing}
+P.~Ogren, ``Increasing modularity of uav control systems using computer game
+  behavior trees,'' in \emph{Aiaa guidance, navigation, and control
+  conference}, 2012, p. 4458.
+
 \bibitem{UAVhandbook}
 K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
   vehicles}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2015, vol. 2077.
@@ -310,10 +340,5 @@ S.~Sanner, ``Relational dynamic influence diagram language (rddl): Language
 S.~Emel’yanov, D.~Makarov, A.~I. Panov, and K.~Yakovlev, ``Multilayer
   cognitive architecture for uav control,'' \emph{Cognitive Systems Research},
   vol.~39, pp. 58--72, 2016.
-
-\bibitem{klockner2013behavior}
-A.~Kl{\"o}ckner, ``Behavior trees for uav mission management,''
-  \emph{INFORMATIK 2013: informatik angepasst an Mensch, Organisation und
-  Umwelt}, pp. 57--68, 2013.
 
 \end{thebibliography}
