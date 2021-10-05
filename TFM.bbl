@@ -322,6 +322,15 @@ P.~Ogren, ``Increasing modularity of uav control systems using computer game
   behavior trees,'' in \emph{Aiaa guidance, navigation, and control
   conference}, 2012, p. 4458.
 
+\bibitem{real_ijars20}
+\BIBentryALTinterwordspacing
+F.~Real, A.~Torres-Gonz\'{a}lez, P.~R. Soria, J.~Capit\'{a}n, and A.~Ollero,
+  ``Unmanned aerial vehicle abstraction layer: An abstraction layer to operate
+  unmanned aerial vehicles,'' \emph{International Journal of Advanced Robotic
+  Systems}, vol.~17, no.~4, pp. 1--13, 2020. [Online]. Available:
+  \url{https://doi.org/10.1177/1729881420925011}
+\BIBentrySTDinterwordspacing
+
 \bibitem{UAVhandbook}
 K.~P. Valavanis and G.~J. Vachtsevanos, \emph{Handbook of unmanned aerial
   vehicles}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2015, vol. 2077.

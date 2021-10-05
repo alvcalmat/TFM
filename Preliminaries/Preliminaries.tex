@@ -47,7 +47,6 @@ Mentioning some of the research that is currently being carried out, we can reca
 \section{Related work}
 \label{sec:RelatedWork}
 %%% Parrafo de introducción del trabajo relacionado con el mío: planificador de tareas cognitivo para  operaciones de inspección
-%% Volver a hablar de UAV para inspección, centrandose en multi-UAV y explicar la necesidad de diseñar planificadores cognitivos. Enumerar las partes de las que se compone el planificador diseñado a modo de enlace con los siguientes párafos 
 According to the literature review conducted by Hazim Shakhatreh et al. in 2019 \cite{CivilAplications}, the market value of \glspl{UAV} for civil infrastructure inspection is expected to be more than \$45 billion, representing 45\% of the total \gls{UAV} market. The development of heterogeneous \gls{UAV} fleets and efficient algorithms for their communication and coordination is important to have multi-\gls{UAV} teams capable of carrying out a successful inspection and maintenance mission. If the inspection equipment is to be fully autonomous, so that it can be operated by personnel not specialized in the piloting of aerial vehicles, a module capable of reacting to any unforeseen event and modifying the planning in real time if necessary is required. This module, which could be called a task planner, is usually part of a larger software architecture in charge of fleet management and which tries to provide intelligence to the equipment. The task planner developed in this thesis consists of two distinct modules, the task planner itself and the behaviour manager.
 
 \subsection{Task planning in multi-drone teams}
@@ -62,11 +61,10 @@ The task planner proposed in this work tries to group in the same system strong 
 
 \subsection{Drone behavior management}
 \label{subsec:DroneBehaviorManagement}
-%% Hablar de las formas existentes que hay para gestionar el comportamiento de un dron y su guiado en cada instante.
 In this work it has been called drone behaviour manager to what would commonly be controllers and safety modules executed at different times and levels. Once the aerial vehicle has concrete orders of what to do, in this case, once it has an assigned plan, it is time to execute the controls in charge of carrying out that plan. On the one hand, it will be necessary to execute some control in charge of supervising and ensuring the integrity of the airborne equipment. In \cite{monterrosa2016design} a \gls{FSM} is used in which one of the states is in charge of managing emergency situations, to which it transitions when another module detects and communicates the emergency condition. On the other hand, a high-level controller has to be executed in charge of calling the corresponding low-level controllers at any given moment. In this last study, they develop the complete flight control using \glspl{FSM} that transition from one state to another depending on the information provided by the sensors. The use of finite state machines is in fact the most common. In \cite{kugler2017autoland} for example, an automatic landing system programmed in this way is presented. Vitor de Araujo et al. \cite{de2014parallel} present a solution for the control of UAVs in search and rescue tasks based on a \gls{PHFSM} with which they claim to achieve many improvements with respect to other typical implementations.
 
-%% Dificil de leer e interpretar si es grande, y de reutilizar o modificar. (poner a lo mejor imagen de las FSM de \cite{de2014parallel})
-The problem with this approach is that state machines are difficult to scale and reuse. Moreover, there comes a point where it becomes even difficult for a human to interpret. There is therefore a problem with further increasing the capabilities of \glspl{UAV} using state machines. As discussed in \cite{klockner2013behavior}, \glspl{BT} are an alternative that provide, among other advantages, scalability, modularity and readability, and could be used for \gls{UAV} mission management. \cite{ogren2012increasing} also emphasises the advantages of using this type of system for \gls{UAV} control.
+%% (poner a lo mejor imagen de las FSM de \cite{de2014parallel})
+The problem with this approach is that state machines are difficult to scale and reuse. Moreover, there comes a point where it becomes even difficult for a human to interpret. There is therefore a problem with further increasing the capabilities of \glspl{UAV} using state machines. As discussed in \cite{klockner2013behavior}, \glspl{BT} are an alternative that provide, among other advantages, scalability, modularity and readability, and could be used for \gls{UAV} mission management. \cite{ogren2012increasing} also emphasizes the advantages of using this type of system for \gls{UAV} control.
 
 %% Poner en contexto lo que voy a aportar con mi TFM. Hablar de las FSM y de los BT
 Although \glspl{BT} are already widespread in the videogame industry, there are still not many proposals that use them for the management of autonomous systems. The module in charge of controlling the behaviour of each of the \glspl{UAV} in this project has been developed using \glspl{BT}.
@@ -76,11 +74,9 @@ Although \glspl{BT} are already widespread in the videogame industry, there are 
 % Estudio previo / Herramientas
 This section discusses the most relevant software tools used in this project and briefly explains what role they have played in it.
 
-% No hace falta explayarse mucho en ROS, Gazebo y Rviz, se da por supuesto en los que leen el documento, se cuenta brevemente en qué consisten esas herramientas y para qué se van a usar en el TFM
-
 \subsection{ROS}
 \label{subsec:ROS}
-The \acrlong{ROS} (\acrshort{ROS})\footnote{ROS mainpage: \url{https://www.ros.org/}} is more of a framework than an operating system. It is a collection of tools, libraries and conventions that aim to facilitate the development of software for robots. The aim of this tool is to enable research teams from all over the world to collaborate with each other and to take advantage of each other's work. \gls{ROS} is present in most robotics projects today. In this project, it forms the basis on which everything else is programmed, as it allows the use of many other very useful tools developed by the community, such as those mentioned below.
+The \acrlong{ROS} (\acrshort{ROS})\footnote{ROS homepage: \url{https://www.ros.org/}} is more of a framework than an operating system. It is a collection of tools, libraries and conventions that aim to facilitate the development of software for robots. The aim of this tool is to enable research teams from all over the world to collaborate with each other and to take advantage of each other's work. \gls{ROS} is present in most robotics projects today. In this project, it forms the basis on which everything else is programmed, as it allows the use of many other very useful tools developed by the community, such as those mentioned below.
 
 \subsection{Gazebo}
 \label{subsec:Gazebo}
@@ -88,16 +84,26 @@ This is a simulation tool usually used by the robotics community to accurately s
 
 \subsection{Rviz}
 \label{subsec:Rviz}
+Rviz is a tool for visualizing information in 3D. It also allows to graphically represent the information received by a robotic system. It can be integrated with ROS applications, being very useful for debugging tasks. Rviz is used in this project to visualize the position of each of the UAVs as well as different details about the simulation for monitoring and debugging purposes.
 
 \subsection{UAL}
 \label{subsec:UAL}
+As its name suggests, \gls{UAL}\footnote{UAL repository: \url{https://github.com/grvcTeam/grvc-ual}} is a software layer that simplifies the process of developing and testing high-level algorithms for aerial robots by standardizing and simplifying the interfaces with these robots. In addition, \gls{UAL} can work with both simulated and real platforms \cite{real_ijars20}. This software is also available in \gls{ROS} for free use in any robotics project. Although in this thesis a higher level software layer has been developed, which does not have to communicate directly with the autopilot of any of the aerial vehicles, it has been necessary to communicate with them in order to test the correct functioning of the task planning approach in simulation. Therefore, \gls{UAL} has been used in this project to programme at a low level the movement of the \glspl{UAV}, ignoring which autopilot they will incorporate in the future.
 
 \subsection{Behaviour Trees}
 \label{subsec:BehaviourTrees}
+BehaviorTree.CPP\footnote{BehaviorTree.CPP repository: \url{https://github.com/BehaviorTree/BehaviorTree.CPP/}} is a C++ 14 library for creating behaviour trees. Its design features include flexibility, ease of use and speed. This library, among other things, allows the creation of asynchronous Actions, enables reactive behaviours that execute multiple Actions at the same time, permit to load trees at runtime and provides a type-safe and flexible mechanism to do Dataflow between Nodes of the Tree. This library has been chosen over others that fulfil the same function because of its documentation and support. Its function in this project has been the creation of \glspl{BT} for the programming of the drone behaviour manager in a modular, scalable and easily reusable way.
 
 \subsection{Groot}
 \label{subsec:Groot}
+Groot\footnote{Groot repository: \url{https://github.com/BehaviorTree/Groot}} is a graphical editor to create \glspl{BT}. It is compliant with the library used in this project to create behavior trees, BehaviorTree.CPP. This graphic interface can be also used to monitor a running behavior tree. For programming \glspl{BT} in this project a simple XML file editor will be used, so Groot's role in this project will be to monitor the execution of the \glspl{BT} during testing.
 
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\linewidth]
+    {Preliminaries/figures/groot.png}
+    \caption{Groot graphical interface for editing behavior trees. Source: \href{https://github.com/BehaviorTree/Groot}{Github}}
+    \label{fig:predator}
+\end{figure}
 
 \endinput

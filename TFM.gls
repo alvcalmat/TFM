@@ -5,7 +5,7 @@
 		\setentrycounter[]{page}\glsnumberformat{7}}}\glsgroupskip
 \glsgroupheading{B}\relax \glsresetentrylist %
 \glossentry{BT}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{8}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{8\delimN 9}}}\glsgroupskip
 \glsgroupheading{F}\relax \glsresetentrylist %
 \glossentry{FSM}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{8}}}\glsgroupskip
@@ -22,17 +22,19 @@
 		\setentrycounter[]{page}\glsnumberformat{7}}}%
 \glossentry{ROS}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{3}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{7}}}%
+		\setentrycounter[]{page}\glsnumberformat{7\delimR 9}}}%
 \glossentry{RPA}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{5}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{17}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{19}}}\glsgroupskip
 \glsgroupheading{S}\relax \glsresetentrylist %
 \glossentry{SITL}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{3}}}\glsgroupskip
 \glsgroupheading{U}\relax \glsresetentrylist %
+\glossentry{UAL}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{9}}}%
 \glossentry{UAV}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{III}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{V}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{1\delimN 2}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{5\delimR 8}}}%
+		\setentrycounter[]{page}\glsnumberformat{5\delimR 9}}}%
 \end{theglossary}\glossarypostamble
