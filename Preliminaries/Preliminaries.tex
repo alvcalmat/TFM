@@ -72,15 +72,19 @@ The problem with this approach is that state machines are difficult to scale and
 Although \glspl{BT} are already widespread in the videogame industry, there are still not many proposals that use them for the management of autonomous systems. The module in charge of controlling the behaviour of each of the \glspl{UAV} in this project has been developed using \glspl{BT}.
 
 \section{Tools}
-\label{sec:PreviousStudy}
+\label{sec:Tools}
 % Estudio previo / Herramientas
+This section discusses the most relevant software tools used in this project and briefly explains what role they have played in it.
+
 % No hace falta explayarse mucho en ROS, Gazebo y Rviz, se da por supuesto en los que leen el documento, se cuenta brevemente en qué consisten esas herramientas y para qué se van a usar en el TFM
 
 \subsection{ROS}
 \label{subsec:ROS}
+The \acrlong{ROS} (\acrshort{ROS})\footnote{ROS mainpage: \url{https://www.ros.org/}} is more of a framework than an operating system. It is a collection of tools, libraries and conventions that aim to facilitate the development of software for robots. The aim of this tool is to enable research teams from all over the world to collaborate with each other and to take advantage of each other's work. \gls{ROS} is present in most robotics projects today. In this project, it forms the basis on which everything else is programmed, as it allows the use of many other very useful tools developed by the community, such as those mentioned below.
 
 \subsection{Gazebo}
 \label{subsec:Gazebo}
+This is a simulation tool usually used by the robotics community to accurately simulate and test their systems. In addition to being open-source, it allows the entire system to be tested, from the design of the robot itself to its programming. In this project, Gazebo has been used to test the developed software safely both in the development phases and in the final stages of testing and verification.
 
 \subsection{Rviz}
 \label{subsec:Rviz}
