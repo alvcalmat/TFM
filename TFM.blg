@@ -19,48 +19,46 @@ Database file #1: bibliography.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty journal in AerialCoreMulti-Layer
 
 Done.
 You've used 58 entries,
             4087 wiz_defined-function locations,
-            1174 strings with 21608 characters,
-and the built_in function-call counts, 50656 in all, are:
-= -- 4039
-> -- 1423
-< -- 446
-+ -- 791
+            1176 strings with 21676 characters,
+and the built_in function-call counts, 51268 in all, are:
+= -- 4089
+> -- 1433
+< -- 457
++ -- 799
 - -- 283
-* -- 2465
-:= -- 7238
+* -- 2493
+:= -- 7300
 add.period$ -- 127
 call.type$ -- 58
 change.case$ -- 58
-chr.to.int$ -- 1014
-cite$ -- 59
-duplicate$ -- 3555
-empty$ -- 3914
+chr.to.int$ -- 1044
+cite$ -- 58
+duplicate$ -- 3587
+empty$ -- 3966
 format.name$ -- 309
-if$ -- 11900
+if$ -- 12057
 int.to.chr$ -- 0
 int.to.str$ -- 58
-missing$ -- 640
+missing$ -- 643
 newline$ -- 199
 num.names$ -- 58
-pop$ -- 1485
+pop$ -- 1488
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 3889
+skip$ -- 3940
 stack$ -- 0
-substring$ -- 2547
-swap$ -- 3039
-text.length$ -- 108
+substring$ -- 2617
+swap$ -- 3079
+text.length$ -- 109
 text.prefix$ -- 0
 top$ -- 5
 type$ -- 58
-warning$ -- 1
-while$ -- 231
+warning$ -- 0
+while$ -- 235
 width$ -- 60
-write$ -- 596
-(There was 1 warning)
+write$ -- 598

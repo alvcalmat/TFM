@@ -25,7 +25,7 @@
 		\setentrycounter[]{page}\glsnumberformat{7\delimR 9}}}%
 \glossentry{RPA}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{5}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{19}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{21}}}\glsgroupskip
 \glsgroupheading{S}\relax \glsresetentrylist %
 \glossentry{SITL}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{3}}}\glsgroupskip
@@ -36,5 +36,7 @@
 		\setentrycounter[]{page}\glsnumberformat{III}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{V}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{1\delimN 2}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{5\delimR 9}}}%
+		\setentrycounter[]{page}\glsnumberformat{5\delimR 9}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{11\delimN 12}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{21}}}%
 \end{theglossary}\glossarypostamble
