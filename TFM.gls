@@ -2,7 +2,7 @@
 \begin{theglossary}\glossaryheader
 \glsgroupheading{A}\relax \glsresetentrylist %
 \glossentry{ACW}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{11\delimN 12}}}%
+		\setentrycounter[]{page}\glsnumberformat{11\delimR 14}}}%
 \glossentry{ASP}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{7}}}\glsgroupskip
 \glsgroupheading{B}\relax \glsresetentrylist %
@@ -11,6 +11,9 @@
 \glsgroupheading{F}\relax \glsresetentrylist %
 \glossentry{FSM}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{8}}}\glsgroupskip
+\glsgroupheading{I}\relax \glsresetentrylist %
+\glossentry{ID}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{13\delimN 14}}}\glsgroupskip
 \glsgroupheading{N}\relax \glsresetentrylist %
 \glossentry{NASA}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{7}}}\glsgroupskip
@@ -39,6 +42,9 @@
 		\setentrycounter[]{page}\glsnumberformat{V}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{1\delimN 2}\delimN 
 		\setentrycounter[]{page}\glsnumberformat{5\delimR 9}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{11\delimN 12}\delimN 
-		\setentrycounter[]{page}\glsnumberformat{23}}}%
+		\setentrycounter[]{page}\glsnumberformat{11\delimR 14}\delimN 
+		\setentrycounter[]{page}\glsnumberformat{23}}}\glsgroupskip
+\glsgroupheading{W}\relax \glsresetentrylist %
+\glossentry{WP}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{13}}}%
 \end{theglossary}\glossarypostamble

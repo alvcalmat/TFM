@@ -33,34 +33,14 @@ On the other hand, a review will be made of other important considerations that 
 
 \section{Description of tasks}
 \label{sec:DescriptionOfTasks}
-% Information exchanges 
-% Information interfaces/channels
-% Takeovers
-% Como se ha mencionado en la sección anterior, 
-\begin{figure}[htbp]
-    \centering
-    \subfloat[]{
-        \label{subfig:inspection_task}
-        \includegraphics[width=0.55\linewidth]
-        {ProblemFormulation/figures/inspection_task.pdf}}
-    \hfill
-    \subfloat[]{
-        \label{subfig:monitor_task}
-        \includegraphics[width=0.35\linewidth]
-        {ProblemFormulation/figures/monitor_task.pdf}}
-    \\
-    \subfloat[]{
-        \label{subfig:deliver_task}
-        \includegraphics[width=0.6\linewidth]
-        {ProblemFormulation/figures/deliver_task.png}}
-    \caption{From left to right: \textit{Inspection} (a), \textit{Safety} (b), and \textit{Physical} (c) scenarios.}
-\end{figure}
+As mentioned above, three different types of tasks are envisaged in the project. These tasks are requested at any time by human workers through gestures. There will be a higher level software layer that processes the information contained in the gestures so that the planner receives an asynchronous communication from the upper layer containing the specifications of a new task. At this point, it is the planner's job to process the new information together with the information it already had in order to elaborate and implement a new plan. The same planner is also in charge of calling the low-level controllers when necessary and ensuring the safety of the equipment and the fulfillment of the mission. Each task is explained in detail below.
 
 \subsection{Inspection tasks}
 \label{subsec:InspectionTasks}
-% Information exchanges 
-% Information interfaces/channels
-% Takeovers
+This task can be performed by all three types of \glspl{ACW}. It is the second highest priority task, with the tool delivery task being the only one that exceeds it. It consists of carrying out a detailed inspection of the specified areas of the power equipment. The layer immediately above the task planner is responsible for passing it a list of \glspl{WP} that define the inspection task, and the planner is responsible for deciding how many \glspl{ACW} it recruits to execute the task, which of the available \glspl{ACW} it assigns it to, and which subset of the list of \glspl{WP} it assigns to each one. In turn, once the planning is executed, the tasks of this type are transmitted to the lower level layers containing the subset of \glspl{WP} and the \glspl{ID} of the selected \glspl{UAV}.
+
+All the above-mentioned communications will be carried out asynchronously, as the creation of the task by the workers, which triggers the whole sequence of actions, is done in this way.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]
@@ -71,12 +51,13 @@ On the other hand, a review will be made of other important considerations that 
 
 \subsection{Monitoring tasks}
 \label{subsec:MonitoringTasks}
-% Information exchanges 
-% Information interfaces/channels
-% Takeovers
+This task can also be executed by all three types of \glspl{ACW}. It is the lowest priority task. Monitor worker's safety consists of providing the supervisory team with a view of the people working in the power tower to monitor their status and ensure their safety. The layer immediately above the task planner communicates this time the \gls{ID} of the worker to be monitored, the number of \glspl{UAV} wanted and the distance they should keep from the worker. It is the task planner's responsability to decide once again which of the available \glspl{ACW} to assign this task to and the formation they should maintain during the flight. Once the planning has been executed, the tasks of this type are passed on to the lower level layers with both the original information and the information resulting from the planning.
+
+The above-mentioned communications will also be carried out asynchronously for the same reason. 
+
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]
+    \includegraphics[width=0.5\linewidth]
     {ProblemFormulation/figures/monitor_task.pdf}
     \caption{\textit{Safety-ACW} carrying out a monitoring task}
     \label{fig:monitor_task}
@@ -84,9 +65,11 @@ On the other hand, a review will be made of other important considerations that 
 
 \subsection{Tool delivery tasks}
 \label{subsec:ToolDeliveryTasks}
-% Information exchanges 
-% Information interfaces/channels
-% Takeovers
+This task can be performed only by \textit{Physical-ACW} \glspl{UAV}, as special hardware is required to perform the physical interaction with the low-weight objects and the human. This is the highest priority task. Delivering a tool consists of picking up a tool and transporting it to the worker, with whom a physical interaction will take place through which the delivery of the tool will take place. Low-level controllers will have to be especially precise and careful not to hurt the worker. This time, the layer immediately above the task planner communicates the \gls{ID} of the worker to whom the tool is to be delivered and the \gls{ID} of the requested tool. Again, the task planner's mission is to decide which of the available \glspl{ACW} to give this task to. Once the planning is executed, tasks of this type are passed on to the lower level layers with the same information as originally.
+
+The above-mentioned communications, once again, will be carried out asynchronously. 
+
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\linewidth]
