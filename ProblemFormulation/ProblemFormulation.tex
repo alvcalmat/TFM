@@ -51,7 +51,7 @@ All the above-mentioned communications will be carried out asynchronously, as th
 
 \subsection{Monitoring tasks}
 \label{subsec:MonitoringTasks}
-This task can also be executed by all three types of \glspl{ACW}. It is the lowest priority task. Monitor worker's safety consists of providing the supervisory team with a view of the people working in the power tower to monitor their status and ensure their safety. The layer immediately above the task planner communicates this time the \gls{ID} of the worker to be monitored, the number of \glspl{UAV} wanted and the distance they should keep from the worker. It is the task planner's responsability to decide once again which of the available \glspl{ACW} to assign this task to and the formation they should maintain during the flight. Once the planning has been executed, the tasks of this type are passed on to the lower level layers with both the original information and the information resulting from the planning.
+This task can also be executed by all three types of \glspl{ACW}. It is the lowest priority task. Monitor worker's safety consists of providing the supervisory team with a view of the people working in the power tower to monitor their status and ensure their safety. The layer immediately above the task planner communicates this time the \gls{ID} of the worker to be monitored, the number of \glspl{UAV} wanted and the distance they should keep from the worker. It is the task planner's responsibility to decide once again which of the available \glspl{ACW} to assign this task to and the formation they should maintain during the flight. Once the planning has been executed, the tasks of this type are passed on to the lower level layers with both the original information and the information resulting from the planning.
 
 The above-mentioned communications will also be carried out asynchronously for the same reason. 
 
@@ -72,20 +72,43 @@ The above-mentioned communications, once again, will be carried out asynchronous
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\linewidth]
+    \includegraphics[width=0.8\linewidth]
     {ProblemFormulation/figures/deliver_task.png}
     \caption{\textit{Physical-ACW} carrying out a tool delivery task}
     \label{fig:deliver_task}
 \end{figure}
 
-% Otras consideraciones importantes a tener en cuenta: gestíón de la batería, desconexiones, imprevistos, prioridades, tipos de UAV.
-% Sacar información del Informe de actividades
 \section{Battery recharges}
 \label{sec:BatteryRecharges}
+Given the current autonomy problem with \gls{UAV} technology, eventually each of the \glspl{ACW} involved in the mission will run out of battery power. The moment when the battery of each one will run out can be estimated from the mission planning itself, so the planner can in turn take this into account when distributing the tasks so that the \gls{ACW} itself anticipates this event. Recharging does not necessarily have to take place when the \gls{UAV} is about to run out of battery, nor does it have to take place until the battery reaches its maximum, but both will be parameters to be taken into account during the mission planning and optimization process.
+
+On the other hand, it is possible that the calculations may fail for some reason, and the battery may run out sooner than expected. It will therefore be necessary to periodically read the battery status and perform emergency recharging and replanning if necessary. One possible scenario is that the aerial agent runs out of battery during a loss of connection. Since the planner is centralised at a ground station, there must also be a battery check and action module on board each aerial vehicle, and an emergency protocol in case this happens.
+
+In the absence of specifications, it is assumed that battery recharging does not occur instantaneously (it is not a battery change), so reaching the desired battery level takes time and should be considered in the plan.
+
+Also, the task planning algorithm must be able to handle without blocking in case all \glspl{ACW} are simultaneously without sufficient battery power and therefore there is no \gls{UAV} with which to execute a task immediately.
 
 \section{Connection losses}
 \label{sec:ConnectionLosses}
+Another important consideration is the possible loss of connection between the centralised planner, where most of the cognitive capacity is concentrated, and one of the \glspl{ACW}. Since a loss of connection is an unforeseen event, it is most likely that the planner will recalculate the optimal task allocation once the \gls{UAV} fleet is updated, so that the tasks previously assigned to the disconnected \gls{ACW} will be executed on another one. This is a potentially dangerous situation because the disconnected \gls{UAV} could act autonomously according to its last plan and cause an accident with the rest of the agents that are still online.
 
-\section{Task replanning situations}
+It is therefore important to implement, on the one hand, a system to detect disconnections both from one end of the communication and the other, and on the other hand, to establish a common action protocol so that both modules know how the other is going to act, thus ensuring the integrity of all equipment and the safety of workers.
+
+\section{Task replanning situations} % Unforeseen events
 \label{sec:TaskReplanningSituations}
+Once the mission is underway, any unforeseen event has the potential to completely change what the optimal plan is. Therefore, even if there is a possibility that the event will not affect the mission at all, it will always be necessary to execute a mission replanning in case of an unforeseen event.
 
+The following is a list of the unforeseen events that have been contemplated in this problem:
+
+\begin{itemize}
+    \item Arrival of a new task.
+    \item Connection of a new \gls{ACW}.
+    \item Disconnection of an \gls{ACW}.
+    \item Unplanned insufficient battery in one of the \glspl{ACW}
+    \item Battery drain faster than expected and therefore will not be enough for the current plan.
+    \item An \gls{ACW} finishes recharging ahead of schedule.
+    \item A task is successfully completed.
+    \item A task is completed unsuccessfully.
+\end{itemize}
+
+It should be explained that some of the events considered are not really unexpected. Successful completion of a task is what is desired, for example, so it should not imply a change of plans. However, this event is included in the list because it is a good moment to check if there is a better plan and to modify the current one if necessary. As the planner is pursuing the optimal plan, the result of the replanning will keep the previous plan unchanged if it is still optimal.
