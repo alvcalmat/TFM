@@ -26,6 +26,68 @@
 % Paquete para incluir glosario
 \usepackage{glossaries}
 
+% === Tikz Packages ==================
+\usepackage{tikz}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background, main, foreground}
+\usetikzlibrary{quotes, angles, backgrounds, arrows, automata, shapes, positioning, calc, through, spy, decorations.pathreplacing, decorations.markings, arrows.meta, automata, petri}
+
+\tikzset{
+    imglabel/.style={
+      rectangle,
+      inner sep=2pt,
+      % rounded corners=.1em,
+      text=black,
+      minimum height=1em,
+      text centered,
+      fill=white,
+      fill opacity=1.0,
+      text opacity=1,
+      anchor=south west,
+    },
+  }
+
+\tikzset{
+	state/.style={
+		rectangle,
+		draw=black, very thick,
+		minimum height=1.0em,
+		text centered,
+	},
+}
+
+\tikzset{
+  % style to apply some styles to each segment of a path
+  on each segment/.style={
+    decorate,
+    decoration={
+      show path construction,
+      moveto code={},
+      lineto code={
+        \path [#1]
+        (\tikzinputsegmentfirst) -- (\tikzinputsegmentlast);
+      },
+      curveto code={
+        \path [#1] (\tikzinputsegmentfirst)
+        .. controls
+        (\tikzinputsegmentsupporta) and (\tikzinputsegmentsupportb)
+        ..
+        (\tikzinputsegmentlast);
+      },
+      closepath code={
+        \path [#1]
+        (\tikzinputsegmentfirst) -- (\tikzinputsegmentlast);
+      },
+    },
+  },
+  % style to add an arrow in the middle of a path
+  mid arrow/.style={postaction={decorate,decoration={
+        markings,
+        mark=at position .5 with {\arrow[#1]{stealth}}
+      }}},
+}
+% ===== End of tikz packages ============
+
 %:Para modificar fácilmente la fuente del texto.
 \makeatletter
 \ifdtsc@Minion % Queremos utilizar la fuente Minion y lo hemos declarado al principio
@@ -102,6 +164,7 @@ twoside}
 \newacronym[type=main, plural=ACWs, firstplural=Aerial Co-Worker]{ACW}{ACW}{Aerial Co-Worker}
 \newacronym[type=main, plural=WPs, firstplural=waypoints (WPs)]{WP}{WP}{waypoint}
 \newacronym[type=main, plural=IDs, firstplural=identifications (IDs)]{ID}{ID}{identification}
+\newacronym[type=main]{RTPS}{RTPS}{Real-Time Positioning System}
 %\newacronym[type=main, plural=, firstplural=]{}{}{}
 %\newacronym[type=main]{}{}{}
 
