@@ -351,4 +351,39 @@ S.~Emel’yanov, D.~Makarov, A.~I. Panov, and K.~Yakovlev, ``Multilayer
   cognitive architecture for uav control,'' \emph{Cognitive Systems Research},
   vol.~39, pp. 58--72, 2016.
 
+\bibitem{smach_tutorials}
+{Wim}, ``Ros wiki. smach/tutorials/statemachine container,''
+  \url{http://wiki.ros.org/smach/Tutorials/StateMachine%20container},
+  9-August-2010, [Online; accessed 1-November-2020].
+
+\bibitem{ROS-BT}
+M.~Colledanchise, I.~Sarantopoulos, A.~A. Allaban, and R.~Hageman, ``Github.
+  miccol/ros-behavior-tree,''
+  \url{https://github.com/miccol/ROS-Behavior-Tree}, 22-October-2018, [Online;
+  accessed 5-November-2020].
+
+\bibitem{BT-CPP-doc}
+D.~Faconti, ``Behaviortree.cpp,'' \url{https://www.behaviortree.dev/},
+  27-May-2019, [Online; accessed 10-November-2020].
+
+\bibitem{Groot}
+D.~Faconti and et~al., ``Behaviortree.cpp,''
+  \url{https://github.com/BehaviorTree/Groot}, 27-May-2019, [Online; accessed
+  10-November-2020].
+
+\bibitem{colledanchise2016behavior}
+M.~Colledanchise and P.~{\"O}gren, ``How behavior trees modularize hybrid
+  control systems and generalize sequential behavior compositions, the
+  subsumption architecture, and decision trees,'' \emph{IEEE Transactions on
+  robotics}, vol.~33, no.~2, pp. 372--389, 2016.
+
+\bibitem{colledanchise2018behavior}
+------, \emph{Behavior trees in robotics and AI: An introduction}.\hskip 1em
+  plus 0.5em minus 0.4em\relax CRC Press, 2018.
+
+\bibitem{BT-AI}
+C.~Simpson, ``Gamasutra. behavior trees for ai: How they work,''
+  \url{https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php},
+  17-July-2014, [Online; accessed 15-November-2020].
+
 \end{thebibliography}

@@ -1,15 +1,12 @@
 \chapter{Design of the proposed solution}
 \label{ch:DesignOfTheProposedSolution}
-\lettrine[lraise=-0.1, lines=2, loversize=0.2]{L}{o}rem itsum
-% El planificador desarrollado en esta tésis se compone a su vez de dos módulos bien diferenciados, el primero es el planificador de tareas propiamente dicho, encargado de la planificación de la misión y de su replanificación cuando fuera necesario, el segundo se encuentra a bordo de cada UAV y gestiona el comportamiento de cada equipo, ejecutando el plan que le ha asignado el primer módulo y reaccionando ante cualquier imprevisto de forma segura.
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{his} section provides more details about the implementation of the solution to the problem: node diagram, pseudocode and inter-module communications. All the code is available online\footnote{Human aware collaboration planner source code: \url{https://github.com/grvcTeam/aerialcore_planning}}, and was developed under the Ubuntu 18.04 operating system and ROS Melodic.
 
-%%% Capi: En los capítulos 3 y 4 puedes coger texto del documento que tenemos hecho con Giuseppe, y del proyecto tuyo de tesis. 
+The solution proposed for the problem formulated in the previous section (see Sec. \ref{ch:ProblemFormulation}) follows a hierarchical approach, with a high-level planner in charge of activating different low-level controllers. The high-level planner detects the tasks required by the operators, and distributes them from the ground in a centralised way among the available \glspl{ACW}, planning the necessary reloads throughout the mission. In addition, this planner reacts in real time to possible failures by reassigning tasks. The low-level planners are on board each \gls{UAV} and are responsible for executing contingency plans for these failures while the central planner calculates and communicates the new plan. They will also be in charge of controlling the movement of the \glspl{ACW} to execute the different tasks assigned by the higher-level module (e.g. flying to a location to be inspected or to the position of an operator waiting for a tool). From now on, the low-level module on board each \gls{UAV} will be called the \emph{behaviour manager}, and the centralised module on the ground will be called the \emph{task planner}. Together, these modules have cognitive capabilities to interact with humans efficiently (\emph{No se si quitar esta última frase, este párrafo es adaptado del proyecto de tesis}).
 
-% Se utilizará una aproximación jerárquica, con un planificador de alto nivel encargado de activar distintos controladores de bajo nivel. El planificador de alto nivel detectará las tareas requeridas por los operarios, y las distribuirá de manera centralizada entre los UAVs, planificando las recargas necesarias. Además, este planificador reaccionará en tiempo real ante posibles fallos reasignando tareas y ejecutando planes de contingencia. También tendrá capacidades cognitivas para interaccionar con humanos de manera eficiente. Los planificadores de bajo nivel se encargarán de controlar el movimiento de los UAVs para ejecutar las distintas tareas, por ejemplo volar hacia un lugar a inspeccionar o a la posición de un operario esperando una herramienta. La investigación de la tesis estará centrada en la planificación de alto nivel, y se utilizarán algoritmos del estado del arte para los controladores de bajo nivel.
-
-% Del WP7_Scenarios: Modificar parámetros de una tarea
-Once a task has been delivered to the High-Level Planner, in order to change any of its parameters, the Gesture Recognition node should send again the task, keeping the same Task ID and updating only the corresponding parameters. Thus, the High-Level Planner would overwrite it and allocate it again with the new parameters. In the following, a brief description on how to carry out each of the available tasks in the system. It is assumed that there are Low-Level Controllers running on the \glspl{ACW} to perform basic navigation actions, formation control for human worker monitoring, inspection operations, and physical interaction with the human worker (e.g., to pick or deliver a tool). These Low-Level Controllers operate in a known environment, represented by a map (i.e., an occupancy grid map) that also includes the position of obstacles and the power tower.
-
+% Hasta ahora he explicado de qué módulos se compone la solución y que hacen pero no cómo lo hace.
+% En "sec:NodeDiagram" comenzaremos explicando el diagrama de nodos (con la fig:NodeDiagram por delante) y luego describiremos de forma general el proceso que siguen los módulos
+% En "sec:Centralized module:TaskPlanner" y "sec:Distributed module: behavior manager" se explicará cómo hacen lo que hacen 
 
 \section{Node diagram}
 \label{sec:NodeDiagram}
@@ -20,7 +17,7 @@ Once a task has been delivered to the High-Level Planner, in order to change any
 % Desde la perspectiva del módulo implementado, la estructura de nodos se ve como está representado en la parte superior de la imagen. Se diferenciarían 3 conexiones distintas: la conexión con los módulos de nivel superior, la conexión con los controladores de bajo nivel, y la comunicación con los UAV. A su vez, el módulo marcado como n.2 se compone de dos partes, el planificador de tareas, que es un nodo centralizado, y que se encargará principalmente del reparto óptimo de tareas; y los nodos agente, de los cuales habrá una instancia por cada UAV y se ejecutarán sobre cada uno de ellos. La idea es que a través de la interfaz i.1, el n.2.1 reciba asíncronamente tareas provenientes de los módulos de mayor nivel, n.1. La información se propaga también de forma asíncrona hacia n.2.2 y los controladores de bajo nivel. Se consideran dos tareas posibles, “Monitor” e “Inspect”. Dependiendo de la tarea, a través de i.1, i.2 e i.3 viajarán unos datos u otros. Las flechas que conectan los nodos en el diagrama indican la direccionalidad de la comunicación, pudiendo haber comunicaciones unidireccionales o bidireccionales entre nodos.
 
 %% Del WP7_Scenarios: diagrama de nodos y explicacion de los nodos y la informacion intercambiada
-Figure \ref{fig:WP7scheme} shows the software architecture in WP7 from a task planning perspective, including the modules involved and their interfaces. High-level decision-making is carried out by two modules: the \textit{High-Level Planner} and the \textit{Agent Behavior Manager}. 
+Figure \ref{fig:NodeDiagram} shows the software architecture in WP7 from a task planning perspective, including the modules involved and their interfaces. High-level decision-making is carried out by two modules: the \textit{High-Level Planner} and the \textit{Agent Behavior Manager}. 
 
 \begin{figure}[ht]
     \hspace{-1cm}
@@ -93,13 +90,16 @@ Figure \ref{fig:WP7scheme} shows the software architecture in WP7 from a task pl
 		
 	    \end{tikzpicture}}
 	\caption{WP7 Software architecture: Modules and interfaces.}
-	\label{fig:WP7scheme}
+	\label{fig:NodeDiagram}
 \end{figure}
 
+% Esto se ha dicho más o menos en ch:DesignOfTheProposedSolution. Hay que aportar mas detalles respecto a ese párrafo y relacionarlos o borrar este
 The \textit{High-level Planner} is the centralized module of the software architecture and runs on a ground station. This module is in charge of task planning, i.e., it decides which tasks will be assigned to each \gls{ACW}. The system knows the available \glspl{ACW} thanks to the feedback provided by the Terabee~ \gls{RTPS}. At this stage, battery constraints and \gls{ACW} positions and capabilities are taken into consideration. Such information is supplied at a constant rate (to be defined). The number and type of available \glspl{ACW} can be specified before the mission starts via a configuration file. 
 
+% Esto se ha dicho más o menos en ch:DesignOfTheProposedSolution. Hay que aportar mas detalles respecto a ese párrafo y relacionarlos o borrar este
 The \textit{Agent Behavior Manager} is a distributed module running on board each \gls{ACW}. This module mainly runs a state machine implemented as a \gls{BT} which governs the \gls{ACW} to perform each of the assigned tasks. Each \gls{BT} monitors the \gls{ACW}'s battery and task status and reacts to any possible failure or unexpected event, requesting a new re-planning to the High-Level Planner in case of need. In addition, the \textit{ACW autopilot} and \textit{Human Tracker} nodes supply for the ACW state and human worker pose, respectively. This information is used for monitoring and tool delivery tasks.  
 
+% Esto y las tablas estaría bien meterlo de forma fluida mientras se explica el diagrama de nodos.
 The data interfaces for each module in the software architecture are listed in Table~\ref{tab:interfaces}, while the data explanation is provided in Table~\ref{tab:shareddata}.
 
 \begin{table}[ht]
@@ -174,8 +174,12 @@ The data interfaces for each module in the software architecture are listed in T
 %% Que ocurre cuando una tarea termina
 %% Replanificaciones de tareas: restricciones a la hora de planificar o replanificar
 
-%% Informe de actividades: Task Planner
+%% Informe de actividades: Task Planner (Esto se ha dicho ya más o menos. Borrar o modificar entrando en los detalles (pseudocódigos, etc))
 % Este nodo está pensado para que se ejecute de forma centralizada y se comunique con cada uno de los UAVs disponibles. Se encarga principalmente de organizar el reparto de tareas, pero también tiene otras labores secundarias como son realizar la escucha y seguimiento de las balizas que envían los UAVs a modo de latidos o “heartbeat”, subscribirse a la información necesaria de los sensores de cada uno de los UAVs, comprobar si la batería de cada UAV es suficiente para completar el plancompleto de tareas asignado y atender a la información que le envía el nodo “Agent” con información sobre el estado del BT.
+
+% Del WP7_Scenarios: Modificar parámetros de una tarea
+Once a task has been delivered to the High-Level Planner, in order to change any of its parameters, the Gesture Recognition node should send again the task, keeping the same Task ID and updating only the corresponding parameters. Thus, the High-Level Planner would overwrite it and allocate it again with the new parameters. In the following, a brief description on how to carry out each of the available tasks in the system. It is assumed that there are Low-Level Controllers running on the \glspl{ACW} to perform basic navigation actions, formation control for human worker monitoring, inspection operations, and physical interaction with the human worker (e.g., to pick or deliver a tool). These Low-Level Controllers operate in a known environment, represented by a map (i.e., an occupancy grid map) that also includes the position of obstacles and the power tower.
+
 
 \section{Distributed module: behavior manager}
 \label{sec:Distributed module: behavior manager}
