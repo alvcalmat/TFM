@@ -2,7 +2,10 @@
 \label{ch:DesignOfTheProposedSolution}
 \lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{his} section provides more details about the implementation of the solution to the problem: node diagram, pseudocode and inter-module communications. All the code is available online\footnote{Human aware collaboration planner source code: \url{https://github.com/grvcTeam/aerialcore_planning}}, and was developed under the Ubuntu 18.04 operating system and ROS Melodic.
 
-The solution proposed for the problem formulated in the previous section (see Sec. \ref{ch:ProblemFormulation}) follows a hierarchical approach, with a high-level planner in charge of activating different low-level controllers. The high-level planner detects the tasks required by the operators, and distributes them from the ground in a centralised way among the available \glspl{ACW}, planning the necessary reloads throughout the mission. In addition, this planner reacts in real time to possible failures by reassigning tasks. The low-level planners are on board each \gls{UAV} and are responsible for executing contingency plans for these failures while the central planner calculates and communicates the new plan. They will also be in charge of controlling the movement of the \glspl{ACW} to execute the different tasks assigned by the higher-level module (e.g. flying to a location to be inspected or to the position of an operator waiting for a tool). From now on, the low-level module on board each \gls{UAV} will be called the \emph{behaviour manager}, and the centralised module on the ground will be called the \emph{task planner}. Together, these modules have cognitive capabilities to interact with humans efficiently (\emph{No se si quitar esta última frase, este párrafo es adaptado del proyecto de tesis}).
+The solution proposed for the problem formulated in the previous section (see Sec. \ref{ch:ProblemFormulation}) follows a hierarchical approach, with a high-level planner in charge of activating different low-level controllers. The high-level planner detects the tasks required by the operators, and distributes them from the ground in a centralised way among the available \glspl{ACW}, planning the necessary reloads throughout the mission. In addition, this planner reacts in real time to possible failures by reassigning tasks. The low-level planners are on board each \gls{UAV} and are responsible for executing contingency plans for these failures while the central planner calculates and communicates the new plan. They will also be in charge of controlling the movement of the \glspl{ACW} to execute the different tasks assigned by the higher-level module (e.g. flying to a location to be inspected or to the position of an operator waiting for a tool). From now on, the low-level module on board each \gls{UAV} will be called the \emph{Agent Behaviour Manager}, and the centralised module on the ground will be called the \emph{High-Level Planner}. Together, these modules have cognitive capabilities to interact with humans efficiently. 
+
+% ATENTION
+(\emph{No se si quitar esta última frase, este párrafo es adaptado del proyecto de tesis})
 
 % Hasta ahora he explicado de qué módulos se compone la solución y que hacen pero no cómo lo hace.
 % En "sec:NodeDiagram" comenzaremos explicando el diagrama de nodos (con la fig:NodeDiagram por delante) y luego describiremos de forma general el proceso que siguen los módulos
@@ -10,29 +13,26 @@ The solution proposed for the problem formulated in the previous section (see Se
 
 \section{Node diagram}
 \label{sec:NodeDiagram}
-%%% Explicar las comunicaciones que hay entre el planner y el manager
-%%% Explicar que se ha hecho de forma que toda la inteligencia y las decisiones estén y se tomen en el planner
-
 %% Informe de actividades: Node Diagram
-% Desde la perspectiva del módulo implementado, la estructura de nodos se ve como está representado en la parte superior de la imagen. Se diferenciarían 3 conexiones distintas: la conexión con los módulos de nivel superior, la conexión con los controladores de bajo nivel, y la comunicación con los UAV. A su vez, el módulo marcado como n.2 se compone de dos partes, el planificador de tareas, que es un nodo centralizado, y que se encargará principalmente del reparto óptimo de tareas; y los nodos agente, de los cuales habrá una instancia por cada UAV y se ejecutarán sobre cada uno de ellos. La idea es que a través de la interfaz i.1, el n.2.1 reciba asíncronamente tareas provenientes de los módulos de mayor nivel, n.1. La información se propaga también de forma asíncrona hacia n.2.2 y los controladores de bajo nivel. Se consideran dos tareas posibles, “Monitor” e “Inspect”. Dependiendo de la tarea, a través de i.1, i.2 e i.3 viajarán unos datos u otros. Las flechas que conectan los nodos en el diagrama indican la direccionalidad de la comunicación, pudiendo haber comunicaciones unidireccionales o bidireccionales entre nodos.
-
-%% Del WP7_Scenarios: diagrama de nodos y explicacion de los nodos y la informacion intercambiada
-Figure \ref{fig:NodeDiagram} shows the software architecture in WP7 from a task planning perspective, including the modules involved and their interfaces. High-level decision-making is carried out by two modules: the \textit{High-Level Planner} and the \textit{Agent Behavior Manager}. 
+As stated in chapter \ref{ch:Introduction}, the developed task planner is part of a software architecture consisting of different layers, being the main cognitive block the central layer, the \emph{high-level cognitive task planner}. Figure \ref{fig:NodeDiagram} shows a schematic of the software architecture from the perspective of the module implemented in this project, including the nodes that form it and their interfaces. The part of the diagram painted in grey would be the complete software architecture, including from the high-level module in charge of analysing the gestures made by the operators to extract the tasks from them, to the low-level controllers in charge of executing those tasks. The software layer corresponding to this thesis, in charge of high-level decision-making, is marked in blue-green. It is composed of the \emph{High-Level Planner}, which is centralised and runs on a ground station, colored in orange; and the \emph{Agent Behaviour Manager}, distributed on board each \gls{ACW}, painted in lime.
 
 \begin{figure}[ht]
     \hspace{-1cm}
 	\scalebox{0.7}{
 		\begin{tikzpicture}
     		% WP7 block
-    		\node (WP7-Box) at (8.35,0) [fill=gray!3,rounded corners, draw=black!70, densely dotted, minimum height=5cm, minimum width=19.5cm]{}; 
+    		\node (WP7-Box) at (8.35,0) [fill=gray!15,rounded corners, draw=black!70, densely dotted, minimum height=5cm, minimum width=19.5cm]{}; 
+
+			% Task planner box
+    		\node (TaskPlannerBox) at ($(WP7-Box)+(0,0)$) [fill=teal!15,rounded corners, draw=black!70, densely dotted, minimum height=4.5cm, minimum width=14cm]{};
     		
     		% Gesture Recognition
     		\node (GestureRecognition) at (0,0) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=5.5em]{Gesture\\Recognition};
     		
     		\draw[-latex] ($(GestureRecognition) - (1.8,0)$) -- (GestureRecognition);
-    		
+ 
     		% High-Level Planner
-    		\node (HighLevelPlannerBox) at ($(GestureRecognition) + (3.5,0.25)$) [fill=yellow!15,rounded corners, draw=black!70, densely dotted, minimum height=2cm, minimum width=2.5cm]{}; 
+    		\node (HighLevelPlannerBox) at ($(GestureRecognition) + (3.5,0.25)$) [fill=orange!15,rounded corners, draw=black!70, densely dotted, minimum height=2cm, minimum width=2.5cm]{}; 
     		\node (HighLevelPlanner) at ($(HighLevelPlannerBox) + (0,-0.25)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=5.5em]{High-Level\\Planner};
     		\node (Centralized) at ($(HighLevelPlanner) + (0,0.75)$) [text centered]{\small Centralized};
     		
@@ -40,7 +40,7 @@ Figure \ref{fig:NodeDiagram} shows the software architecture in WP7 from a task 
     		
     		%%%%%%%%%%%%%%%%%%%
     		% UAV 1
-    		\node (UAV1) at ($(HighLevelPlanner) + (6.75,1.25)$) [fill=yellow!15,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
+    		\node (UAV1) at ($(HighLevelPlanner) + (6.75,1.25)$) [fill=lime!20,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
     		\node (AgentBehaviourManager1) at ($(UAV1) + (0,-0.25)$) [fill=white, draw, rectangle, text centered, text width=12em]{Agent Behaviour Manager};
     		\node (UAV1-Text) at ($(AgentBehaviourManager1) + (0,0.75)$) [text centered]{\small On board ACW-$1$};	
 
@@ -56,7 +56,7 @@ Figure \ref{fig:NodeDiagram} shows the software architecture in WP7 from a task 
     		%%%%%%%%%%%%%%%%%%%
     		
     		% UAV N
-    		\node (UAVN) at ($(HighLevelPlanner) + (6.75,-1.25)$) [fill=yellow!15,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
+    		\node (UAVN) at ($(HighLevelPlanner) + (6.75,-1.25)$) [fill=lime!20,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
     		\node (AgentBehaviourManagerN) at ($(UAVN) + (0,-0.25)$) [fill=white, draw, rectangle, text centered, text width=12em]{Agent Behaviour Manager};
     		\node (UAVN-Text) at ($(AgentBehaviourManagerN) + (0,0.75)$) [text centered]{\small On board ACW-$N$};	
 
@@ -89,15 +89,17 @@ Figure \ref{fig:NodeDiagram} shows the software architecture in WP7 from a task 
     		\draw[-latex] (Humans.north) -- node[left]{Pose} ($(WP7-Box.south) + (-2,0)$);
 		
 	    \end{tikzpicture}}
-	\caption{WP7 Software architecture: Modules and interfaces.}
+	\caption{Software architecture: nodes and interfaces. Node diagram from the high-level cognitive task planner perspective}
 	\label{fig:NodeDiagram}
 \end{figure}
 
-% Esto se ha dicho más o menos en ch:DesignOfTheProposedSolution. Hay que aportar mas detalles respecto a ese párrafo y relacionarlos o borrar este
-The \textit{High-level Planner} is the centralized module of the software architecture and runs on a ground station. This module is in charge of task planning, i.e., it decides which tasks will be assigned to each \gls{ACW}. The system knows the available \glspl{ACW} thanks to the feedback provided by the Terabee~ \gls{RTPS}. At this stage, battery constraints and \gls{ACW} positions and capabilities are taken into consideration. Such information is supplied at a constant rate (to be defined). The number and type of available \glspl{ACW} can be specified before the mission starts via a configuration file. 
+%% Explicar las comunicaciones que hay de todos con human tracker
+%% Explicar las comunicaciones que hay de todos con autopilot (bajo nivel normalmente)
+%% Explicar las comunicaciones que hay entre gesture y planner
+%% Explicar las comunicaciones que hay entre planner y manager
+%% Explicar las comunicaciones que hay entre manager y low-level
 
-% Esto se ha dicho más o menos en ch:DesignOfTheProposedSolution. Hay que aportar mas detalles respecto a ese párrafo y relacionarlos o borrar este
-The \textit{Agent Behavior Manager} is a distributed module running on board each \gls{ACW}. This module mainly runs a state machine implemented as a \gls{BT} which governs the \gls{ACW} to perform each of the assigned tasks. Each \gls{BT} monitors the \gls{ACW}'s battery and task status and reacts to any possible failure or unexpected event, requesting a new re-planning to the High-Level Planner in case of need. In addition, the \textit{ACW autopilot} and \textit{Human Tracker} nodes supply for the ACW state and human worker pose, respectively. This information is used for monitoring and tool delivery tasks.  
+% La idea es que a través de la interfaz i.1, el n.2.1 reciba asíncronamente tareas provenientes de los módulos de mayor nivel, n.1. La información se propaga también de forma asíncrona hacia n.2.2 y los controladores de bajo nivel. Se consideran dos tareas posibles, “Monitor” e “Inspect”. Dependiendo de la tarea, a través de i.1, i.2 e i.3 viajarán unos datos u otros. Las flechas que conectan los nodos en el diagrama indican la direccionalidad de la comunicación, pudiendo haber comunicaciones unidireccionales o bidireccionales entre nodos.
 
 % Esto y las tablas estaría bien meterlo de forma fluida mientras se explica el diagrama de nodos.
 The data interfaces for each module in the software architecture are listed in Table~\ref{tab:interfaces}, while the data explanation is provided in Table~\ref{tab:shareddata}.
@@ -167,7 +169,7 @@ The data interfaces for each module in the software architecture are listed in T
     \end{tabular}
 \end{table}
 
-\section{Centralized module: task planner}
+\section{Centralized module: High-Level Planner}
 \label{sec:Centralized module:TaskPlanner}
 %% Protocolo de desconexión
 %% Protocolo de pérdida de batería
@@ -177,11 +179,13 @@ The data interfaces for each module in the software architecture are listed in T
 %% Informe de actividades: Task Planner (Esto se ha dicho ya más o menos. Borrar o modificar entrando en los detalles (pseudocódigos, etc))
 % Este nodo está pensado para que se ejecute de forma centralizada y se comunique con cada uno de los UAVs disponibles. Se encarga principalmente de organizar el reparto de tareas, pero también tiene otras labores secundarias como son realizar la escucha y seguimiento de las balizas que envían los UAVs a modo de latidos o “heartbeat”, subscribirse a la información necesaria de los sensores de cada uno de los UAVs, comprobar si la batería de cada UAV es suficiente para completar el plancompleto de tareas asignado y atender a la información que le envía el nodo “Agent” con información sobre el estado del BT.
 
+The system knows the available \glspl{ACW} thanks to the feedback provided by the Terabee~ \gls{RTPS}. At this stage, battery constraints and \gls{ACW} positions and capabilities are taken into consideration. Such information is supplied at a constant rate (to be defined). The number and type of available \glspl{ACW} can be specified before the mission starts via a configuration file. 
+
 % Del WP7_Scenarios: Modificar parámetros de una tarea
 Once a task has been delivered to the High-Level Planner, in order to change any of its parameters, the Gesture Recognition node should send again the task, keeping the same Task ID and updating only the corresponding parameters. Thus, the High-Level Planner would overwrite it and allocate it again with the new parameters. In the following, a brief description on how to carry out each of the available tasks in the system. It is assumed that there are Low-Level Controllers running on the \glspl{ACW} to perform basic navigation actions, formation control for human worker monitoring, inspection operations, and physical interaction with the human worker (e.g., to pick or deliver a tool). These Low-Level Controllers operate in a known environment, represented by a map (i.e., an occupancy grid map) that also includes the position of obstacles and the power tower.
 
 
-\section{Distributed module: behavior manager}
+\section{Distributed module: Agent Behavior Manager}
 \label{sec:Distributed module: behavior manager}
 %%% Explicar que se ha hecho con árboles de comportamiento en paralelo a algunos procesos de ros
 
@@ -190,6 +194,8 @@ Once a task has been delivered to the High-Level Planner, in order to change any
 
 % Informe de actividades: Nodo Agent
 % El nodo “Agent” se ejecuta sobre cada UAV, siendo su función principal la de ejecutar el árbol de comportamiento. En el código que implementa este nodo se encuentran definidos todos los nodos del BT, el código interno de cada uno de ellos. Además, este nodo se encarga de subscribirse a la información necesaria de los UAV, de mandar las balizas para comunicar al nodo “Planner” que se ha conectado, o que sigue conectado, de recibir balizas a su vez de este nodo para saber de esta forma cuándo él mismo se ha desconectado, de recibir la lista de tareas que asigna el nodo “Planner” al UAV sobre el cual se está ejecutando este nodo, y de llamar a los controladores de bajo nivel.
+
+This module mainly runs a state machine implemented as a \gls{BT} which governs the \gls{ACW} to perform each of the assigned tasks. Each \gls{BT} monitors the \gls{ACW}'s battery and task status and reacts to any possible failure or unexpected event, requesting a new re-planning to the High-Level Planner in case of need. In addition, the \textit{ACW autopilot} and \textit{Human Tracker} nodes supply for the ACW state and human worker pose, respectively. This information is used for monitoring and tool delivery tasks.  
 
 %% Informe de actividades: Diseño del árbol de comportamiento
 % Diseñar el árbol de comportamiento no fue una labor trivial, ya que se estaba habituado a diseñar pensando en máquinas de estado, pero no pensando en árboles de comportamiento. Además, para cada comportamiento deseado no hay una única implementación posible, lo que hace más complicado el diseño cuando no se tiene la intuición suficiente para saber qué forma es mejor. Para tratar de ganar experiencia con la que desarrollar cierta intuición y los conocimientos necesarios para elaborar desde cero un BT, se dedicó un tiempo a reunir y estudiar toda la información posible sobre los árboles de comportamiento que se encontrara por Internet [5][6][7]. Esto fue posible gracias a que los BT sí que son algo más común en el desarrollo de videojuegos [7]. El diseño del BT no ha permanecido invariante desde que se hizo, sino que ha sufrido modificaciones puntuales fruto de reuniones y revisiones del trabajo. Estas modificaciones principalmente buscaban solucionar algún problema detectado ya fuera en algún re-estudio teórico o tras la observación de algún comportamiento indeseado en pruebas de simulación. Antes mostrar y proceder con la explicación del funcionamiento del diseño de BT propuesto, se comentarán brevemente los tipos de nodos disponibles en la librería seleccionada y el funcionamiento de cada uno de ellos.
@@ -241,6 +247,7 @@ Once a task has been delivered to the High-Level Planner, in order to change any
     \caption{Different types of nodes that can be present in an \gls{BT}}
     \label{fig:CounterRunImagenes}
 \end{figure}
+
 % El nodo tipo \ref{subfig:Fallback} es un nodo de control de decisión, en inglés llamado “Fallback”. Su comportamiento es el de llamar uno a uno a cada uno de sus hijos, de izquierda a derecha, hasta que uno devuelve “SUCCESS”, devolviendo él también “SUCCESS”, o devolviendo “FAILURE” en caso de que todos sus hijos devuelvan “FAILURE”. El nodo \ref{subfig:Sequence} es un node de control del tipo secuencia. Cuando un hijo devuelve “SUCCESS”, llama al siguiente. En caso de que algunodevuelva “FAILURE”, la secuencia se para y el nodo devuelve también “FAILURE”. Si todos lo hijos se han ejecutado y han devuelto “SUCCESS”, el nodo también devuelve “SUCCESS”. Si el nodo es del color de \ref{subfig:Reactive}, significa que es un nodo reactivo, lo que significa que, aunque un hijo esté ejecutándose, se re-evalúan los hijos previos. El color \ref{subfig:Common} es para los nodos normales. Si un hijo devuelve “RUNNING”, se le vuelve a llamar en la ejecución siguiente. En azul se representan los nodos sin hijos, que pueden ser del tipo \ref{subfig:Condition}, que es un nodo para comprobar una condición, o del tipo \ref{subfig:Action}, que ejecuta una acción. Por último, en color \ref{subfig:Decorator} se representan los nodos decoradores, cuyo comportamiento dentro del BT es programable.
 
 %% Del WP7_Scenarios
