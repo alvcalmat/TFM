@@ -2,7 +2,7 @@
 \label{ch:DesignOfTheProposedSolution}
 \lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{his} section provides more details about the implementation of the solution to the problem: node diagram, pseudocode and inter-module communications. All the code is available online\footnote{Human aware collaboration planner source code: \url{https://github.com/grvcTeam/aerialcore_planning}}, and was developed under the Ubuntu 18.04 operating system and ROS Melodic.
 
-The solution proposed for the problem formulated in the previous section (see Sec. \ref{ch:ProblemFormulation}) follows a hierarchical approach, with a high-level planner in charge of activating different low-level controllers. The high-level planner detects the tasks required by the operators, and distributes them from the ground in a centralised way among the available \glspl{ACW}, planning the necessary reloads throughout the mission. In addition, this planner reacts in real time to possible failures by reassigning tasks. The low-level planners are on board each \gls{UAV} and are responsible for executing contingency plans for these failures while the central planner calculates and communicates the new plan. They will also be in charge of controlling the movement of the \glspl{ACW} to execute the different tasks assigned by the higher-level module (e.g. flying to a location to be inspected or to the position of an operator waiting for a tool). From now on, the low-level module on board each \gls{UAV} will be called the \emph{Agent Behaviour Manager}, and the centralised module on the ground will be called the \emph{High-Level Planner}. Together, these modules have cognitive capabilities to interact with humans efficiently. 
+The solution proposed for the problem formulated in the previous section (see section \ref{ch:ProblemFormulation}) follows a hierarchical approach, with a high-level planner in charge of activating different low-level controllers. The high-level planner detects the tasks required by the operators, and distributes them from the ground in a centralised way among the available \glspl{ACW}, planning the necessary reloads throughout the mission. In addition, this planner reacts in real time to possible failures by reassigning tasks. The low-level planners are on board each \gls{UAV} and are responsible for executing contingency plans for these failures while the central planner calculates and communicates the new plan. They will also be in charge of controlling the movement of the \glspl{ACW} to execute the different tasks assigned by the higher-level module (e.g. flying to a location to be inspected or to the position of an operator waiting for a tool). From now on, the low-level module on board each \gls{UAV} will be called the \emph{Agent Behaviour Manager}, and the centralised module on the ground will be called the \emph{High-Level Planner}. Together, these modules have cognitive capabilities to interact with humans efficiently. 
 
 % ATENTION
 (\emph{No se si quitar esta última frase, este párrafo es adaptado del proyecto de tesis})
@@ -14,7 +14,7 @@ The solution proposed for the problem formulated in the previous section (see Se
 \section{Node diagram}
 \label{sec:NodeDiagram}
 %% Informe de actividades: Node Diagram
-As stated in chapter \ref{ch:Introduction}, the developed task planner is part of a software architecture consisting of different layers, being the main cognitive block the central layer, the \emph{high-level cognitive task planner}. Figure \ref{fig:NodeDiagram} shows a schematic of the software architecture from the perspective of the module implemented in this project, including the nodes that form it and their interfaces. The part of the diagram painted in grey would be the complete software architecture, including from the high-level module in charge of analysing the gestures made by the operators to extract the tasks from them, to the low-level controllers in charge of executing those tasks. The software layer corresponding to this thesis, in charge of high-level decision-making, is marked in blue-green. It is composed of the \emph{High-Level Planner}, which is centralised and runs on a ground station, colored in orange; and the \emph{Agent Behaviour Manager}, distributed on board each \gls{ACW}, painted in lime.
+As stated in chapter \ref{ch:Introduction}, the developed task planner is part of a software architecture consisting of different layers, being the main cognitive block the central layer, the \emph{high-level cognitive task planner}. Figure \ref{fig:NodeDiagram} shows a schematic of the software architecture from the perspective of the module implemented in this project, including the nodes that form it and their interfaces. The part of the diagram painted in grey would be the complete software architecture, including from the high-level module in charge of analyzing the gestures made by the operators to extract the tasks from them; to the low-level controllers in charge of executing those tasks. The software layer corresponding to this thesis, in charge of high-level decision-making, is marked in blue-green. It is composed of the \emph{High-Level Planner}, which is centralised and runs on a ground station, colored in orange; and the \emph{Agent Behaviour Manager}, distributed on board each \gls{ACW}, painted in lime.
 
 \begin{figure}[ht]
     \hspace{-1cm}
@@ -93,20 +93,12 @@ As stated in chapter \ref{ch:Introduction}, the developed task planner is part o
 	\label{fig:NodeDiagram}
 \end{figure}
 
-%% Explicar las comunicaciones que hay de todos con human tracker
-%% Explicar las comunicaciones que hay de todos con autopilot (bajo nivel normalmente)
-%% Explicar las comunicaciones que hay entre gesture y planner
-%% Explicar las comunicaciones que hay entre planner y manager
-%% Explicar las comunicaciones que hay entre manager y low-level
+In the software architecture scheme, although some communications are bidirectional, it can be seen that there is a main flow of information. Starting with the information arriving at the node \emph{Gesture Recognition}, this propagates to the last layer, where the \emph{Lower-Level Controllers} use the already processed information to command the \glspl{ACW}. The table \ref{tab:interfaces} shows the type of data that each of the nodes in the figure \ref{fig:NodeDiagram} receives as input and the type of data that each of them emits as output. Additionally, table \ref{tab:shareddata} explains what each one of the data mentioned in the previous table consists of.
 
-% La idea es que a través de la interfaz i.1, el n.2.1 reciba asíncronamente tareas provenientes de los módulos de mayor nivel, n.1. La información se propaga también de forma asíncrona hacia n.2.2 y los controladores de bajo nivel. Se consideran dos tareas posibles, “Monitor” e “Inspect”. Dependiendo de la tarea, a través de i.1, i.2 e i.3 viajarán unos datos u otros. Las flechas que conectan los nodos en el diagrama indican la direccionalidad de la comunicación, pudiendo haber comunicaciones unidireccionales o bidireccionales entre nodos.
-
-% Esto y las tablas estaría bien meterlo de forma fluida mientras se explica el diagrama de nodos.
-The data interfaces for each module in the software architecture are listed in Table~\ref{tab:interfaces}, while the data explanation is provided in Table~\ref{tab:shareddata}.
-
+% Description of the data interfaces for each software module
 \begin{table}[ht]
     \centering
-    \caption{Description of the data interfaces for each software module.}
+    \caption{Description of the data interfaces for each software module}
     \label{tab:interfaces}
     \small
     \begin{tabular}{|p{0.25\columnwidth}|p{0.25\columnwidth}|p{0.4\columnwidth}|}
@@ -114,9 +106,9 @@ The data interfaces for each module in the software architecture are listed in T
       \multicolumn{1}{|c}{\textbf{Module Name}} & \multicolumn{1}{|c|}{\textbf{Input Data}} & \multicolumn{1}{c|}{\textbf{Output Data}}\\ \hline \hline
       Gesture Recognition & Images & \textbf{Task, defined by:} Task ID, Task Type, Monitoring Distance, Monitoring Number, WP List, Tool ID (some task parameters will be ignored depending on Task Type) \\ \hline
       
-      High-Level Planner & Task, Feedback (Agent Beacon, BatteryEnough, \gls{BT} info), Humans' Pose, \glspl{ACW}' Pose, Battery and State & Task List adding to each one its extra parameters result of the planning (Formation and/or List of \glspl{ACW}' IDs) \\\hline
+      High-Level Planner & Task, Feedback (Task Result, BatteryEnough, \gls{BT} info), Humans' Pose, \glspl{ACW}' Pose, Battery and State, and Agent Beacon & Task List adding to each one its extra parameters result of the planning (Formation and/or List of \glspl{ACW}' IDs) and Planner Beacon \\\hline
       
-      Agent Behaviour Manager & Task List, Result (Low-Level Result), Human Pose, \glspl{ACW} Pose, Battery and State & Params needed by Low-Level Controllers (depending on Task Type) \\ \hline
+      Agent Behaviour Manager & Task List, Low-Level's Result, Human Pose, \glspl{ACW} Pose, Battery and State & Params needed by Low-Level Controllers (depending on Task Type), Feedback (Task Result, BatteryEnough, \gls{BT} info) and Agent Beacon \\ \hline
       
       Low-Level Controllers & Params (depending on Task Type) & Result \\ \hline
       
@@ -126,10 +118,11 @@ The data interfaces for each module in the software architecture are listed in T
       
     \end{tabular}
 \end{table}
-  
+
+% Description of data types
 \begin{table}[htb]
     \centering
-    \caption{Description of data types.}
+    \caption{Description of data types}
     \label{tab:shareddata}
     \small
     \begin{tabular}{|p{0.2\columnwidth}|p{0.15\columnwidth}|p{0.55\columnwidth}|}
@@ -154,20 +147,34 @@ The data interfaces for each module in the software architecture are listed in T
       
       Tool ID & String & Unique identifier of the tool to be delivered \\ \hline
       
-      \gls{ACW} Pose & geometry\_msgs /PoseStamped & \gls{ACW} Position and orientation \\ \hline
+      \gls{ACW}'s Pose & geometry\_msgs /PoseStamped & \gls{ACW}'s Position and orientation \\ \hline
       
-      \gls{ACW} Battery & sensors\_msgs /BatteryState & Percentage of battery in the \gls{ACW}\\ \hline
+      \gls{ACW}'s Battery & sensors\_msgs /BatteryState & Percentage of battery in the \gls{ACW} \\ \hline
+
+	  Task Result & String, Boolean & First one is the task unique \gls{ID} and second one its result once it's finished \\ \hline
       
       Battery Enough & Boolean & Result of computing if an \gls{ACW} will have enough battery for its current task \\ \hline
+
+	  \gls{BT} info & String list & Status of each \gls{BT}'s node in its last execution (Running, IDLE, SUCCESS or FAILURE) \\ \hline
       
-      Agent Beacon & String, Integer & \gls{ACW} unique ID and integer defining the type of \gls{ACW} (Safety, Inspect, or Physical Interaction). Used as heartbeat to detect new \glspl{ACW} \\ \hline
+      Agent Beacon & String, String & First one is the \gls{ACW}'s unique ID while the second one defines \gls{ACW}'s type (SafetyACW, InspectACW, or PhysicalACW). It is used as heartbeat and to detect new \glspl{ACW} in Planner \\ \hline
+
+	  Planner Beacon & Time & ROS::Time message containing the time when the beacon was sended. It is used to check the status of the connection from Agent's side. \\ \hline
       
-      \gls{BT} info & String list & Status of each \gls{BT} node: which are Running, which are IDLE, which just returned SUCCESS, and which just returned FAILURE \\ \hline
-      
-      Lower-Level Result & Boolean & Result of the Low-Level Controllers after a call \\ \hline
+      Lower-Level's Result & Boolean & Result of the Lower-Level Controllers once they have finished after being called \\ \hline
       
     \end{tabular}
 \end{table}
+
+The first node is constantly checking the images captured by the \glspl{UAV} for a gesture that is indicating a new task or the modification of an existing task. When this occurs, it asynchronously emits a task, which will be picked up by the centralised planner. As shown in the table \ref{tab:interfaces}, this communication includes the unique \gls{ID} that differentiates this task from the others, the type of task and the parameters that define it.
+
+On the other hand, the \emph{High-Level Planner}, when it receives this information, proceeds to re-evaluate the optimal plan taking into account the task received, the information it receives from the \emph{\glspl{ACW}' autopilot}, and the position of the operators, which is periodically published by the \emph{Human Tracker}. The aforementioned data set constitutes the input data for the \emph{High-Level Planner} together with the feedback coming from each \emph{Agent Behaviour Manager}. Its output data being a list of tasks for each gls{ACW}.
+
+On board each \gls{ACW} is the \emph{Agent Behaviour Manager}. This node is in charge of collecting the corresponding task list provided by the centralised planner. With this input information and the information coming from the \emph{Human Tracker} and the \emph{\gls{ACW}'s autopilot}, this module is in charge of calling the \emph{Lower-Level Controllers} to carry out the execution of the assigned plan. The information emitted by the \emph{\gls{ACW}'s autopilot} is also used to check that everything is working correctly and to execute the security protocols in case they are necessary. If this happens, the corresponding communication would be issued back to the \emph{High-Level Planner} node in order to calculate a new plan. This node also receives the \emph{Lower-Level Controllers}' result after calling each of them, and publish back to the \emph{High-Level Planner} some feedback.
+
+In addition to these communications, the nodes \emph{High-Level Planner} and \emph{Agent Behaviour Manager} periodically exchange beacons that are used to detect both the connection of a new \gls{ACW} and its disconnection in case of failure. Finally, there is an asynchronous communication that is broadcast to all nodes indicating the end of the mission when this happens.
+
+Finally, it is worth mentioning that the \emph{Gesture Recognition} node does not have a communication aimed at modifying parameters of a task already contemplated within the \emph{High-Level Planner}. However, this is possible because tasks have a unique identifier. Once a task has been delivered to the \emph{High-Level Planner}, in order to change any of its parameters, the \emph{Gesture Recognition} node just has to submit the task again, keeping the same task \gls{ID} and updating only the desired parameters. Thus, the \emph{High-Level Planner} would overwrite it and allocate it again with the new parameters.
 
 \section{Centralized module: High-Level Planner}
 \label{sec:Centralized module:TaskPlanner}
@@ -177,12 +184,23 @@ The data interfaces for each module in the software architecture are listed in T
 %% Replanificaciones de tareas: restricciones a la hora de planificar o replanificar
 
 %% Informe de actividades: Task Planner (Esto se ha dicho ya más o menos. Borrar o modificar entrando en los detalles (pseudocódigos, etc))
-% Este nodo está pensado para que se ejecute de forma centralizada y se comunique con cada uno de los UAVs disponibles. Se encarga principalmente de organizar el reparto de tareas, pero también tiene otras labores secundarias como son realizar la escucha y seguimiento de las balizas que envían los UAVs a modo de latidos o “heartbeat”, subscribirse a la información necesaria de los sensores de cada uno de los UAVs, comprobar si la batería de cada UAV es suficiente para completar el plancompleto de tareas asignado y atender a la información que le envía el nodo “Agent” con información sobre el estado del BT.
+% Como se ha dicho antes, el \emph{High-Level Planner} es un módulo centralizado que se ejecuta en una estación en tierra y constituye el bloque cognitivo principal de la arquitectura de software de la que esta proyecto forma parte. Su misión es planificar la misión de forma óptima, es decir, repartir las tareas pendientes entre los \glspl{ACW} disponibles especificando el orden en que se ejecutan y teniendo en cuenta el tiempo que se tarda en completar cada una, el tipo de cada \gls{UAV}, la distancia que tendrá que recorrer cada uno, la batería de la que disponen, la tarea que estaba ejecutando cada uno, la prioridad de cada tarea, la batería que consume cada tarea, las recargas que se necesitarán y en qué momento es mejor realizar las recargas.
 
-The system knows the available \glspl{ACW} thanks to the feedback provided by the Terabee~ \gls{RTPS}. At this stage, battery constraints and \gls{ACW} positions and capabilities are taken into consideration. Such information is supplied at a constant rate (to be defined). The number and type of available \glspl{ACW} can be specified before the mission starts via a configuration file. 
+%% Explicación y Pseudocódigo general de como se inicializa el nodo planner, el bucle while(ros::ok) y como se cirra cuando mission_over. Incluir escucha a imprevistos.
+%% Decir que todo funciona con callbacks y explicarlos. (batteryEnoughCB, taskResultCB, positionCallback, batteryCallback)(incomingTask, beaconCallback, missionOverCallback)
+%% Enlazar lo de los callback con el párrafo de abajo y luego explicar los pseudocódigos de los Callback que se crean convenientes.
+%% La información se gestiona principalmente mediante mapas y listas.
 
-% Del WP7_Scenarios: Modificar parámetros de una tarea
-Once a task has been delivered to the High-Level Planner, in order to change any of its parameters, the Gesture Recognition node should send again the task, keeping the same Task ID and updating only the corresponding parameters. Thus, the High-Level Planner would overwrite it and allocate it again with the new parameters. In the following, a brief description on how to carry out each of the available tasks in the system. It is assumed that there are Low-Level Controllers running on the \glspl{ACW} to perform basic navigation actions, formation control for human worker monitoring, inspection operations, and physical interaction with the human worker (e.g., to pick or deliver a tool). These Low-Level Controllers operate in a known environment, represented by a map (i.e., an occupancy grid map) that also includes the position of obstacles and the power tower.
+% Dado que el entorno donde operan los \glspl{UAv} es dinámico, este módulo ha sido programado de forma que pueda reaccionar ante algún imprevisto y recalcular el plan óptimo. Las situaciones en las que se ha considerado necesaria una replanificación están listadas en la sección \ref{sec:TaskReplanningSituations}. Las comunicaciones resumidas en las tablas \ref{tab:interfaces} y \ref{tab:shareddata} y en la figura \ref{fig:NodeDiagram} son suficientes para detectar estos imprevistos y poder responder a ellos de la mejor forma posible.
+
+%% Explicar el psudocógigo genérico de cómo se reacciona ante un imprevisto (en el psudo, cuando se diga "Sucede un imprevisto", listar los eventos que desencadenan los imprevistos listados en el 3.4)
+
+%% Explicar los pseudocódigos de los Callback que se crean convenientes:
+%% Llegada de balizas y la reacción (pseudocódigo)
+
+%% Explicar como se realiza la planificación y poner psudocódigo de cómo se lleva a cabo
+
+%% Cerrar la sección diciendo que una vez que se ha planificado, el planner envía las nuevas colas de tareas a los módulos distribuidos y luego vuelve a realizar la espera en el bucle while hasta que se vuelve a producir algún nuevo imprevisto y uno de los callback vuelva a ejecutar una replanificación.
 
 
 \section{Distributed module: Agent Behavior Manager}
@@ -359,6 +377,9 @@ Each Agent Behavior Manager implements several interconnected \gls{BT}. The \emp
 %% Del WP7_Scenarios: subtrees
 Figures \ref{fig:MonitorTree}, \ref{fig:InspectTree} and \ref{fig:DeliverToolTree} represent the sub-trees that run Safety, Inspection, and Physical tasks, respectively. They all guide the \gls{ACW} close to where the tasks needs to be performed (e.g., close to a worker to monitor or a place to inspect) and then, the corresponding Lower-Level Controller is called. These Lower-Level Controllers run on board the corresponding \gls{ACW}s and must communicate their results (success or failure) asynchronously back to the Agent Behavior Manager, so that the Behaviour Tree could continue running.
 
+%% Del WP7. Parrafo de unión con la descripción de las tareas. Habrá que reescribirlo porque no me gusta pero vale de inspiración.
+In the following, a brief description on how to carry out each of the available tasks in the system. It is assumed that there are Low-Level Controllers running on the \glspl{ACW} to perform basic navigation actions, formation control for human worker monitoring, inspection operations, and physical interaction with the human worker (e.g., to pick or deliver a tool). These Low-Level Controllers operate in a known environment, represented by a map (i.e., an occupancy grid map) that also includes the position of obstacles and the power tower.
+
 %% Informe de actividades: seguridad, emergencias y concentración de la inteligencia
 % Destacar que este árbol de comportamiento no se encarga de realizar el reparto y la planificación de tareas a largo plazo como tal, sino que este se ejecuta sobre cada UAV y se encarga de llevar a cabo la ejecución del plan que se le ha asignado. Este BT es además el responsable de detectar, comunicar y actuar ante cualquier situación inesperada como un pronto agotamiento de la batería o una desconexión. A su vez, este submódulo se encarga de comunicar al planificador todos los detalles y los eventos que vayan sucediendo para que este decida si es necesario re-planificar toda la misión o no. El objetivo de este BT es conseguir que en los UAVs no haya toma de decisiones como tal, sino que toda la inteligencia se encuentre centralizada y que todos los comportamientos y decisiones que un UAV pueda llegar a tomar estén contenidas y precalculadas dentro de la estructura del propio BT, que está diseñado de forma que asegure el buen funcionamiento y la seguridad del equipo ante cualquier circunstancia.
 
@@ -369,7 +390,6 @@ Figures \ref{fig:MonitorTree}, \ref{fig:InspectTree} and \ref{fig:DeliverToolTre
 \label{sec:InspectionTaskTree}
 % Del WP7_Scenarios
 \textbf{High-Level Planner inputs}: Task ID, Task Type and Waypoint List (the rest will be ignored).
-
 \textbf{Description}: the High-Level Planner, from the list of waypoints, will decide how many \glspl{ACW} are required and which part of the waypoint list is assigned to each one. Then, it would send to each corresponding Agent Behavior Manager the task parameters, including a list with the IDs of the selected~ glspl{ACW}. The same information is forwarded to the Lower-Level Controllers when the BT calls them (see Fig.~\ref{fig:InspectTree}). Basically, the list of waypoints to be inspected are covered by the assigned \glspl{ACW}, stopping at each of them to take images.  
 
 \begin{figure}[ht]
@@ -401,7 +421,6 @@ Figures \ref{fig:MonitorTree}, \ref{fig:InspectTree} and \ref{fig:DeliverToolTre
 \label{sec:MonitoringTaskTree}
 % Del WP7_Scenarios
 \textbf{High-Level Planner inputs}: Task ID, Task Type, Human Target ID, Monitoring Distance, and Monitoring Number (the rest will be ignored).
-
 \textbf{Description}: the High-Level Planner will assign this task to as many Safety-ACWs as specified Monitoring Number. The formation will be chosen by the High-Level Planner from a set of fixed formations (to be listed) depending on the number of \gls{ACW}. Each selected \gls{ACW} will know a list with the IDs of the \glspl{ACW} selected for the task and the formation that they must take. As shown in Fig. \ref{fig:MonitorTree}, each Agent Behaviour Manager would individually navigate each \gls{ACW} near the human target and then, it would call the corresponding Lower-Level Controller for formation control. Extra \glspl{ACW} could even be added to the formation at any time, just updating the task parameters sending a new task from Gesture Recognition.
 
 \begin{figure}[ht]
@@ -433,7 +452,6 @@ Figures \ref{fig:MonitorTree}, \ref{fig:InspectTree} and \ref{fig:DeliverToolTre
 \label{sec:ToolDeliveryTaskTree}
 % Del WP7_Scenarios
 \textbf{High-Level Planner inputs}: Task ID, Task Type, Human Target ID and Tool ID (the rest will be ignored).
-
 \textbf{Description}: After task allocation, the High-Level Planner will send the information to the corresponding Agent Behavior Manager and from there, the Lower-Level Controllers will be called sequentially as shown in Fig. \ref{fig:DeliverToolTree}. Basically, the \gls{ACW} needs to navigate to the station where the tool is, pick it up, navigate back to where the worker is, and start physical interaction to deliver the tool. 
 
 \begin{figure}[ht]
