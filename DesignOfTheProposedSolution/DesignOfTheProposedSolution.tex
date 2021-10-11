@@ -183,22 +183,89 @@ Finally, it is worth mentioning that the \emph{Gesture Recognition} node does no
 %% Que ocurre cuando una tarea termina
 %% Replanificaciones de tareas: restricciones a la hora de planificar o replanificar
 
-%% Informe de actividades: Task Planner (Esto se ha dicho ya más o menos. Borrar o modificar entrando en los detalles (pseudocódigos, etc))
-% Como se ha dicho antes, el \emph{High-Level Planner} es un módulo centralizado que se ejecuta en una estación en tierra y constituye el bloque cognitivo principal de la arquitectura de software de la que esta proyecto forma parte. Su misión es planificar la misión de forma óptima, es decir, repartir las tareas pendientes entre los \glspl{ACW} disponibles especificando el orden en que se ejecutan y teniendo en cuenta el tiempo que se tarda en completar cada una, el tipo de cada \gls{UAV}, la distancia que tendrá que recorrer cada uno, la batería de la que disponen, la tarea que estaba ejecutando cada uno, la prioridad de cada tarea, la batería que consume cada tarea, las recargas que se necesitarán y en qué momento es mejor realizar las recargas.
+As mentioned above, the \emph{High-Level Planner} is a centralised module running on a ground station and constitutes the main cognitive block of the software architecture of which this project is a part. Its purpose is to plan the mission in an optimal way, i.e., to distribute the pending tasks among the available \glspl{ACW} by specifying the order in which they are executed and taking into account the time it takes to complete each one, the type of each \glspl{UAV}, the distance each one will have to travel, the battery they have available, the task each one was executing, the priority of each task, the battery consumed by each task, the recharges that will be needed and when it is best to carry out the recharges.
 
-%% Explicación y Pseudocódigo general de como se inicializa el nodo planner, el bucle while(ros::ok) y como se cirra cuando mission_over. Incluir escucha a imprevistos.
+%% Explicación y Pseudocódigo general de como se inicializa el nodo planner, el bucle while(ros::ok) y como se cierra cuando mission_over. Incluir escucha a imprevistos.
+The general pseudocode for this node from launch to termination is contained in the code \ref{ps:GeneralPlanner}.
+
+\begin{lstlisting}[caption={General operation of \emph{High-Level Planner}'s code}, breaklines=true, label=ps:GeneralPlanner]
+	1. Read from a ros::param the address of the configuration file.
+	2. Read from the configuration file all necessary information.
+	3. Configure \gls{ROS} communications (Publishers, Subscribers and ActionServers).
+	4. Set the loop rate.
+	5. Main "while" loop. While ros::ok() and not mission over do:
+		5.1. Check the timeout of the Agents' beacons.
+		5.2. Publish a new Planner beacon.
+		5.3. Check for pending incoming communications (ros::spinOnce).
+		5.4. Sleep the remaining time to send the next beacon.
+	6. Wait until all \glspl{UAV} have finished and disconnected. While there is any agent connected do:
+		6.1. Check the timeout of the Agents' beacons.
+		6.2. Check for pending incoming communications (ros::spinOnce).
+		6.3. Sleep for a while.
+\end{lstlisting}
+
 %% Decir que todo funciona con callbacks y explicarlos. (batteryEnoughCB, taskResultCB, positionCallback, batteryCallback)(incomingTask, beaconCallback, missionOverCallback)
-%% Enlazar lo de los callback con el párrafo de abajo y luego explicar los pseudocódigos de los Callback que se crean convenientes.
-%% La información se gestiona principalmente mediante mapas y listas.
+Since the environment in which the \glspl{UAV} operates is dynamic, this module has been programmed in such a way that it can react to unforeseen events and recalculate the optimal plan. As can be deduced from the \ref{ps:GeneralPlanner} pseudocode, everything works through callback functions. Every time a communication arrives from another node, a response is triggered on that node. The information contained in the message is analyzed and it is decided whether a replanning is necessary or not. The situations in which a replanning has been deemed necessary are listed in section \ref{sec:TaskReplanningSituations}. The communications summarized in the tables \ref{tab:interfaces} and \ref{tab:shareddata} and in the figure \ref{fig:NodeDiagram} are sufficient to detect these unforeseen events and to be able to respond to them in the best possible way.
 
-% Dado que el entorno donde operan los \glspl{UAv} es dinámico, este módulo ha sido programado de forma que pueda reaccionar ante algún imprevisto y recalcular el plan óptimo. Las situaciones en las que se ha considerado necesaria una replanificación están listadas en la sección \ref{sec:TaskReplanningSituations}. Las comunicaciones resumidas en las tablas \ref{tab:interfaces} y \ref{tab:shareddata} y en la figura \ref{fig:NodeDiagram} son suficientes para detectar estos imprevistos y poder responder a ellos de la mejor forma posible.
+\begin{lstlisting}[caption={Task callback pseudocode}, breaklines=true, label=ps:IncomingTask]
+	1. Check if the task already exists and delete it in order to create it with the new parameters.
+	2. Read the type of task and the parameters that apply to it.
+	3. Add the new task to the pending task list.
+	4. Perform a task planning.
+\end{lstlisting}
 
-%% Explicar el psudocógigo genérico de cómo se reacciona ante un imprevisto (en el psudo, cuando se diga "Sucede un imprevisto", listar los eventos que desencadenan los imprevistos listados en el 3.4)
+Firstly, there is the callback that is executed when the node \emph{Gesture Recognition} sends a task, which always ends up calling the function in charge of calculating the optimal plan (see code \ref{ps: IncomingTask}); the mission over callback, whose only action is to change the value of a variable so that the node exits the main while loop; and finally the agent's beacon callback, which is executed every time a \gls{UAV} beacon is received and whose pseudocode is the code \ref{ps:AgentBeaconCallback}.
 
-%% Explicar los pseudocódigos de los Callback que se crean convenientes:
-%% Llegada de balizas y la reacción (pseudocódigo)
+\begin{lstlisting}[caption={Agent's beacon callback}, breaklines=true, label=ps:AgentBeaconCallback]
+	1. Read the information contained in the beacon.
+	2. If it is a connection of a new UAV:
+		2.1. Register it in the database.
+		2.2. Perform a task planning.
+	3. Else, if it is the heartbeat of an already known UAV:
+		3.1. Reset the timeout timer.
+\end{lstlisting}
 
-%% Explicar como se realiza la planificación y poner psudocódigo de cómo se lleva a cabo
+The action carried out by the agent's beacon callback varies depending on whether it is the beacon of a new \gls{UAV} or the heartbeat of a known \gls{UAV}. For each agent there will be an object in the database that will contain another series of callbacks that will be in charge of receiving the messages coming from the \glspl{ACW} and respond accordingly.
+
+\begin{lstlisting}[caption={Callback that runs when an \emph{Agent Behaviour Manager} sends battery feedback}, breaklines=true, label=ps:batteryEnoughCB]
+	1. Update the value of the internal flag associated with the battery.
+	2. Perform a task planning.
+\end{lstlisting}
+
+The \emph{Agent Behaviour Manager} node only sends communications messages indicating the battery status when it is due to an unplanned event. This event can be either an early battery depletion or a faster than expected recharge. In both cases, the callback function whose pseudocode is the code \ref{ps:batteryEnoughCB} consequently updates the value of an internal variable used during planning, and recalculates the optimal plan.
+
+The other possible communication coming from a node of type \emph{Agent Behaviour Manager} with the ability to trigger a reaction in the planner is due to the termination of a task. When a task finishes successfully, it is simply removed from the list of pending tasks. In addition, this moment is used to re-evaluate the optimal plan. It is expected that the mission is still within the optimal plan, so in that case the planning result should be the same as the plan that was already being executed. If, on the other hand, conditions have changed since the last planning and a better plan now exists, it is at this point that the plan is updated. On the other hand, if the task ends with a failure, the callback action will depend on the causes of the failure (note that the interruption of a task will result in a failure). If the interruption is due to the \gls{UAV} battery, it may be planned, in which case no action is required, or it may be unexpected, in which case the corresponding actions are taken by the battery callback. Once it has been verified that the task has not finished due to the battery, a check is made to see if the task was at the beginning of the queue. If so, a failure has indeed occurred, so the operators are warned, the task is removed from the list and a replanning is executed. Otherwise the task in question would have been moved from the top of the queue due to a change of plans and therefore no action would have to be taken either. The pseudocode corresponding to what has just been explained is in code \ref{ps:taskResultCB}.
+
+\begin{lstlisting}[caption={Callback that runs when an \emph{Agent Behaviour Manager} sends a task result}, breaklines=true, label=ps:taskResultCB]
+	1. Read the information contained in the task result.
+	2. If the task result is SUCCESS:
+		2.1. Delete it from the pending tasks list.
+		2.2. Perform a task planning.
+	3. Else, if the task result is FAILURE:
+		3.1. If the task has been halted because of not having battery enough:
+			3.1.1. Return.
+		3.2. Else, if the task is on the front of that \gls{ACW}'s task queue:
+			3.2.1. Notify operators that a task has failed and is going to be deleted.
+			3.2.2. Delete task from the pending tasks list.
+			3.2.3. Perform a task allocation.
+		3.3. Else:
+			3.3.1. Return.
+\end{lstlisting}
+
+The other two communications received by the \emph{High-Level Planner} from the \glspl{ACW} are sensor readings corresponding to the \glspl{UAV}' position and battery percentage. In both cases the only action of the corresponding callback is to update the information with the new values.
+
+%% Explicar como se realiza la planificación y poner psudocódigo de cómo se lleva a cabo. Explicar también como se calcula el coste.
+% Cuando uno de estos callbacks considera necesario realizar una nueva planificación de tareas, el código que 
+\begin{lstlisting}[caption={Task planning function's pseudocode}, breaklines=true, label=ps:performTaskAllocation]
+	1. 
+\end{lstlisting}
+
+% Pseudocódigo de checkBeaconsTimeout
+\begin{lstlisting}[caption={}, breaklines=true, label=ps:]
+	1. 
+\end{lstlisting}
+
+
 
 %% Cerrar la sección diciendo que una vez que se ha planificado, el planner envía las nuevas colas de tareas a los módulos distribuidos y luego vuelve a realizar la espera en el bucle while hasta que se vuelve a producir algún nuevo imprevisto y uno de los callback vuelva a ejecutar una replanificación.
 

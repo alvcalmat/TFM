@@ -4,5 +4,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {lstlisting}{\numberline {4.1}General operation of \emph {High-Level Planner}'s code}{20}{lstlisting.4.1}
+\contentsline {lstlisting}{\numberline {4.2}Task callback pseudocode}{20}{lstlisting.4.2}
+\contentsline {lstlisting}{\numberline {4.3}Agent's beacon callback}{21}{lstlisting.4.3}
+\contentsline {lstlisting}{\numberline {4.4}Callback that runs when an \emph {Agent Behaviour Manager} sends battery feedback}{21}{lstlisting.4.4}
+\contentsline {lstlisting}{\numberline {4.5}Callback that runs when an \emph {Agent Behaviour Manager} sends a task result}{21}{lstlisting.4.5}
+\contentsline {lstlisting}{\numberline {4.6}Task planning function's pseudocode}{22}{lstlisting.4.6}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
