@@ -191,14 +191,14 @@ The general pseudocode for this node from launch to termination is contained in 
 \begin{lstlisting}[caption={General operation of \emph{High-Level Planner}'s code}, breaklines=true, label=ps:GeneralPlanner]
 	1. Read from a ros::param the address of the configuration file.
 	2. Read from the configuration file all necessary information.
-	3. Configure \gls{ROS} communications (Publishers, Subscribers and ActionServers).
+	3. Configure ROS communications (Publishers, Subscribers and ActionServers).
 	4. Set the loop rate.
 	5. Main "while" loop. While ros::ok() and not mission over do:
 		5.1. Check the timeout of the Agents' beacons.
 		5.2. Publish a new Planner beacon.
 		5.3. Check for pending incoming communications (ros::spinOnce).
 		5.4. Sleep the remaining time to send the next beacon.
-	6. Wait until all \glspl{UAV} have finished and disconnected. While there is any agent connected do:
+	6. Wait until all UAVs have finished and disconnected. While there is any agent connected do:
 		6.1. Check the timeout of the Agents' beacons.
 		6.2. Check for pending incoming communications (ros::spinOnce).
 		6.3. Sleep for a while.
@@ -214,7 +214,7 @@ Since the environment in which the \glspl{UAV} operates is dynamic, this module 
 	4. Perform a task planning.
 \end{lstlisting}
 
-Firstly, there is the callback that is executed when the node \emph{Gesture Recognition} sends a task, which always ends up calling the function in charge of calculating the optimal plan (see code \ref{ps: IncomingTask}); the mission over callback, whose only action is to change the value of a variable so that the node exits the main while loop; and finally the agent's beacon callback, which is executed every time a \gls{UAV} beacon is received and whose pseudocode is the code \ref{ps:AgentBeaconCallback}.
+Firstly, there is the callback that is executed when the node \emph{Gesture Recognition} sends a task, which always ends up calling the function in charge of calculating the optimal plan (see code \ref{ps:IncomingTask}); the mission over callback, whose only action is to change the value of a variable so that the node exits the main while loop; and finally the agent's beacon callback, which is executed every time a \gls{UAV} beacon is received and whose pseudocode is the code \ref{ps:AgentBeaconCallback}.
 
 \begin{lstlisting}[caption={Agent's beacon callback}, breaklines=true, label=ps:AgentBeaconCallback]
 	1. Read the information contained in the beacon.
@@ -244,28 +244,71 @@ The other possible communication coming from a node of type \emph{Agent Behaviou
 	3. Else, if the task result is FAILURE:
 		3.1. If the task has been halted because of not having battery enough:
 			3.1.1. Return.
-		3.2. Else, if the task is on the front of that \gls{ACW}'s task queue:
+		3.2. Else, if the task is on the front of that ACW's task queue:
 			3.2.1. Notify operators that a task has failed and is going to be deleted.
 			3.2.2. Delete task from the pending tasks list.
-			3.2.3. Perform a task allocation.
+			3.2.3. Perform a task planning.
 		3.3. Else:
 			3.3.1. Return.
 \end{lstlisting}
 
 The other two communications received by the \emph{High-Level Planner} from the \glspl{ACW} are sensor readings corresponding to the \glspl{UAV}' position and battery percentage. In both cases the only action of the corresponding callback is to update the information with the new values.
 
-%% Explicar como se realiza la planificación y poner psudocódigo de cómo se lleva a cabo. Explicar también como se calcula el coste.
-% Cuando uno de estos callbacks considera necesario realizar una nueva planificación de tareas, el código que 
-\begin{lstlisting}[caption={Task planning function's pseudocode}, breaklines=true, label=ps:performTaskAllocation]
-	1. 
-\end{lstlisting}
+The last function that remains to be explained of those that can potentially request a replanning of the mission is the one in charge of checking the timeout of the agents' beacons. As shown in the code \ref{ps:GeneralPlanner}, this function is not a callback like the previous ones, instead it is executed periodically in the main while loop. Its operation is shown in the code \ref{ps:checkBeaconsTimeout}. Simply, for each agent connected, it checks that the timeout amount of time has not elapsed since its last beacon was received. If a timeout has occurred, that \gls{ACW} is considered disconnected and is removed from the centralised node data. If, after checking all the agents, the number of connected \glspl{UAV} has decreased, i.e. if any of the previously connected \glspl{UAV} has disconnected, a mission replanning is executed.
 
 % Pseudocódigo de checkBeaconsTimeout
-\begin{lstlisting}[caption={}, breaklines=true, label=ps:]
-	1. 
+\begin{lstlisting}[caption={Beacons' timeout check function}, breaklines=true, label=ps:checkBeaconsTimeout]
+	1. For each agent connected:
+		1.1. If the elapsed time since the last beacon is grater than the timeout time:
+			1.1.1. Add that agent's ID to the list of disconnected agents.
+	2. While the list of disconnected agents is not empty:
+		2.1. Take first ID from the list.
+		2.2. Erase from the node's data all information related to that ID.
+	3. If any agent has been disconnected:
+		3.1. Perform a task planning.
 \end{lstlisting}
 
+%% Explicar como se realiza la planificación y poner psudocódigo de cómo se lleva a cabo. Explicar también como se calcula el coste.
+% El pseudocódigo que se ejecuta cuando una de estas funciones considera necesario realizar una nueva planificación de tareas está resumido en el código \ref{ps:performTaskAllocation}. Es importante recordar que hay tareas más prioritarias que otras y eso depende únicamente del tipo de la tarea. Por simplificar el proceso, se ha decidido asignar las tareas por orden de llegada asumiendo que entre dos tareas del mismo tipo será más urgente y por tanto, se le dará más prioridad, a aquella que llegó primero. Por eso, cuando se recibe una nueva tarea, se almacena tanto en en \emph{std::map} que contiene todas las tareas pendientes para facilitar el acceso a la información, como en el \emph{std::vector} de su tipo de tarea, donde se mantiene el orden de llegada. Lo que permite esta simplificación es asignar las tareas de una en una. Al tener un lista de tareas ordenadas por prioridad y asumir que ninguna tareas se puede asignar antes que otra con mayor prioridad, se reduce el problema de la planificación de la misión a calcular individualmente el coste de cada tarea para cada UAV con la capacidad de ejecutarla y asignarla al que le suponga un menor coste. Para las tareas de tipo monitorización, la selección del número de agentes requerido se realiza estrictamente según el coste. Se selecciónan los n agentes a los que les cueste menos ejecutar la tarea. Esto mismo es un poco más complejo para las tareas de tipo inspeccionar, donde el número de agentes a seleccionar es un parámetro a definir por el propio planificador. 
 
+% Explicar como se calcula el nº de agentes a seleccionar en Inspection Task. Dar detalles.
+% Explicar como se calcula el coste.
+
+
+\begin{lstlisting}[caption={Simplified task planning function's pseudocode}, breaklines=true, label=ps:performTaskAllocation]
+	1. If there is any agent connected:
+		1.1. For each agent connected:
+			1.1.1. Make a copy of the current task queue.
+			1.1.2. Empty the task queue.
+		1.2. For each Tool Delivery task:
+			1.2.1. Compute the cost of the task for each PhysicalACW that has battery enough.
+			1.2.2. Assign the task to the agent for who the task cost the least (from those who has battery enough).
+			1.2.3. Add the task to that agent's task queue.
+		1.3. For each Inspection task:
+			1.3.1. Extract from the task parameters the list of WP to inspect.
+			1.3.2. For each ACW(any type) tha has battery enough:
+				1.3.2.1. Compute the cost of the task for that ACW. 
+				1.3.2.2. Check if that ACW is still idle.
+			1.3.3. Calculate the number of agents to select for the task based on the number of WP and the number of idle agents.
+			1.3.4. If no agent has battery enough, continue.
+			1.3.5. Else, if the number of agents to select is equal to zero, assign the task to the agent that cost the least.
+			1.3.6. Else, select the calculated number of agents for whom the task costs the least.
+			1.3.7. Divide the WP to inspect among the selected agents.
+			1.3.8. For each selected agent:
+				1.3.8.1. Set the remaining task parameters (List of selected ACWs' IDs and divided WP list).
+				1.3.8.2. Add the task to the agent's task queue.
+		1.4. For each Monitoring task:
+			1.4.1. Compute the cost of the task for each ACW (any type) that has battery enough.
+			1.4.2. If required number of ACWs for the task is zero:
+				1.4.2.1. Warn operators that this parameter can not be zero.
+				1.4.2.2. Delete task from pending tasks.
+			1.4.3. Else, select the requested number of agents for whom the task costs the least.
+			1.4.4. Set the remaining task parameter (List of selected ACWs' IDs)
+			1.4.4. Add the task to each selected agent's task queue.
+		1.5. For each ACW connected, send the new task queue to its Agent Behavior Manager.
+	2. Else:
+		2.1. Warn operators that any agent is connected.
+\end{lstlisting}
 
 %% Cerrar la sección diciendo que una vez que se ha planificado, el planner envía las nuevas colas de tareas a los módulos distribuidos y luego vuelve a realizar la espera en el bucle while hasta que se vuelve a producir algún nuevo imprevisto y uno de los callback vuelva a ejecutar una replanificación.
 
