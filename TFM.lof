@@ -13,18 +13,18 @@
 \contentsline {figure}{\numberline {\relax 3.4}{\ignorespaces \textit {Physical-ACW} carrying out a tool delivery task\relax }}{14}{figure.caption.18}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {\relax 4.1}{\ignorespaces Software architecture: nodes and interfaces. Node diagram from the high-level cognitive task planner perspective\relax }}{18}{figure.caption.19}
-\contentsline {figure}{\numberline {\relax 4.2}{\ignorespaces Different types of nodes that can be present in an \gls {BT}\relax }}{24}{figure.caption.22}
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{24}{subfigure.2.1}
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{24}{subfigure.2.2}
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{24}{subfigure.2.3}
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{24}{subfigure.2.4}
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{24}{subfigure.2.5}
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{24}{subfigure.2.6}
-\contentsline {subfigure}{\numberline {(g)}{\ignorespaces {}}}{24}{subfigure.2.7}
-\contentsline {figure}{\numberline {\relax 4.3}{\ignorespaces Behavior Tree: Main tree\relax }}{25}{figure.caption.23}
-\contentsline {figure}{\numberline {\relax 4.4}{\ignorespaces Behavior Tree: Perform Task Tree\relax }}{26}{figure.caption.24}
-\contentsline {figure}{\numberline {\relax 4.5}{\ignorespaces Behavior Tree: sub-tree that controls the inspect tasks\relax }}{27}{figure.caption.25}
-\contentsline {figure}{\numberline {\relax 4.6}{\ignorespaces Behavior Tree: sub-tree that controls the safety monitoring tasks\relax }}{27}{figure.caption.26}
-\contentsline {figure}{\numberline {\relax 4.7}{\ignorespaces Behavior Tree: sub-tree that controls the tool delivery tasks\relax }}{28}{figure.caption.27}
+\contentsline {figure}{\numberline {\relax 4.2}{\ignorespaces Different types of nodes that can be present in an \gls {BT}\relax }}{25}{figure.caption.22}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {}}}{25}{subfigure.2.1}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {}}}{25}{subfigure.2.2}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {}}}{25}{subfigure.2.3}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {}}}{25}{subfigure.2.4}
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {}}}{25}{subfigure.2.5}
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {}}}{25}{subfigure.2.6}
+\contentsline {subfigure}{\numberline {(g)}{\ignorespaces {}}}{25}{subfigure.2.7}
+\contentsline {figure}{\numberline {\relax 4.3}{\ignorespaces Behavior Tree: Main tree\relax }}{26}{figure.caption.23}
+\contentsline {figure}{\numberline {\relax 4.4}{\ignorespaces Behavior Tree: Perform Task Tree\relax }}{27}{figure.caption.24}
+\contentsline {figure}{\numberline {\relax 4.5}{\ignorespaces Behavior Tree: sub-tree that controls the inspect tasks\relax }}{28}{figure.caption.25}
+\contentsline {figure}{\numberline {\relax 4.6}{\ignorespaces Behavior Tree: sub-tree that controls the safety monitoring tasks\relax }}{28}{figure.caption.26}
+\contentsline {figure}{\numberline {\relax 4.7}{\ignorespaces Behavior Tree: sub-tree that controls the tool delivery tasks\relax }}{29}{figure.caption.27}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
