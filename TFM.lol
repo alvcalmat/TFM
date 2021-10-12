@@ -10,6 +10,6 @@
 \contentsline {lstlisting}{\numberline {4.4}Callback that runs when an \emph {Agent Behaviour Manager} sends battery feedback}{21}{lstlisting.4.4}
 \contentsline {lstlisting}{\numberline {4.5}Callback that runs when an \emph {Agent Behaviour Manager} sends a task result}{21}{lstlisting.4.5}
 \contentsline {lstlisting}{\numberline {4.6}Beacons' timeout check function}{22}{lstlisting.4.6}
-\contentsline {lstlisting}{\numberline {4.7}Simplified task planning function's pseudocode}{22}{lstlisting.4.7}
+\contentsline {lstlisting}{\numberline {4.7}Simplified task planning function's pseudocode}{23}{lstlisting.4.7}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

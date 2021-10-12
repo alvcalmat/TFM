@@ -29,12 +29,12 @@
 \contentsline {chapter}{\numberline {4}Design of the proposed solution}{17}{chapter.4}
 \contentsline {section}{\numberline {4.1}Node diagram}{17}{section.4.1}
 \contentsline {section}{\numberline {4.2}Centralized module: High-Level Planner}{20}{section.4.2}
-\contentsline {section}{\numberline {4.3}Distributed module: Agent Behavior Manager}{23}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Main tree}{24}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Inspection task tree}{25}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Monitoring task tree}{25}{subsection.4.3.3}
-\contentsline {subsection}{\numberline {4.3.4}Tool delivery task tree}{26}{subsection.4.3.4}
-\contentsline {section}{\numberline {4.4}Lower and upper level modules faker}{26}{section.4.4}
+\contentsline {section}{\numberline {4.3}Distributed module: Agent Behavior Manager}{24}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Main tree}{25}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Inspection task tree}{26}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Monitoring task tree}{26}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Tool delivery task tree}{27}{subsection.4.3.4}
+\contentsline {section}{\numberline {4.4}Lower and upper level modules faker}{27}{section.4.4}
 \contentsline {chapter}{\numberline {5}Results}{29}{chapter.5}
 \contentsline {section}{\numberline {5.1}Task planning}{29}{section.5.1}
 \contentsline {subsection}{\numberline {5.1.1}Battery}{29}{subsection.5.1.1}
