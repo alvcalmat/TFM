@@ -7,10 +7,6 @@ The solution proposed for the problem formulated in the previous section (see se
 %%%%%% ATENTION %%%%%%%%%%%%%
 % (\emph{No se si quitar esta última frase, este párrafo es adaptado del proyecto de tesis})
 
-% Hasta ahora he explicado de qué módulos se compone la solución y que hacen pero no cómo lo hace.
-% En "sec:NodeDiagram" comenzaremos explicando el diagrama de nodos (con la fig:NodeDiagram por delante) y luego describiremos de forma general el proceso que siguen los módulos
-% En "sec:Centralized module:TaskPlanner" y "sec:Distributed module: behavior manager" se explicará cómo hacen lo que hacen 
-
 \section{Node diagram}
 \label{sec:NodeDiagram}
 %% Informe de actividades: Node Diagram
@@ -178,11 +174,6 @@ Finally, it is worth mentioning that the \emph{Gesture Recognition} node does no
 
 \section{Centralized module: High-Level Planner}
 \label{sec:Centralized module:TaskPlanner}
-%% Protocolo de desconexión
-%% Protocolo de pérdida de batería
-%% Que ocurre cuando una tarea termina
-%% Replanificaciones de tareas: restricciones a la hora de planificar o replanificar
-
 As mentioned above, the \emph{High-Level Planner} is a centralised module running on a ground station and constitutes the main cognitive block of the software architecture of which this project is a part. Its purpose is to plan the mission in an optimal way, i.e., to distribute the pending tasks among the available \glspl{ACW} by specifying the order in which they are executed and taking into account the time it takes to complete each one, the type of each \glspl{UAV}, the distance each one will have to travel, the battery they have available, the task each one was executing, the priority of each task, the battery consumed by each task, the recharges that will be needed and when it is best to carry out the recharges.
 
 %% Explicación y Pseudocódigo general de como se inicializa el nodo planner, el bucle while(ros::ok) y como se cierra cuando mission_over. Incluir escucha a imprevistos.
@@ -340,12 +331,12 @@ The general structure of this node is quite similar to that of the central node.
 %% Explicar lo que es un árbol de comportamiento y compararlo con una máquina de estados.
 The \glspl{BT} are who governs the \glspl{ACW} to perform each of the assigned tasks. Each \gls{BT} monitors its \gls{ACW}'s battery and task status and reacts to any possible failure or unexpected event, requesting a new re-planning to the \emph{High-Level Planner} in case of need. BT can be defined as an improved \gls{FSM}. They are a more advanced mechanism to implement behaviors, especially because of their advantages in terms of scalability, modularity, readability and reusability, facilitating the creation of more complex behaviours with less effort.
 
-%% Informe de actividades: Diseño del árbol de comportamiento.
+%% Diseño del árbol de comportamiento.
 Despite this, the process of designing a state machine is nothing like the process of designing a behaviour tree. Designing behaviour trees without ever having done it before is not a trivial task. Moreover, there will be more than one valid implementation to achieve the same behaviour, which makes it more complicated to design this type of solution when you do not yet have enough intuition to know which one is better. Taking advantage of the fact that the use of \gls{BT} is widespread in the videogame industry, information about them was gathered and studied to try to develop enough knowledge and intuition to design from scratch a \gls{BT} that meets the needs of the mission. The examples found in \cite{BT-CPP-doc, colledanchise2018behavior, BT-AI} were very useful.
 
 Before proceeding with the explanation of the designed BT, the types of nodes that can be found in the selected C++ library and the functioning of each of them will be briefly discussed.
 
-%% Informe de actividades: Tipos de nodos de BT
+%% Tipos de nodos de BT
 \begin{figure}[htbp]
     \centering
     \subfloat[]{%Fallback
@@ -393,19 +384,20 @@ Before proceeding with the explanation of the designed BT, the types of nodes th
     \label{fig:CounterRunImagenes}
 \end{figure}
 
-%% Del WP7_Scenarios: Funcionamientos de los BT (va con la imagen anterior)
  Behaviour Trees are made up of \emph{Control} nodes, \emph{Decorator} nodes, and \emph{Leaf} nodes. \emph{Control} nodes could be either \emph{Fallback} nodes, represented with a question mark (see subfigure \ref{subfig:Fallback}), which try success calling one by one each of their children; or \emph{Sequence} nodes, represented with an arrow (see subfigure \ref{subfig:Sequence}), which call their children in order if the previous one have succeded. \emph{Fallback} nodes return \emph{SUCCESS} if one of its children does it, \emph{FAILURE} if none of them return \emph{SUCCESS}, and \emph{RUNNING} if one of its children returns \emph{RUNNING}. On the other hand, \emph{Sequence} nodes return \emph{SUCCESS} when all children have been called in order and have returned \emph{SUCCESS}. If any of them returns \emph{FAILURE}, the sequence is broken and the \emph{Sequence} node returns \emph{FAILURE} too. When a child returns \emph{RUNNING}, \emph{Sequence} node does it too. \emph{Control} nodes are represented in a black rectangular box when they are the standard ones (see subfigure \ref{subfig:Common}), but they could also be \emph{Reactive} control nodes, represented by a magenta box (see subfigure \ref{subfig:Reactive}), which means that its already called children will be called again in the next iteration. This is very useful for generating behaviours where an action is constantly reattempted, or where it is necessary to check that the necessary conditions are still met. A \emph{Child} node could be another \emph{Control} node, a \emph{Decorator} node, a \emph{Leaf} node or a whole sub-tree. A \emph{Decorator} node, represented in an orange box (see subfigure \ref{subfig:Decorator}), can only have one child (of any type) and its function is programmable (e.g., modifying its child result or retrying calling its child a number of times). \emph{Leaf} nodes, represented in blue, could be \emph{Condition} nodes, represented in a blue elliptical shaped box (see subfigure \ref{subfig:Condition}), that check a condition and return either \emph{SUCCESS} or \emph{FAILURE}; or \emph{Action} nodes, represented in a blue rectangular box (see subfigure \ref{subfig:Action}), that execute code that take longer to execute and therefore these nodes could also return \emph{RUNNING}.
 
 \subsection{Main tree}
 \label{sec:MainTree}
-%%% Recalcar que se ha hecho de forma que toda la inteligencia y las decisiones estén y se tomen en el planner
-%% Callbacks: newTaskList, positionCallback, batteryCallback, stateCallback, missionOverCallback, beaconCallback. Solo actualizan el valor de variables internas.
-%% checkBeaconTimeout comprueba si ha habido timeout o no, vacía la cola si sí y actualiza el valor del flag interno.
-% isBatteryEnough comprueba si hay batería suficiente para terminar la tarea actual, vacía la cola si no la hay y actualiza el valor del flag interno.
-% El diseño tanto del árbol de comportamiento como del noddo \emph{Agent Behavior Manager} en general se ha hecho con la intencion de concentrar la mínima inteliegencia necesaria en él que asegure el éxito de la misión y la seguridad del equipo y los trabajadores. 
-% Decisiones (solo la de la batería, el resto en planner)
-% Replanificaciones.
-% Que hacen los callbacks
+The design of both the behaviour tree and the \emph{Agent Behaviour Manager} node in general has been made with the aim of concentrating the minimum necessary intelligence in it to ensure the success of the mission and the safety of the equipment and the workers. That is why the only task of the callback functions that are executed when different messages come in is to update the value of the corresponding internal variable. 
+
+Not all intelligence and decision-making can be placed in the ground station node. There must be some decision-making capability on board \glspl{UAV} in case the connection to the central node is lost. That is why there is a predefined protocol to act when this happens or when the battery runs out of power earlier than expected. These two factors are periodically checked in the main while loop (see code \ref{ps:GeneralAgent}). In the case of the battery, if the function in charge determines that there is not enough battery to complete the current task, what happens is that the task queue is emptied and the value of the internal flag associated with the battery is updated. In addition, the event is communicated to the task planner in case the connection is still alive to generate a new plan. Similarly, if a connection loss is detected, the task queue is emptied and the corresponding flag is updated. In this case the \emph{High-Level Planner} node will execute a replanning when it also detects the connection loss.
+
+The behaviour tree is designed in such a way that, when the task queue is emptied and the respective flags are updated, the corresponding \gls{UAV} goes to the battery charging station, which is the established emergency protocol. In order to justify this decision, each of the cases will be analysed separately below.
+
+% En caso de que la conexión entre ambos nodos siga activa pero no se tenga batería suficiente, el objetivo del plan de emergencia es eliminar riesgos sobre el UAV mientras el \emph{High-Level Planner} genera instrucciones nuevas. Además, es probable que el nuevo plan involucre como primer paso recargar la batería. Por otro lado, existe la posibilidad de que en este momento se pierda la conexión.
+
+% El peligro de la pérdida de conexión es que el \emph{High-Level Planner} replanificará la misión sin contar con el ACW desconectado, por lo que las tareas antes asignadas a él serán ejecutadas ahora por otros. Si en este escenario el ACW desconectado sigue con el último plan asignado, se podrían producir colisiones por ejemplo. El protocolo de emergencia asegura que el UAV desconectado no interfiera en los nuevos planes. Además, de esta forma se aprovecha el tiempo que transcurra hasta que la conexión se reestablezca recargando la batería, lo cual es positivo para la misión.
+
 
 %%% Hablar aqui dentro de como se gestionan las desconexiones, la batería y las replanificaciones
 %% Protocolo de desconexión

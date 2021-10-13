@@ -6,3 +6,8 @@
 *.ilg
 *.ind
 *.gz
+*.glo
+*.lof
+*.toc
+*.glg
+*.gls
