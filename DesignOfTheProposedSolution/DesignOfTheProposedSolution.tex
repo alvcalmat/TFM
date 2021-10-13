@@ -394,14 +394,10 @@ Not all intelligence and decision-making can be placed in the ground station nod
 
 The behaviour tree is designed in such a way that, when the task queue is emptied and the respective flags are updated, the corresponding \gls{UAV} goes to the battery charging station, which is the established emergency protocol. In order to justify this decision, each of the cases will be analysed separately below.
 
-% En caso de que la conexión entre ambos nodos siga activa pero no se tenga batería suficiente, el objetivo del plan de emergencia es eliminar riesgos sobre el UAV mientras el \emph{High-Level Planner} genera instrucciones nuevas. Además, es probable que el nuevo plan involucre como primer paso recargar la batería. Por otro lado, existe la posibilidad de que en este momento se pierda la conexión.
+In case the connection between the two nodes is still active but there is not enough battery power, the aim of the contingency plan is to eliminate risks to the \gls{UAV} while the \emph{High-Level Planner} generates new instructions. In addition, the new plan is likely to involve recharging the battery as a first step. On the other hand, there is a possibility that the connection may be lost at this point.
 
-% El peligro de la pérdida de conexión es que el \emph{High-Level Planner} replanificará la misión sin contar con el ACW desconectado, por lo que las tareas antes asignadas a él serán ejecutadas ahora por otros. Si en este escenario el ACW desconectado sigue con el último plan asignado, se podrían producir colisiones por ejemplo. El protocolo de emergencia asegura que el UAV desconectado no interfiera en los nuevos planes. Además, de esta forma se aprovecha el tiempo que transcurra hasta que la conexión se reestablezca recargando la batería, lo cual es positivo para la misión.
+The danger of connection loss is that the \emph{High-Level Planner} will replan the mission without the disconnected \gls{ACW}, so that the tasks previously assigned to it will now be executed by others. If in this scenario the disconnected \gls{ACW} continues with the last assigned plan, collisions could occur, for example. The emergency protocol ensures that the disconnected \gls{UAV} does not interfere with the new plans. In addition, the time until the connection is re-established is used by recharging the battery, which is positive for the mission.
 
-
-%%% Hablar aqui dentro de como se gestionan las desconexiones, la batería y las replanificaciones
-%% Protocolo de desconexión
-%% Protocolo de pérdida de batería
 %% Que ocurre cuando una tarea termina
 
 %% Del WP7_Scenarios: main tree
