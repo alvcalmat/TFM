@@ -399,6 +399,14 @@ Before proceeding with the explanation of the designed BT, the types of nodes th
 \subsection{Main tree}
 \label{sec:MainTree}
 %%% Recalcar que se ha hecho de forma que toda la inteligencia y las decisiones estén y se tomen en el planner
+%% Callbacks: newTaskList, positionCallback, batteryCallback, stateCallback, missionOverCallback, beaconCallback. Solo actualizan el valor de variables internas.
+%% checkBeaconTimeout comprueba si ha habido timeout o no, vacía la cola si sí y actualiza el valor del flag interno.
+% isBatteryEnough comprueba si hay batería suficiente para terminar la tarea actual, vacía la cola si no la hay y actualiza el valor del flag interno.
+% El diseño tanto del árbol de comportamiento como del noddo \emph{Agent Behavior Manager} en general se ha hecho con la intencion de concentrar la mínima inteliegencia necesaria en él que asegure el éxito de la misión y la seguridad del equipo y los trabajadores. 
+% Decisiones (solo la de la batería, el resto en planner)
+% Replanificaciones.
+% Que hacen los callbacks
+
 %%% Hablar aqui dentro de como se gestionan las desconexiones, la batería y las replanificaciones
 %% Protocolo de desconexión
 %% Protocolo de pérdida de batería
@@ -507,6 +515,9 @@ In the following, a brief description on how to carry out each of the available 
 %% Informe de actividades: seguridad, emergencias y concentración de la inteligencia
 % Destacar que este árbol de comportamiento no se encarga de realizar el reparto y la planificación de tareas a largo plazo como tal, sino que este se ejecuta sobre cada UAV y se encarga de llevar a cabo la ejecución del plan que se le ha asignado. Este BT es además el responsable de detectar, comunicar y actuar ante cualquier situación inesperada como un pronto agotamiento de la batería o una desconexión. A su vez, este submódulo se encarga de comunicar al planificador todos los detalles y los eventos que vayan sucediendo para que este decida si es necesario re-planificar toda la misión o no. El objetivo de este BT es conseguir que en los UAVs no haya toma de decisiones como tal, sino que toda la inteligencia se encuentre centralizada y que todos los comportamientos y decisiones que un UAV pueda llegar a tomar estén contenidas y precalculadas dentro de la estructura del propio BT, que está diseñado de forma que asegure el buen funcionamiento y la seguridad del equipo ante cualquier circunstancia.
 
+
+
+
 % Information exchanges 
 % Information interfaces/channels
 % Takeovers
@@ -541,6 +552,9 @@ In the following, a brief description on how to carry out each of the available 
 	\end{center}
 \end{figure}
 
+
+
+
 \subsection{Monitoring task tree}
 \label{sec:MonitoringTaskTree}
 % Del WP7_Scenarios
@@ -571,6 +585,9 @@ In the following, a brief description on how to carry out each of the available 
 	\end{center}
 	\vspace{-1em}
 \end{figure}
+
+
+
 
 \subsection{Tool delivery task tree}
 \label{sec:ToolDeliveryTaskTree}
@@ -643,6 +660,9 @@ In the following, a brief description on how to carry out each of the available 
 		\label{fig:DeliverToolTree}
 	\end{center}
 \end{figure}
+
+
+
 
 \section{Lower and upper level modules faker}
 \label{sec:LowerAndUpperLevelModulesFaker}
