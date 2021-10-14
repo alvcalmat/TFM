@@ -500,13 +500,7 @@ The \emph{Perform Task Tree} checks which is the first task in the queue, which 
 %% Del WP7_Scenarios: subtrees
 In figures \ref{fig:MonitorTree}, \ref{fig:InspectTree} and \ref{fig:DeliverToolTree} are depicted the sub-trees that run Safety, Inspection, and Physical tasks, respectively. They all guide the \gls{ACW} close enough to where the low-level controllers need to be called (e.g., close to a worker to monitor or a place to inspect) and then, control is given to the corresponding one. These low-level controllers run on board the corresponding \gls{ACW}s and must communicate their results (success or failure) asynchronously back to the \emph{Agent Behavior Manager}, so that the \gls{BT} could continue running.
 
-%% Del WP7. Parrafo de unión con la descripción de las tareas. Habrá que reescribirlo porque no me gusta pero vale de inspiración.
-In the following, a brief description on how to carry out each of the available tasks in the system. It is assumed that there are Low-Level Controllers running on the \glspl{ACW} to perform basic navigation actions, formation control for human worker monitoring, inspection operations, and physical interaction with the human worker (e.g., to pick or deliver a tool). These Low-Level Controllers operate in a known environment, represented by a map (i.e., an occupancy grid map) that also includes the position of obstacles and the power tower.
-
-%% Informe de actividades: seguridad, emergencias y concentración de la inteligencia
-% Destacar que este árbol de comportamiento no se encarga de realizar el reparto y la planificación de tareas a largo plazo como tal, sino que este se ejecuta sobre cada UAV y se encarga de llevar a cabo la ejecución del plan que se le ha asignado. Este BT es además el responsable de detectar, comunicar y actuar ante cualquier situación inesperada como un pronto agotamiento de la batería o una desconexión. A su vez, este submódulo se encarga de comunicar al planificador todos los detalles y los eventos que vayan sucediendo para que este decida si es necesario re-planificar toda la misión o no. El objetivo de este BT es conseguir que en los UAVs no haya toma de decisiones como tal, sino que toda la inteligencia se encuentre centralizada y que todos los comportamientos y decisiones que un UAV pueda llegar a tomar estén contenidas y precalculadas dentro de la estructura del propio BT, que está diseñado de forma que asegure el buen funcionamiento y la seguridad del equipo ante cualquier circunstancia.
-
-
+In the following, the functioning of each of these sub-trees is described, as well as the details of each of the tasks that have not yet been explained.
 
 
 % Information exchanges 
