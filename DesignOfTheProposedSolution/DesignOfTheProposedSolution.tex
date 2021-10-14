@@ -381,10 +381,10 @@ Before proceeding with the explanation of the designed BT, the types of nodes th
 			\node (MainTree) at (0,0) [text centered, fill=blue!5, draw=blue, ellipse, minimum width=2cm, minimum height=0.75cm, text width=2em]{};
 		\end{tikzpicture}}
     \caption{Different types of nodes that can be present in an \gls{BT}}
-    \label{fig:CounterRunImagenes}
+    \label{fig:BTnodes}
 \end{figure}
 
- Behaviour Trees are made up of \emph{Control} nodes, \emph{Decorator} nodes, and \emph{Leaf} nodes. \emph{Control} nodes could be either \emph{Fallback} nodes, represented with a question mark (see subfigure \ref{subfig:Fallback}), which try success calling one by one each of their children; or \emph{Sequence} nodes, represented with an arrow (see subfigure \ref{subfig:Sequence}), which call their children in order if the previous one have succeeded. \emph{Fallback} nodes return \emph{SUCCESS} if one of its children does it, \emph{FAILURE} if none of them return \emph{SUCCESS}, and \emph{RUNNING} if one of its children returns \emph{RUNNING}. On the other hand, \emph{Sequence} nodes return \emph{SUCCESS} when all children have been called in order and have returned \emph{SUCCESS}. If any of them returns \emph{FAILURE}, the sequence is broken and the \emph{Sequence} node returns \emph{FAILURE} too. When a child returns \emph{RUNNING}, \emph{Sequence} node does it too. \emph{Control} nodes are represented in a black rectangular box when they are the standard ones (see subfigure \ref{subfig:Common}), but they could also be \emph{Reactive} control nodes, represented by a magenta box (see subfigure \ref{subfig:Reactive}), which means that its already called children will be called again in the next iteration. This is very useful for generating behaviours where an action is constantly reattempted, or where it is necessary to check that the necessary conditions are still met. A \emph{Child} node could be another \emph{Control} node, a \emph{Decorator} node, a \emph{Leaf} node or a whole sub-tree. A \emph{Decorator} node, represented in an orange box (see subfigure \ref{subfig:Decorator}), can only have one child (of any type) and its function is programmable (e.g., modifying its child result or retrying calling its child a number of times). \emph{Leaf} nodes, represented in blue, could be \emph{Condition} nodes, represented in a blue elliptical shaped box (see subfigure \ref{subfig:Condition}), that check a condition and return either \emph{SUCCESS} or \emph{FAILURE}; or \emph{Action} nodes, represented in a blue rectangular box (see subfigure \ref{subfig:Action}), that execute code that take longer to execute and therefore these nodes could also return \emph{RUNNING}.
+ Behaviour Trees are made up of \emph{Control} nodes, \emph{Decorator} nodes, and \emph{Leaf} nodes (see Fig. \ref{fig:BTnodes}). \emph{Control} nodes could be either \emph{Fallback} nodes, represented with a question mark (see subfigure \ref{subfig:Fallback}), which try success calling one by one each of their children; or \emph{Sequence} nodes, represented with an arrow (see subfigure \ref{subfig:Sequence}), which call their children in order if the previous one have succeeded. \emph{Fallback} nodes return \emph{SUCCESS} if one of its children does it, \emph{FAILURE} if none of them return \emph{SUCCESS}, and \emph{RUNNING} if one of its children returns \emph{RUNNING}. On the other hand, \emph{Sequence} nodes return \emph{SUCCESS} when all children have been called in order and have returned \emph{SUCCESS}. If any of them returns \emph{FAILURE}, the sequence is broken and the \emph{Sequence} node returns \emph{FAILURE} too. When a child returns \emph{RUNNING}, \emph{Sequence} node does it too. \emph{Control} nodes are represented in a black rectangular box when they are the standard ones (see subfigure \ref{subfig:Common}), but they could also be \emph{Reactive} control nodes, represented by a magenta box (see subfigure \ref{subfig:Reactive}), which means that its already called children will be called again in the next iteration. This is very useful for generating behaviours where an action is constantly reattempted, or where it is necessary to check that the necessary conditions are still met. A \emph{Child} node could be another \emph{Control} node, a \emph{Decorator} node, a \emph{Leaf} node or a whole sub-tree. A \emph{Decorator} node, represented in an orange box (see subfigure \ref{subfig:Decorator}), can only have one child (of any type) and its function is programmable (e.g., modifying its child result or retrying calling its child a number of times). \emph{Leaf} nodes, represented in blue, could be \emph{Condition} nodes, represented in a blue elliptical shaped box (see subfigure \ref{subfig:Condition}), that check a condition and return either \emph{SUCCESS} or \emph{FAILURE}; or \emph{Action} nodes, represented in a blue rectangular box (see subfigure \ref{subfig:Action}), that execute code that take longer to execute and therefore these nodes could also return \emph{RUNNING}.
 
 \subsection{Main tree}
 \label{sec:MainTree}
@@ -501,7 +501,7 @@ In the following, the functioning of each of these sub-trees is described, as we
 
 \subsection{Inspection task tree}
 \label{sec:InspectionTaskTree}
-This \gls{BT} is quite simple as the task is just to visit a series of points and stop at each one to take pictures.
+This \gls{BT} is quite simple as the task is just to visit a series of points and stop at each one to take pictures (see Fig. \ref{fig:InspectTree}).
 
 \begin{figure}[ht]
 	\begin{center}
@@ -533,7 +533,7 @@ All the information that the BT needs to operate is known in advance by the \emp
 
 \subsection{Monitoring task tree}
 \label{sec:MonitoringTaskTree}
-As can be seen, this \gls{BT} follows the same structure as the previous one. The only differences are the \emph{Leaf} nodes.
+As can be seen in figure \ref{fig:MonitorTree}, this \gls{BT} follows the same structure as the previous one. The only differences are the \emph{Leaf} nodes.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -564,7 +564,7 @@ In this case, the position of the operator to be monitored is known from communi
 
 \subsection{Tool delivery task tree}
 \label{sec:ToolDeliveryTaskTree}
-This tree is a bit more complex, as the task involves several steps. The first of these is to pick up the requested tool in case the \gls{ACW} does not already have it. This part involves travelling to the station to pick up the tool in case the \gls{UAV} is not already there. The second part of the task is the process of approaching the operator. After all this, the low-level controller can be activated to carry out the delivery of the tool through a physical interaction between the operator and the \gls{ACW}.
+This tree is a bit more complex, as the task involves several steps (see Fig. \ref{fig:DeliverToolTree}). The first of these is to pick up the requested tool in case the \gls{ACW} does not already have it. This part involves travelling to the station to pick up the tool in case the \gls{UAV} is not already there. The second part of the task is the process of approaching the operator. After all this, the low-level controller can be activated to carry out the delivery of the tool through a physical interaction between the operator and the \gls{ACW}.
 
 \begin{figure}[ht]
 	\begin{center}
