@@ -404,7 +404,6 @@ The danger of connection loss is that the \emph{High-Level Planner} will replan 
 
 Typically, a \gls{BT} is executed to achieve a goal, and therefore the executor keeps on doing \emph{tick} to the tree root until the response is either \emph{SUCCESS} or \emph{FAILURE}. As the function of this \gls{BT} is to control during the whole mission the movement of an \gls{UAV}, it is of interest that the result of the root is \emph{RUNNING} until the mission ends. This is why a \emph{Decorator} node that always returns \emph{RUNNING} regardless of the result of its child node has been defined. The \gls{BT} implemented as a solution for the described problem is further divided into several \gls{BT} taking advantage of the modularity offered by this approach. The main tree is represented in the figure \ref{fig:MainTree}, being the node named as \emph{Main Tree} the root of the complete tree.
 
-%% Del WP7_Scenarios: main tree
 \begin{figure}[ht]
 	\begin{center}
 		\scalebox{0.9}{
@@ -459,7 +458,6 @@ This \gls{BT} checks whether the mission is over (reminder: a mission would repr
 
 This \emph{Recursive Fallback} is where is coded the behaviour that prepares the \gls{BT} to be safe against a loss of connection or an unexpected battery event. As both unexpected events are managed flushing the task queue, the \gls{ACW} reacts recharging, while giving the High-Level Planner control to decide when it is the best time to stop recharging (the High-Level Planner just needs to assign tasks again so that the \gls{ACW} start working back). Note that, thanks to the presence of \emph{Recursive Control} nodes, the \emph{Leaf Condition} nodes are constantly being re-evaluated. Thus, in case of any unforeseen event or change of plan, the \gls{BT} will react by instantly stopping the executing branch and switching to the appropriate branch.
 
-%% Del WP7_Scenarios: perform task tree
 \begin{figure}[ht]
 	\begin{center}
 		\scalebox{0.75}{
@@ -497,20 +495,13 @@ This \emph{Recursive Fallback} is where is coded the behaviour that prepares the
 
 The \emph{Perform Task Tree} checks which is the first task in the queue, which task should be executed at that moment. This tree does not require much more explanation, it simply connects the \emph{Main Tree} with the corresponding \emph{Task sub-tree}. At this point, instead of sub-trees, it would be possible to directly place \emph{Leaf} nodes that give control to the appropriate low-level controller, starting to execute the task directly. However, it was decided that control would not be given to the low-level controllers until the \gls{ACW} is close enough to the area where the task takes place.
 
-%% Del WP7_Scenarios: subtrees
 In figures \ref{fig:MonitorTree}, \ref{fig:InspectTree} and \ref{fig:DeliverToolTree} are depicted the sub-trees that run Safety, Inspection, and Physical tasks, respectively. They all guide the \gls{ACW} close enough to where the low-level controllers need to be called (e.g., close to a worker to monitor or a place to inspect) and then, control is given to the corresponding one. These low-level controllers run on board the corresponding \gls{ACW}s and must communicate their results (success or failure) asynchronously back to the \emph{Agent Behavior Manager}, so that the \gls{BT} could continue running.
 
 In the following, the functioning of each of these sub-trees is described, as well as the details of each of the tasks that have not yet been explained.
 
-
-% Information exchanges 
-% Information interfaces/channels
-% Takeovers
 \subsection{Inspection task tree}
 \label{sec:InspectionTaskTree}
-% Del WP7_Scenarios
-\textbf{High-Level Planner inputs}: Task ID, Task Type and Waypoint List (the rest will be ignored).
-\textbf{Description}: the High-Level Planner, from the list of waypoints, will decide how many \glspl{ACW} are required and which part of the waypoint list is assigned to each one. Then, it would send to each corresponding Agent Behavior Manager the task parameters, including a list with the IDs of the selected~ glspl{ACW}. The same information is forwarded to the Lower-Level Controllers when the BT calls them (see Fig.~\ref{fig:InspectTree}). Basically, the list of waypoints to be inspected are covered by the assigned \glspl{ACW}, stopping at each of them to take images.  
+This \gls{BT} is quite simple as the task is just to visit a series of points and stop at each one to take pictures.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -530,21 +521,19 @@ In the following, the functioning of each of these sub-trees is described, as we
         		\draw[-latex] (NearWPFallback.south) -- (IsUAVnearWP.north);
         		\node (GoNearWP) at ($(NearWPFallback) + (1.75, -2)$) [text centered, fill=blue!5, draw=blue, rectangle, minimum width=1.5cm, text width=6.5em]{Go near WP};
         		\draw[-latex] (NearWPFallback.south) -- (GoNearWP.north);
-		    \end{tikzpicture}
-		}
+		    \end{tikzpicture}}
 		\caption{Behavior Tree: sub-tree that controls the inspect tasks}
 		\label{fig:InspectTree}
 	\end{center}
 \end{figure}
 
+As mentioned above, control is handed over to the low-level controllers when the \gls{ACW} is close enough to the area where the task takes place. The \emph{Reactive Sequence Control} node behind the root of this sub-tree is in charge of checking this condition at any moment, stopping the low-level controller if it is no longer fulfilled.
 
-
+All the information that the BT needs to operate is known in advance by the \emph{Agent Behaviour Manager}, either because it has received it through one of the interfaces represented in figure \ref{fig:NodeDiagram}, or because it has calculated it itself in one of the functions that are executed in the main while loop. In particular, to check if the \gls{ACW} is close to the points to be inspected, the information received from \emph{\gls{ACW}'s autopilot} is taken and checked if it is close to any of the points in the list of \glspl{WP} to be inspected. If necessary, the \emph{Action} node \emph{Go near \gls{WP}} is executed, which connects to the low-level controller in charge and gives as target location the nearest \gls{WP} in the list. Once there, the low-level controller that executes this task is called.
 
 \subsection{Monitoring task tree}
 \label{sec:MonitoringTaskTree}
-% Del WP7_Scenarios
-\textbf{High-Level Planner inputs}: Task ID, Task Type, Human Target ID, Monitoring Distance, and Monitoring Number (the rest will be ignored).
-\textbf{Description}: the High-Level Planner will assign this task to as many Safety-ACWs as specified Monitoring Number. The formation will be chosen by the High-Level Planner from a set of fixed formations (to be listed) depending on the number of \gls{ACW}. Each selected \gls{ACW} will know a list with the IDs of the \glspl{ACW} selected for the task and the formation that they must take. As shown in Fig. \ref{fig:MonitorTree}, each Agent Behaviour Manager would individually navigate each \gls{ACW} near the human target and then, it would call the corresponding Lower-Level Controller for formation control. Extra \glspl{ACW} could even be added to the formation at any time, just updating the task parameters sending a new task from Gesture Recognition.
+As can be seen, this \gls{BT} follows the same structure as the previous one. The only differences are the \emph{Leaf} nodes.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -571,14 +560,11 @@ In the following, the functioning of each of these sub-trees is described, as we
 	\vspace{-1em}
 \end{figure}
 
-
-
+In this case, the position of the operator to be monitored is known from communications with the \emph{Human Tracker} node (see Fig. \ref{fig:NodeDiagram}). If the \gls{ACW} is not close enough, the \gls{BT} will call the low-level controller giving it this time the position of the operator as a target. Once the \gls{UAV} is in a position close to the worker, control is passed to the low-level controller in charge of this task. The information needed by this node is the \emph{Monitoring Number}, the \emph{Monitoring Distance}, the \emph{list of \glspl{ACW}' \glspl{ID}}, and the formation to be maintained during the flight, which will be chosen by the \emph{High-Level Planner} from a set of predefined formations based on the monitoring number (see table \ref{tab:shareddata}). Finally, it is worth mentioning that an \gls{ACW} could be added or removed from the formation at any time by updating the parameters of the task, or even due to availability, the \emph{High-Level Planner} can plan this same behaviour.
 
 \subsection{Tool delivery task tree}
 \label{sec:ToolDeliveryTaskTree}
-% Del WP7_Scenarios
-\textbf{High-Level Planner inputs}: Task ID, Task Type, Human Target ID and Tool ID (the rest will be ignored).
-\textbf{Description}: After task allocation, the High-Level Planner will send the information to the corresponding Agent Behavior Manager and from there, the Lower-Level Controllers will be called sequentially as shown in Fig. \ref{fig:DeliverToolTree}. Basically, the \gls{ACW} needs to navigate to the station where the tool is, pick it up, navigate back to where the worker is, and start physical interaction to deliver the tool. 
+This tree is a bit more complex, as the task involves several steps. The first of these is to pick up the requested tool in case the \gls{ACW} does not already have it. This part involves travelling to the station to pick up the tool in case the \gls{UAV} is not already there. The second part of the task is the process of approaching the operator. After all this, the low-level controller can be activated to carry out the delivery of the tool through a physical interaction between the operator and the \gls{ACW}.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -646,14 +632,17 @@ In the following, the functioning of each of these sub-trees is described, as we
 	\end{center}
 \end{figure}
 
+Again, the location of the operator and the position of the \gls{ACW} is provided by \emph{\gls{ACW}'s autopilot} and \emph{Human Tracker} nodes. The position of the fixed elements, in this case, the station where the tools are placed, is available among the information read by \emph{Agent Behavior Manager} node from the configuration file while its initialization.
 
-
+In this case, the low-level controller who delivers the tool will be in charge of requesting the operator's permission to approach. In the meantime it will have to wait. When it gets the permission, it is time to make the delivery. If too much time elapses without the operator giving the order, the task will be aborted and the tool will be returned to the station.
 
 \section{Lower and upper level modules faker}
 \label{sec:LowerAndUpperLevelModulesFaker}
 %%% GoToWP, Recharge, Monitoring, Inspection, ToolDelivery
 %%% Battery sensor
 %% Faker del reparto de WPs entre los ACWs seleccionados
+
+This work consisted of programming one of the software layers that make up a software architecture. As there are still parts of the software architecture that are not yet available for intergration, temporary solutions have had to be programmed to simulate their action during testing. This section will discuss those parts of the code whose mission is to fool both \emph{High-Level Planner} and \emph{Agent Behaviour Manager} nodes into believing that they are communicating with the real nodes, or to provide functions necessary for the execution to progress.
 
 % Informe de actividades: Battery faker
 % Otra de las labores llevadas a cabo, esta de forma reciente, ha sido la de la elaboración de un nodo que simule ser la batería del UAV y comunique el nivel de batería falso a través de un tópico de ROS llamado “/mavros/battery_faker”. Esta implementación ha sido necesaria debido a que ni MAVROS ni UAL proporcionaban métodos para el control de la batería. Gracias a este nodo se pueden realizar ahora simulaciones en las que se controle la velocidad de carga y descarga de la batería, se fije la batería a un valor determinado y se controle en qué momentos se carga y se descarga la batería. Este nodo se está empleando en las simulaciones para probar el funcionamiento de la solución planteada. Concretamente, es de vital importancia asegurar que el BT detecta el estado de la batería correctamente y actúa en consecuencia, deteniendo la ejecución de la tarea actual de ser necesario y dirigiendo al UAV hacia la estación de recarga más cercana. Acompañando al nodo falseador de batería se ha creado un “Action” de ROS para controlar los modos de funcionamiento de este nodo, el nivel de la batería y las velocidades de carga y descarga de la misma.
