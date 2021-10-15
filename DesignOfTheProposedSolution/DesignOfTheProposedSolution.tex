@@ -223,7 +223,7 @@ The action carried out by the agent's beacon callback varies depending on whethe
 	2. Perform a task planning.
 \end{lstlisting}
 
-The \emph{Agent Behaviour Manager} node only sends communications messages indicating the battery status when it is due to an unplanned event. This event can be either an early battery depletion or a faster than expected recharge. In both cases, the callback function, whose pseudocode is Code \ref{ps:batteryEnoughCB}, updates the value of an internal variable used during planning, and recalculates the optimal plan.
+The \emph{Agent Behaviour Manager} block only sends communications messages indicating the battery status when it is due to an unplanned event. This event can be either an early battery depletion or a faster than expected recharge. In both cases, the callback function, whose pseudocode is Code \ref{ps:batteryEnoughCB}, updates the value of an internal variable used during planning, and recalculates the optimal plan.
 
 The other possible communication coming from a node of type \emph{Agent Behaviour Manager} with the ability to trigger a reaction in the planner is due to the termination of a task. When a task finishes successfully, it is simply removed from the list of pending tasks. In addition, this moment is used to re-evaluate the optimal plan. It is expected that the mission is still within the optimal plan, so in that case the planning result should be the same as the plan that was already being executed. If, instead, conditions have changed since the last planning and there exists a better plan now, it is at this point that the plan is updated. If the task ends with a failure, the callback action will depend on the causes of the failure (note that the interruption of a task will result in a failure). If the interruption is due to the \gls{UAV} battery, it may be planned, in which case no action is required, or it may be unexpected, in which case the corresponding actions are taken by the battery callback. Once it has been verified that the task has not finished due to the battery, a check is made to see if the task was at the beginning of the queue. If so, a failure has indeed occurred, so the operators are warned, the task is removed from the list, and a replanning is executed. Otherwise the task in question would have been moved from the top of the queue due to a change of plans and therefore no action would have to be taken either. The pseudocode corresponding to what has just been explained is in Code \ref{ps:taskResultCB}.
 
@@ -254,7 +254,7 @@ The last function that remains to be explained of those that can potentially req
 			1.1.1. Add that agent's ID to the list of disconnected agents.
 	2. While the list of disconnected agents is not empty:
 		2.1. Take first ID from the list.
-		2.2. Erase from the node's data all information related to that ID.
+		2.2. Erase from the block's data all information related to that ID.
 	3. If any agent has been disconnected:
 		3.1. Perform a task planning.
 \end{lstlisting}
@@ -300,7 +300,7 @@ The cost for each \gls{UAV} is calculated as the weighted sum of three different
 		2.1. Warn operators that no agent is connected.
 \end{lstlisting}
 
-Once the calculation of the mission plan has been completed, the new task queues are sent to the corresponding distributed modules. Each \emph{Agent Behaviour Manager} will react to this communication and will take care of executing the newly assigned plan. In the meantime, the \emph{High-Level Planner} node returns to the main while loop to continue waiting until an event that triggers a replanning occurs again.
+Once the calculation of the mission plan has been completed, the new task queues are sent to the corresponding distributed modules. Each \emph{Agent Behaviour Manager} will react to this communication and will take care of executing the newly assigned plan. In the meantime, the \emph{High-Level Planner} block returns to the main while loop to continue waiting until an event that triggers a replanning occurs again.
 
 \section{Distributed module: Agent Behaviour Manager}
 \label{sec:Distributed module: behavior manager}
@@ -383,7 +383,7 @@ Before proceeding with the explanation of the designed \gls{BT}, the types of no
 			\node (MainTree) at (0,0) [text centered, fill=blue!5, draw=blue, ellipse, minimum width=2cm, minimum height=0.75cm, text width=2em]{};
 		\end{tikzpicture}}
     \caption{Different types of nodes that can be present in an \gls{BT}}
-    \label{fig:CounterRunImagenes}
+    \label{fig:BTnodes}
 \end{figure}
 
  Behaviour Trees are made up of \emph{Control} nodes, \emph{Decorator} nodes, and \emph{Leaf} nodes. \emph{Control} nodes could be either \emph{Fallback} nodes, represented with a question mark (see subfigure \ref{subfig:Fallback}), which try success calling one by one each of their children; or \emph{Sequence} nodes, represented with an arrow (see subfigure \ref{subfig:Sequence}), which call their children in order if the previous one has succeeded. On the one hand, \emph{Fallback} nodes return \emph{SUCCESS} if one of its children does it, \emph{FAILURE} if none of them success, and \emph{RUNNING} if one of its children returns \emph{RUNNING}. On the other hand, \emph{Sequence} nodes return \emph{SUCCESS} when all children have been called in order and have returned \emph{SUCCESS}. If any of them returns \emph{FAILURE}, the sequence is broken and the \emph{Sequence} node returns \emph{FAILURE} too. When a child returns \emph{RUNNING}, the \emph{Sequence} node does it too. \emph{Control} nodes are represented in a black rectangular box when they are the standard ones (see subfigure \ref{subfig:Common}), but they could also be \emph{Reactive} control nodes, represented by a magenta box (see subfigure \ref{subfig:Reactive}), which means that its already called children will be called again in the next iteration. This is very useful for generating behaviours where an action is constantly reattempted, or where it is necessary to check that the required conditions are still met. A \emph{Child} node could be another \emph{Control} node, a \emph{Decorator} node, a \emph{Leaf} node or a whole sub-tree. A \emph{Decorator} node, represented in an orange box (see subfigure \ref{subfig:Decorator}), can only have one child (of any type) and its function is programmable (e.g., modifying its child result or retrying calling its child a number of times). \emph{Leaf} nodes, represented in blue, could be \emph{Condition} nodes, represented in a blue elliptical shaped box (see subfigure \ref{subfig:Condition}), that check a condition and return either \emph{SUCCESS} or \emph{FAILURE}; or \emph{Action} nodes, represented in a blue rectangular box (see subfigure \ref{subfig:Action}), that execute code that takes longer and therefore these nodes could also return \emph{RUNNING}.
@@ -503,7 +503,7 @@ In the following, the functioning of each of these sub-trees is described, as we
 
 \subsection{Inspection task tree}
 \label{sec:InspectionTaskTree}
-This \gls{BT} is quite simple as the task is just to visit a series of points and stop at each one to take pictures.
+This \gls{BT} is quite simple as the task is just to visit a series of points and stop at each one to take pictures (see Fig. \ref{fig:InspectTree}).
 
 \begin{figure}[ht]
 	\begin{center}
@@ -535,7 +535,7 @@ All the information that the \gls{BT} needs to operate is known in advance by th
 
 \subsection{Monitoring task tree}
 \label{sec:MonitoringTaskTree}
-As can it be seen, this \gls{BT} follows the same structure as the previous one. The only differences are the \emph{Leaf} nodes.
+As can it be seen in Figure \ref{fig:MonitorTree}, this \gls{BT} follows the same structure as the previous one. The only differences are the \emph{Leaf} nodes.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -566,7 +566,7 @@ In this case, the position of the operator to be monitored is known from communi
 
 \subsection{Tool delivery task tree}
 \label{sec:ToolDeliveryTaskTree}
-This tree is a bit more complex, as the task involves several steps. First, it picks up the requested tool in case the \gls{ACW} does not have it yet. This part involves travelling to the station to pick up the tool in case the \gls{UAV} is not already there. The second part of the task is the process of approaching the operator. After all this, the low-level controller can be activated to carry out the delivery of the tool through a physical interaction between the operator and the \gls{ACW}.
+This tree is a bit more complex, as the task involves several steps (see Fig. \ref{fig:DeliverToolTree}). First, it picks up the requested tool in case the \gls{ACW} does not have it yet. This part involves travelling to the station to pick up the tool in case the \gls{UAV} is not already there. The second part of the task is the process of approaching the operator. After all this, the low-level controller can be activated to carry out the delivery of the tool through a physical interaction between the operator and the \gls{ACW}.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -634,17 +634,16 @@ This tree is a bit more complex, as the task involves several steps. First, it p
 	\end{center}
 \end{figure}
 
-Again, the location of the operator and the position of the \gls{ACW} is provided by the \emph{\gls{ACW}'s autopilot} and \emph{Human Tracker} nodes. The position of the fixed elements, in this case, the station where the tools are placed, is available among the information read by the \emph{Agent Behaviour Manager} node from the configuration file during its initialization.
+Again, the location of the operator and the position of the \gls{ACW} is provided by the \emph{\gls{ACW}'s autopilot} and \emph{Human Tracker} blocks. The position of the fixed elements, in this case, the station where the tools are placed, is available among the information read by the \emph{Agent Behaviour Manager} node from the configuration file during its initialization.
 
 In this case, the low-level controller that delivers the tool will be in charge of requesting the operator's permission to approach. In the meantime, it will have to wait. When it gets the permission, it is time to make the delivery. If too much time elapses without the operator giving the order, the task will be aborted and the tool will be returned to the station.
 
-\section{Lower and upper level modules faker}
-\label{sec:LowerAndUpperLevelModulesFaker}
-%%% GoToWP, Recharge, Monitoring, Inspection, ToolDelivery
-%%% Battery sensor
-%% Faker del reparto de WPs entre los ACWs seleccionados
+\section{High- and low-level blocks faking}
+\label{sec:faking}
+The work in this thesis consisted of programming one of the software layers that make up a software architecture. As there are still parts of the software architecture that are not yet available for integration, temporary solutions have had to be programmed to simulate their action during testing. This section will discuss those parts of the code whose mission is to fool both \emph{High-Level Planner} and \emph{Agent Behaviour Manager} blocks into believing that they are communicating with the real blocks, or to provide functions necessary for the execution to progress.
 
-This work consisted of programming one of the software layers that make up a software architecture. As there are still parts of the software architecture that are not yet available for intergration, temporary solutions have had to be programmed to simulate their action during testing. This section will discuss those parts of the code whose mission is to fool both \emph{High-Level Planner} and \emph{Agent Behaviour Manager} nodes into believing that they are communicating with the real nodes, or to provide functions necessary for the execution to progress.
+Low-level controllers have been faked in different ways. For \gls{BT}'s \emph{Action} nodes of the \emph{"Go To"} type, the \emph{GoToWaypoint} \gls{ROS} service available in the \gls{UAL} tool is called instead, which leads the \gls{UAV} to the entered coordinates (although it does not take obstacles into account). For more complex \emph{Action} nodes such as \emph{Inspect}, \emph{Monitor}, \emph{Deliver Tool} or \emph{Pick Tool}, a function is simply called which sleeps the \emph{Action} node for a while simulating that the low-level controller has been called and is waiting for a response. For these \emph{Action} nodes, the response of the \emph{tick} function will be \emph{RUNNING} while sleeping, and either \emph{FAILURE} or \emph{SUCCESS} depending on whether their execution is halted or not. During sleeping time the rest of the tree continues running. The \emph{Recharge} node also calls some low-level controllers. In this particular case it was decided to ignore the call and simply land the \gls{UAV} on the charging station.
 
-% Informe de actividades: Battery faker
-% Otra de las labores llevadas a cabo, esta de forma reciente, ha sido la de la elaboración de un nodo que simule ser la batería del UAV y comunique el nivel de batería falso a través de un tópico de ROS llamado “/mavros/battery_faker”. Esta implementación ha sido necesaria debido a que ni MAVROS ni UAL proporcionaban métodos para el control de la batería. Gracias a este nodo se pueden realizar ahora simulaciones en las que se controle la velocidad de carga y descarga de la batería, se fije la batería a un valor determinado y se controle en qué momentos se carga y se descarga la batería. Este nodo se está empleando en las simulaciones para probar el funcionamiento de la solución planteada. Concretamente, es de vital importancia asegurar que el BT detecta el estado de la batería correctamente y actúa en consecuencia, deteniendo la ejecución de la tarea actual de ser necesario y dirigiendo al UAV hacia la estación de recarga más cercana. Acompañando al nodo falseador de batería se ha creado un “Action” de ROS para controlar los modos de funcionamiento de este nodo, el nivel de la batería y las velocidades de carga y descarga de la misma.
+On the other hand, since \gls{UAL} does not allow battery control, and the battery level that is available for reading remains static throughout the simulation, it has been necessary to create a block that simulates the evolution of the battery both during flight and during recharging. This block is programmed in such a way that at initialization it reads the configuration file, thus having the position of the charging stations, and also subscribes to the information published by the \emph{\gls{ACW}'s autopilot} to which it is faking the battery in order to know its position and status. If the \gls{UAV} is in the air, the battery will be periodically decremented. Otherwise, the battery will remain static unless the \gls{UAV} is over a charging station, in which case the battery will periodically increment. The battery percentage and charge/discharge rate is externally configurable at any time during the simulation. In addition, for ease of testing, this block allows for different modes of operation that can among other things make the battery static. The false battery level is periodically published in a similar direction to the one used for the real battery.
+
+Finally, as mentioned in the section \ref{sec:Centralized module:TaskPlanner}, the algorithm in charge of performing the distribution of \glspl{WP} for an inspection task among the different selected \glspl{ACW} has been forged. Normally, this algorithm is executed inside the low-level controller itself which is called by the \emph{Inspect Action} node which can be found in the tree of the figure \ref{fig:InspectTree}. However, as this \emph{Action} node has been completely forged, a distribution of \glspl{WP} has been made within the task planning algorithm. It simply assigns, in order, one \gls{WP} from the list to each selected \gls{ACW} until the list of \glspl{WP} is exhausted.

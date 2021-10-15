@@ -6,9 +6,7 @@
 \section{Current technology}
 \label{sec:CurrentTechnology}
 %% Origen de los drones (vehículos aéreos no tripulados, controlados por radiocontrol, no son autonomos, forma tipica de aeronave).
-Although in the last decade the use of \glspl{UAV} has spread to a large number of applications, the origin of this technology dates back to 1898 with the invention of radio control and the appearance of the first unmanned aircraft, baptised with the name of drone. These were mainly used for military purposes.
-
-\JC{En este capitulo y otros, todas las figuras que aparezcan, debieran estar referenciadas en el texto en algun sitio. "Figure X shows..", "see Figure X..."}
+Although in the last decade the use of \glspl{UAV} has spread to a large number of applications, the origin of this technology dates back to 1898 with the invention of radio control and the appearance of the first unmanned aircraft, baptised with the name of drone. These were mainly used for military purposes (see Fig. \ref{fig:predator}).
 
 \begin{figure}[htbp]
     \centering
@@ -19,7 +17,7 @@ Although in the last decade the use of \glspl{UAV} has spread to a large number 
 \end{figure}
 
 %% Primeros UAV (drones autónomos). 
-Later, with the development of technology, computers were designed with sufficient size and computing power to run the software necessary to operate a \gls{UAV} autonomously, and even to control aircrafts with more complex and even unstable dynamics (gliders \cite{predator, BIGBLUE}, airships \cite{AURORA}, quadrotors \cite{quadrotorsreview, mesicopter, pounds, miniquadrotor}, multirotors \cite{fullyactuated}, flapping wings \cite{COLIBRI, GRIFFING, GRIFFIN2021}, etc.). Even though computational capacity was still insufficient for some applications, the development of \gls{UAV} systems was made possible by performing calculations on the ground. What was done was to run the critical and most important systems for autonomous flight on the on-board computer (controls, data acquisition, obstacle avoidance, etc.), and to run the more demanding calculations that are not necessary in real time on the ground computers \cite{OffBoard}.
+Later, with the development of technology, computers were designed with sufficient size and computing power to run the software necessary to operate a \gls{UAV} autonomously, and even to control aircrafts with more complex and even unstable dynamics (gliders \cite{predator, BIGBLUE}, airships \cite{AURORA}, quadrotors \cite{quadrotorsreview, mesicopter, pounds, miniquadrotor}, multirotors \cite{fullyactuated}, flapping wings \cite{COLIBRI, GRIFFING, GRIFFIN2021}, etc.) (see Fig. \ref{fig:griffin}). Even though computational capacity was still insufficient for some applications, the development of \gls{UAV} systems was made possible by performing calculations on the ground. What was done was to run the critical and most important systems for autonomous flight on the on-board computer (controls, data acquisition, obstacle avoidance, etc.), and to run the more demanding calculations that are not necessary in real time on the ground computers \cite{OffBoard}.
 
 \begin{figure}[htbp]
     \centering
@@ -94,11 +92,11 @@ As its name suggests, \gls{UAL}~\footnote{UAL repository: \url{https://github.co
 
 \subsection{Behaviour Trees}
 \label{subsec:BehaviourTrees}
-BehaviorTree.CPP~\footnote{BehaviorTree.CPP repository: \url{https://github.com/BehaviorTree/BehaviorTree.CPP/}} is a C++ 14 library for creating behaviour trees. Its design features include flexibility, ease of use and speed. This library, among other things, allows the creation of asynchronous \emph{actions}, enables reactive behaviours that execute multiple \emph{actions} at the same time, permit to load trees at runtime, and provides a type-safe and flexible mechanism to do \emph{dataflow} between \emph{nodes} of the tree. This library has been chosen over others that fulfil the same function because of its extensive documentation~\footnote{BehaviorTree.CPP documentation: \url{https://www.behaviortree.dev/}} and support. Its function in this project has been the creation of \glspl{BT} for the programming of the \gls{UAL} behaviour manager in a modular, scalable and easily reusable way.
+BehaviorTree.CPP~\footnote{BehaviorTree.CPP repository: \url{https://github.com/BehaviorTree/BehaviorTree.CPP/}} is a C++ 14 library for creating behaviour trees. Its design features include flexibility, ease of use and speed. This library, among other things, allows the creation of asynchronous \emph{actions}, enables reactive behaviours that execute multiple \emph{actions} at the same time, permit to load trees at runtime, and provides a type-safe and flexible mechanism to do \emph{dataflow} between \emph{nodes} of the tree. This library has been chosen over others that fulfil the same function because of its extensive documentation~\footnote{BehaviorTree.CPP documentation: \url{https://www.behaviortree.dev/}} and support. Its function in this project has been the creation of \glspl{BT} for the programming of the \gls{UAV} behaviour manager in a modular, scalable and easily reusable way.
 
 \subsection{Groot}
 \label{subsec:Groot}
-Groot\footnote{Groot repository: \url{https://github.com/BehaviorTree/Groot}} is a graphical editor to create \glspl{BT}. It is compliant with the library used in this project to create behavior trees, BehaviorTree.CPP. This graphic interface can also be used to monitor a running behavior tree. For programming \glspl{BT} in this project, a simple XML file editor has been used, so Groot's role was to monitor the execution of the \glspl{BT} during testing.
+Groot\footnote{Groot repository: \url{https://github.com/BehaviorTree/Groot}} is a graphical editor to create \glspl{BT} (see Fig. \ref{fig:groot}). It is compliant with the library used in this project to create behavior trees, BehaviorTree.CPP. This graphic interface can also be used to monitor a running behavior tree. For programming \glspl{BT} in this project, a simple XML file editor has been used, so Groot's role was to monitor the execution of the \glspl{BT} during testing.
 
 \begin{figure}[htbp]
     \centering
