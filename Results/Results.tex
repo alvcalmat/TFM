@@ -1,42 +1,42 @@
 \chapter{Results}
 \label{ch:Results}
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{T}{his} chapter discusses the experiments carried out to validate the software layer built. The simulation software used for the tests was Gazebo. The simulation environment consists of a high-voltage tower and an operator standing on the ground next to the tower, but as the low-level controllers have all been faked, not much attention has been paid to the simulation elements during the development of the tests. Instead, the focus is on the task distribution and the execution of the \glspl{BT}.
 
-\lettrine[lraise=-0.1, lines=2, loversize=0.2]{L}{o}rem itsum
+The experiments were divided into two phases. In the first phase, simulations involving a single \gls{ACW} were carried out in order to test the performance of each element of the system in a controlled manner. On the one hand, it was checked that the \emph{High-Level Planner} performed the mission planning correctly, assigning the tasks as expected according to the specifications and constraints, and on the other hand, it was checked that the \emph{Agent Behaviour Manager} performed its function correctly, both the execution of individual tasks and the ability to detect and act in case of unforeseen events. During this phase, the validation of the distributed block takes centre stage.
 
-\section{Task planning}
-\label{sec:TaskPlanning}
+In the second phase, the simulations consisted of including multiple \glspl{ACW} and testing in different scenarios. This phase focuses less on validating the \gls{BT}, which would be fully validated during the first phase, and more on evaluating the capabilities of the \emph{High-Level Planner}. The situations faced by the system in this phase involve disconnections, reconnections, input of new tasks, modifications of the battery level, etc. In addition, the type of \glspl{ACW} has been modified from one test to another. Since the \glspl{BT} are fully validated at this stage, the visualisation of the simulation in Gazebo is not as important. That is why the results of this phase are mostly presented by visualising the \glspl{BT} with the Groot tool and by means of the information printed by both blocks through the terminal. 
 
-\subsection{Battery}
-\label{subsec:Battery}
+\AC{En los comentarios está el plan de pruebas que voy a hacer y comentar y entre paréntesis las capturas que pretendo meter.}
+\section{Phase I: single \gls{ACW} simulations}
+\label{sec:phaseI}
+%% Tareas: Repetir lo siguiente una vez por cada tarea
+% incommingTask: llegada de tareas. Papel del GestureNodeFaker. Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado.
+% Asignación de las tareas: elección de parámetros, asignación de la tarea al ACW (si el tipo lo permite) y comunicación. (Terminal)
+% Ejecución de la tarea: Lectura de la cola en Agent, evolución del BT, movimiento del UAV (secundario porque es fakeado), finalizar tarea. (Terminal, Groot y Gazebo)
 
-\subsection{Connection lost}
-\label{subsec:ConnectionLost}
+%% Eventos imprevistos: protocolos de emergencia.
+% Termina una tarea: Primero hacer inspect con monitor en la cola y enseñar la transición de una a otra (Gazebo, Groot y Terminal)
+% Tomar una tarea como base para los experimentos (monitor que no termina nunca)
+% Batería insuficiente (inesperado): ver como reacciona el BT. (solo hay un UAV, planner no hace mucho). Mencionar la importancia del battery faker. (Terminal, Groot y Gazebo)
+% Planificación de recargas: decir que no se ha contemplado una tarea de tipo Recharge, y por tanto no se puede planificar como tal la recarga. Se Planifica únicamente mirando si el UAV tendría actualmente batería para la tarea que se esté asignando en ese momento.
+% Batería cargada: mostrar la comunicación de Agent, la reaccion de Planner, replanificación, nueva cola y evolución del BT de nuevo. (Gazebo, Groot y Terminal)
+% Connection lost: reaccion del BT cuando Planner se desconecta. Reaccion de Planner cuando Agent se desconecta. (Gazebo, Groot y Terminal)
+% Reconexión de Agent: Reaccion de Planner. En el BT se verá como vuelven a asignar una tarea y deja de recargar. (Groot y Terminal)
 
-\subsection{Replanning}
-\label{subsec:Replanning}
+%% Mission over: observar que hace cada bloque cuando se manda la señal de mission over.
 
+\section{Phase II: multi-\gls{ACW} simulations}
+\label{sec:phaseII}
+\AC{He pensado que en esta fase puedo modificar el código para que funcione sin la simulación (porque ahora mismo el nodo Agent espera que el UAL/State signifique "Ready") y hacer pruebas con muchos drones sin que explote mi ordenador. Como además las capturas de Gazebo no darán mucha información, me parece una buena opción. Creo que no habría problema luego con las llamadas a los servicios de UAL. Tengo que comprobarlo, si da error por no tener ningún nodo UAL arrancado sí que va a ser un lío.}
 
-\section{Drone behaviour manager results}
-\label{sec:DroneBehavioutManagerResults}
-
-\subsection{Battery management}
-\label{subsec:BatteryManagement}
-
-\subsection{Connection lost management}
-\label{subsec:ConnectionLostManagement}
-
-\subsection{Replanning management}
-\label{subsec:ReplanningManagement}
-
-
-%\section{Simulations}
-%\label{sec:Simulations}
-
-%\subsection{One drone simulations}
-%\label{subsec:OneDroneSimulations}
-
-%\subsection{Multi-drone simulations}
-%\label{subsec:Multi-droneSimulations}
-
-
-% Importancia del battery faker para testear correctamente situaciones de emergencia
+%% Tareas: si hago lo de no poner gazebo, las tareas no van a terminar nunca, así quue va a ser más fácil testear planner con todo estático y controlado
+% Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado. Lista de tareas pendientes. (Terminal)
+% Asignación de las tareas: elección de parámetros, elección de los UAV, como quedan las colas finalmente. (Terminal)
+% Ejecución de los planes: mostrar la evolución de los BT para comparar después con cuando interrumpamos (Groot)
+%% Eventos imprevistos: mostrar principalmente que pasa en el planner: como se entera, como reacciona, replanificación, nuevos planes, cambios en los BT
+% Llegada de una nueva tarea: mostrar la reacción del Planner, la replanificación, como quedan las colas y como cambian los BT (transición y nuevo "RP"). (Terminal y Groot)
+% Batería insuficiente (Terminal y Groot)
+% Batería cargada (Terminal y Groot)
+% Desconexión (Terminal y Groot)
+% Reconexión (Terminal y Groot)
+% Mission over (Terminal y Groot)
