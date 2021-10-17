@@ -16,7 +16,9 @@ In the second phase, the simulations consisted of including multiple \glspl{ACW}
 
 %% Eventos imprevistos: protocolos de emergencia.
 % Termina una tarea: Primero hacer inspect con monitor en la cola y enseñar la transición de una a otra (Gazebo, Groot y Terminal)
-% Tomar una tarea como base para los experimentos (monitor que no termina nunca)
+% Tomar una tarea como base para los experimentos (empezar con deliver y cambiar en el siguiente paso a monitor que no termina nunca)
+% Llega una tarea con la misma id que otra anterior pero de tipo distinto
+% Actualización de los parámetros de una tarea
 % Batería insuficiente (inesperado): ver como reacciona el BT. (solo hay un UAV, planner no hace mucho). Mencionar la importancia del battery faker. (Terminal, Groot y Gazebo)
 % Planificación de recargas: decir que no se ha contemplado una tarea de tipo Recharge, y por tanto no se puede planificar como tal la recarga. Se Planifica únicamente mirando si el UAV tendría actualmente batería para la tarea que se esté asignando en ese momento.
 % Batería cargada: mostrar la comunicación de Agent, la reaccion de Planner, replanificación, nueva cola y evolución del BT de nuevo. (Gazebo, Groot y Terminal)
@@ -35,6 +37,7 @@ In the second phase, the simulations consisted of including multiple \glspl{ACW}
 % Ejecución de los planes: mostrar la evolución de los BT para comparar después con cuando interrumpamos (Groot)
 %% Eventos imprevistos: mostrar principalmente que pasa en el planner: como se entera, como reacciona, replanificación, nuevos planes, cambios en los BT
 % Llegada de una nueva tarea: mostrar la reacción del Planner, la replanificación, como quedan las colas y como cambian los BT (transición y nuevo "RP"). (Terminal y Groot)
+% Modificación de los parámetros de una tarea (n de monitor por ejemplo)
 % Batería insuficiente (Terminal y Groot)
 % Batería cargada (Terminal y Groot)
 % Desconexión (Terminal y Groot)
