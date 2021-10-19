@@ -6,8 +6,7 @@ The experiments were divided into two phases. In the first phase, simulations in
 
 In the second phase, the simulations consisted of including multiple \glspl{ACW} and testing in different scenarios. This phase focuses less on validating the \gls{BT}, which would be fully validated during the first phase, and more on evaluating the capabilities of the \emph{High-Level Planner}. The situations faced by the system in this phase involve disconnections, reconnections, input of new tasks, modifications of the battery level, etc. In addition, the type of \glspl{ACW} has been modified from one test to another. Since the \glspl{BT} are fully validated at this stage, the visualisation of the simulation in Gazebo is not as important. That is why the results of this phase are mostly presented by visualising the \glspl{BT} with the Groot tool and by means of the information printed by both blocks through the terminal. 
 
-\AC{En los comentarios está el plan de pruebas que voy a hacer y comentar y entre paréntesis las capturas que pretendo meter.}
-\section{Phase I: single \gls{ACW} simulations}
+\section{Phase I: single ACW simulations}
 \label{sec:phaseI}
 Once the simulation has finished initialising, tasks can start to be requested. To do so, the fake \emph{Gesture Recognition} block has to be executed indicating the type and parameters of the task. As the simulations during this phase consist of a single \gls{ACW}, the behaviour of the planner is quite predictable, so in addition to validating the \gls{BT}, these tests can be used to make a first verification of the \emph{High-Level Planner} block.
 
@@ -21,8 +20,7 @@ First, a series of tasks were requested and executed without interruption in ord
 % \ref{fig:BTinitialization}: captura del BT al inicio, cuando aún no hay ninguna tarea.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.75\linewidth]
-    {Results/figures/}
+    \includegraphics[width=.75\linewidth]{Results/figures/prov.jpeg}
     \caption{\gls{BT} starting point displayed with Groot: battery charged and no task queued.}
     \label{fig:BTinitialization}
 \end{figure}
@@ -33,16 +31,16 @@ At the beginning, the \gls{UAV} has the battery charged, is landed on the chargi
 \begin{figure}[htbp]
     \centering
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \hfill
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
-    \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
         \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \caption{\gls{BT} transition from idle to \emph{Tool Delivery Task Tree}}
     \label{fig:NoIdle_DeliverToolTaskTree}
 \end{figure}
@@ -50,9 +48,8 @@ At the beginning, the \gls{UAV} has the battery charged, is landed on the chargi
 % \ref{fig:newtaskqueue}: Captura del terminal para ver las comunicaciones y las replanificaciones hasta este punto
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.75\linewidth]
-    {Results/figures/}
-    \caption{Feedback of the task planning process and communications between \emph{High-Level Planner} and \emph{Agent Behavior Manager}}
+    \includegraphics[width=.75\linewidth]{Results/figures/prov.jpeg}
+    \caption{Feedback of the task planning process and communications between \emph{High-Level Planner} and \emph{Agent Behaviour Manager}}
     \label{fig:newtaskqueue}
 \end{figure}
 
@@ -62,16 +59,16 @@ The \emph{Tool Delivery Task Tree} functioned perfectly well. In Gazebo, the mov
 \begin{figure}[htbp]
     \centering
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \hfill
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
-    \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
         \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \caption{Evolution of the simulation during the execution of the \emph{Tool Deliverry Task Tree}}
     \label{fig:Gazebo_DeliverTree}
 \end{figure}
@@ -80,16 +77,16 @@ The \emph{Tool Delivery Task Tree} functioned perfectly well. In Gazebo, the mov
 \begin{figure}[htbp]
     \centering
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \hfill
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
-    \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
         \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \caption{Evolution of the simulation during the execution of the \emph{Inspection Task Tree}}
     \label{fig:Gazebo_InspectTree}
 \end{figure}
@@ -100,36 +97,153 @@ Finally, when this task was finished, the \gls{BT} proceeded to execute the \emp
 \begin{figure}[htbp]
     \centering
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \hfill
     \subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
-    \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
         \hfill
-    subfloat[]{ % <- Caption
-        \includegraphics{Results/figures/}}
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
     \caption{Evolution of the simulation during the execution of the \emph{Monitoring Task Tree}}
     \label{fig:Gazebo_MonitorTree}
 \end{figure}
 
-% De la misma forma
+Once it had been verified that the system worked well in the absence of unforeseen events, the system was tested in all kinds of situations. First, the \gls{BT}'s ability to stop the current task and switch to the execution of the new task in the event of a change of plans was tested. This was done by first requesting a \emph{Safety Monitoring} task and then requesting a \emph{Tool Delivery} task, which, having a higher priority, will move the previous task from the top of the queue. Figure \ref{fig:event_ChangeOfPlans} shows the communications performed during this process, the movement of the \gls{ACW} in the simulation, and the evolution of the \gls{BT}.
 
-%% Eventos imprevistos: protocolos de emergencia.
-% Termina una tarea: Primero hacer inspect con monitor en la cola y enseñar la transición de una a otra (Gazebo, Groot y Terminal)
-% Tomar una tarea como base para los experimentos (empezar con deliver y cambiar en el siguiente paso a monitor que no termina nunca)
-% Llega una tarea con la misma id que otra anterior pero de tipo distinto
-% Actualización de los parámetros de una tarea
-% Batería insuficiente (inesperado): ver como reacciona el BT. (solo hay un UAV, planner no hace mucho). Mencionar la importancia del battery faker. (Terminal, Groot y Gazebo)
-% Planificación de recargas: decir que no se ha contemplado una tarea de tipo Recharge, y por tanto no se puede planificar como tal la recarga. Se Planifica únicamente mirando si el UAV tendría actualmente batería para la tarea que se esté asignando en ese momento.
-% Batería cargada: mostrar la comunicación de Agent, la reaccion de Planner, replanificación, nueva cola y evolución del BT de nuevo. (Gazebo, Groot y Terminal)
-% Connection lost: reaccion del BT cuando Planner se desconecta. Reaccion de Planner cuando Agent se desconecta. (Gazebo, Groot y Terminal)
-% Reconexión de Agent: Reaccion de Planner. En el BT se verá como vuelven a asignar una tarea y deja de recargar. (Groot y Terminal)
+% \ref{fig:event_ChangeOfPlans}: Evolución del BT (groot), mensajes del terminal y capturas de Gazebo durante un cambio de planes.
+\begin{figure}[htbp]
+    \centering
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+        \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \caption{Evolution of the simulation during a change of plans. \emph{Tool Delivery} task displaces \emph{Safety Monitoring} task}
+    \label{fig:event_ChangeOfPlans}
+\end{figure}
 
-%% Mission over: observar que hace cada bloque cuando se manda la señal de mission over.
+After the success of the previous test, it was tested whether the \emph{High-Level Planner} is able to handle the situation when a new task with a repeated \gls{ID} arrives. For this purpose, an inspection task with the same \gls{ID} as the previous \emph{Tool Delivery} task was sent before the previous \emph{Tool Delivery} task was finished. The system passed the test successfully as shown in figure \ref{fig:event_DuplicatedID}, the task was cancelled and deleted by the \emph{High-Level Planner}, and the \gls{BT} simply reacted to the change of plans as in the previous situation.
 
-\section{Phase II: multi-\gls{ACW} simulations}
+% \ref{fig:event_DuplicatedID} Evolución del BT (groot), mensajes del terminal y capturas de Gazebo durante un cambio de planes por la llegada de una ID repetida
+\begin{figure}[htbp]
+    \centering
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+        \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \caption{Arrival of a task with a repeated id. \emph{Tool Delivery} task deletes \emph{Tool Delivery} task}
+    \label{fig:event_DuplicatedID}
+\end{figure}
+
+Next, the battery level was suddenly lowered to check the \gls{BT}'s reaction. The \gls{BT} immediately stopped the execution of the task to make an emergency visit to the charging station as shown in the figure \ref{fig:event_battery}. It can also be seen that the \emph{Agent Behaviour Manager} communicated to the \emph{High-Level Planner} the detection of the unforeseen event, which triggered a replanning on its side. Note that this test was possible thanks to the functions programmed in the block in charge of faking the \gls{UAV}'s battery.
+
+% \ref{fig:event_battery} Capturas del terminal, de groot y de gazebo
+\begin{figure}[htbp]
+    \centering
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+        \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \caption{Emergency protocol in the event of an insufficient battery}
+    \label{fig:event_battery}
+\end{figure}
+
+At this point it is important to mention that a \emph{Recharge} task has not been implemented and therefore recharges cannot be planned as such, instead in the current solution the \emph{High-Level Planner} makes the \gls{ACW} recharge by not having any task queued. To make it stop recharging the planner only has to assign a task to it, either when the battery is full or before. Using the battery faker again, the battery was set to maximum and it was found that a new replanning took place and the \gls{BT} started the \gls{ACW} again (see Fig. \ref{fig:event_batteryOK}). The evolution of the \gls{BT} is the same as shown in figures \ref{fig:BTinitialization} and \ref{fig:NoIdle_DeliverToolTaskTree} but with the difference that now the task is of the \emph{Safety Monitoring} type.
+
+% \ref{fig:event_batteryOK} Batería cargada(Gazebo y Terminal)
+\begin{figure}[htbp]
+    \centering
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+        \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \caption{Restarting after recharging}
+    \label{fig:event_batteryOK}
+\end{figure}
+
+The other possible emergency situation is the loss of connection between the two blocks that make up this work. To test this case the process that was running the \emph{High-Level Planner} was killed. The emergency situation was successfully detected by the \gls{BT} after the maximum timeout time had elapsed, after which the emergency protocol was activated and the \gls{ACW} was directed to the charging station. Figure \ref{fig:event_AgentConnection} shows the evolution of the \gls{BT}, the movement of the \gls{UAV} in the simulation and the outputs that are printed by the terminal.
+
+% \ref{fig:event_AgentConnection}
+\begin{figure}[htbp]
+    \centering
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+        \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \caption{Emergency protocol in case of loss of connection}
+    \label{fig:event_AgentConnection}
+\end{figure}
+
+Finally, in a new simulation, during a \emph{Safety Monitoring} task, the \emph{Mission Over} signal was sent to observe the completion of both blocks. The \emph{Agent Behaviour Manager} directed the \gls{ACW} to the base station and then the \gls{BT} and the entire block were terminated. The \emph{High-Level Planner}, after detecting the signal, waited for all \glspl{ACW} to finish and then shut down as well. The whole process can be seen in figure \ref{fig:event_MissionOver}.
+
+% \ref{fig:event_MissionOver} Gazebo, Groot y terminal del proceso de mission over
+\begin{figure}[htbp]
+    \centering
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \\
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+        \hfill
+    \subfloat[]{ % <- Caption
+        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \caption{System shutting down after the arrival of a mission over signal}
+    \label{fig:event_MissionOver}
+\end{figure}
+
+\section{Phase II: multi-ACW simulations}
 \label{sec:phaseII}
 \AC{He pensado que en esta fase puedo modificar el código para que funcione sin la simulación (porque ahora mismo el nodo Agent espera que el UAL/State signifique "Ready") y hacer pruebas con muchos drones sin que explote mi ordenador. Como además las capturas de Gazebo no darán mucha información, me parece una buena opción. Creo que no habría problema luego con las llamadas a los servicios de UAL. Tengo que comprobarlo, si da error por no tener ningún nodo UAL arrancado sí que va a ser un lío.}
 
@@ -142,6 +256,6 @@ Finally, when this task was finished, the \gls{BT} proceeded to execute the \emp
 % Modificación de los parámetros de una tarea (n de monitor por ejemplo)
 % Batería insuficiente (Terminal y Groot)
 % Batería cargada (Terminal y Groot)
-% Desconexión (Terminal y Groot)
-% Reconexión (Terminal y Groot)
+% Desconexión de un Agente (Terminal y Groot)
+% Reconexión de un Agente (decir que es como la conexión de uno nuevo) (Terminal y Groot)
 % Mission over (Terminal y Groot)
