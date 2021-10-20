@@ -1,3 +1,4 @@
+*.pdf
 *.aux
 *.bbl
 *.blg
@@ -15,5 +16,4 @@
 *.toc
 *.glg
 *.gls
-*.pdf
 *.ist

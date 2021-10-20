@@ -12,38 +12,27 @@ Once the simulation has finished initialising, tasks can start to be requested. 
 
 First, a series of tasks were requested and executed without interruption in order to check that the system worked well under favourable conditions and was able to complete all tasks. Next, the responsiveness of the \emph{Agent Behaviour Manager} block to unforeseen events was evaluated. In this part the behaviour of the planner remained predictable without the need for any calculations. It started by requesting, in that order, a \emph{Tool Delivery} task, an \emph{Inspection} task and a \emph{Safety Monitoring} task. The expected order in which the tasks will be assigned is the same order.
 
-%% Tareas: Repetir lo siguiente una vez por cada tarea
-% incommingTask: llegada de tareas. Papel del GestureNodeFaker. Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado.
-% Asignación de las tareas: elección de parámetros, asignación de la tarea al ACW (si el tipo lo permite) y comunicación. (Terminal)
-% Ejecución de la tarea: Lectura de la cola en Agent, evolución del BT, movimiento del UAV (secundario porque es fakeado), finalizar tarea. (Terminal, Groot y Gazebo)
-
-% \ref{fig:BTinitialization}: captura del BT al inicio, cuando aún no hay ninguna tarea.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=.75\linewidth]{Results/figures/prov.jpeg}
-    \caption{\gls{BT} starting point displayed with Groot: battery charged and no task queued.}
+    \subfloat[Starting position of the Gazebo simulation]{
+        \includegraphics[width=.45\linewidth]{Results/figures/GazeboBatSta.pdf}}
+    \hfill
+    \subfloat[\gls{BT}'s starting status displayed with Groot]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTini.jpeg}}
+    \caption{Initial status of the simulation: battery charged and no task queued.}
     \label{fig:BTinitialization}
 \end{figure}
 
-At the beginning, the \gls{UAV} has the battery charged, is landed on the charging station and has no task queued, then the \gls{BT} is returning \emph{SUCCESS} except for the \emph{Force Running} node, which keeps the \gls{BT} running by always returning \emph{RUNNING} (see Fig. \ref{fig:BTinitialization}). Once the first task arrives the \gls{ACW} starts running. The \gls{BT} now checks which task it is and proceeds with its execution (see Fig. \ref{fig:NoIdle_DeliverToolTaskTree}). At this point the other two tasks were communicated. The \emph{High-Level Planner} performed a replanning for each event, but as the \emph{Tool Delivery} task remained at the top of the queue, the \gls{BT} did not notice the change. Figure \ref{fig:newtaskqueue} shows both the mentioned replanning and the parameters selected by the planner for each of the tasks.
+At the beginning, the \gls{UAV} has the battery charged, is landed on the charging station and has no task queued, then the \gls{BT} is returning \emph{SUCCESS} except for the \emph{Force Running} node, which keeps the \gls{BT} running by always returning \emph{RUNNING} (see Fig. \ref{fig:BTinitialization}). Note that Groot uses its own colour code to represent the result of each node in the previous tick. \emph{Green} stands for \emph{SUCCESS}, \emph{Red} for \emph{FAILURE}, \emph{Orange} for \emph{RUNNING} and \emph{White} for \emph{IDLE}. In addition, when a node is still called by a \emph{Reactive Control} node after it has finished, if the result is the same, the colour of the node is maintained but in a less intense tone. 
 
-% \ref{fig:NoIdle_DeliverToolTaskTree}: Figura con varias capturas del BT juntas. Evolución del BT desde que llega la tarea (no idle) hasta que se llama al subtree de Deliver.
 \begin{figure}[htbp]
     \centering
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \\
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-        \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \includegraphics[width=.75\linewidth]{Results/figures/BTnoIdle.pdf}
     \caption{\gls{BT} transition from idle to \emph{Tool Delivery Task Tree}}
     \label{fig:NoIdle_DeliverToolTaskTree}
 \end{figure}
+
+Once the first task arrives the \gls{ACW} starts running. The \gls{BT} now checks which task it is and proceeds with its execution (see Fig. \ref{fig:NoIdle_DeliverToolTaskTree}). At this point the other two tasks were communicated. The \emph{High-Level Planner} performed a replanning for each event, but as the \emph{Tool Delivery} task remained at the top of the queue, the \gls{BT} did not notice the change. Figure \ref{fig:newtaskqueue} shows both the mentioned replanning and the parameters selected by the planner for each of the tasks.
 
 % \ref{fig:newtaskqueue}: Captura del terminal para ver las comunicaciones y las replanificaciones hasta este punto
 \begin{figure}[htbp]
@@ -53,61 +42,56 @@ At the beginning, the \gls{UAV} has the battery charged, is landed on the chargi
     \label{fig:newtaskqueue}
 \end{figure}
 
-The \emph{Tool Delivery Task Tree} functioned perfectly well. In Gazebo, the movement of the \gls{ACW} from one side to the other was observed as the \gls{BT} traversed the nodes of the subtree of this task (see Fig. \ref{fig:Gazebo_DeliverTree}). In addition, the task result was checked for correct communication with the centralised block, which used the moment to re-evaluate the plan to see if it is still within the optimal plan. As the plan did not change, the \gls{BT} continued to execute the queued tasks. Figure \ref{fig:Gazebo_InspectTree} shows the evolution of the simulation during the execution of the \emph{Inspection} task, for which the \gls{BT} also proved to work perfectly.
+The \emph{Tool Delivery Task Tree} functioned perfectly well. In Gazebo, the movement of the \gls{ACW} from one side to the other was observed as the \gls{BT} traversed the nodes of the subtree of this task (see Fig. \ref{fig:Gazebo_DeliverTree}). In addition, the task result was checked for correct communication with the centralised block, which used the moment to re-evaluate the plan to see if it is still within the optimal plan. As the plan did not change, the \gls{BT} continued to execute the queued tasks. As it has already been shown that the activation of \emph{Action} nodes in the \gls{BT} correctly moves the \gls{ACW} in the Gazebo simulation, no screenshots of the simulation are shown from now on as they are not relevant. Figure \ref{fig:Gazebo_InspectTree} shows the evolution of the \gls{BT} during the execution of the \emph{Inspection} task, for which the \gls{BT} also proved to work perfectly. 
 
-% \ref{fig:Gazebo_DeliverTree}: figura con varias caputras que muestren los 3 puntos que visita el UAV en gazebo y la evolucion del ToolDeliveryTaskTree
 \begin{figure}[htbp]
     \centering
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \subfloat[Initial position: charge station]{
+        \includegraphics[width=.3\linewidth]{Results/figures/GazeboBatSta.pdf}}
     \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \subfloat[Base station: tool picking]{
+        \includegraphics[width=.3\linewidth]{Results/figures/GazeboTool.pdf}}
+    \hfill
+    \subfloat[Human target position: tool delivery]{
+        \includegraphics[width=.3\linewidth]{Results/figures/GazeboHuman.pdf}}
+    \hfill
     \\
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-        \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \caption{Evolution of the simulation during the execution of the \emph{Tool Deliverry Task Tree}}
+    \subfloat[Activation of \emph{Go Near Station} action after checking \emph{Has ACW the tool?} and \emph{Is ACW near Station?} conditions]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTDTGNS.pdf}}
+    \hfill
+    \subfloat[Activation of \emph{Pick Tool} action after arriving at the base station]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTDTPT.pdf}}
+    \\
+    \subfloat[Activation of \emph{Go Near Human Target} action after having the tool and checking \emph{Is ACW Human Target?} condition]{ 
+        \includegraphics[width=.45\linewidth]{Results/figures/BTDTGNHT.pdf}}
+    \hfill
+    \subfloat[Activation of \emph{Deliver Tool} action after arriving near human target having the tool]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTDTDT.pdf}}
+    \caption{Evolution of the simulation during the execution of the \emph{Tool Delivery Task Tree}}
     \label{fig:Gazebo_DeliverTree}
 \end{figure}
 
-% \ref{fig:Gazebo_InspectTree}: figura con varias caputras que muestren los 3 puntos que visita el UAV en gazebo y la evolucion del InspectTaskTree
 \begin{figure}[htbp]
     \centering
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \subfloat[Activation of \emph{Go Near WP} action after checking \emph{Is Agent Near WP?} condition]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTIGNWP.pdf}}
     \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \\
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-        \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \caption{Evolution of the simulation during the execution of the \emph{Inspection Task Tree}}
+    \subfloat[Activation of \emph{Take Image} action after arriving near WP]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTITI.pdf}}
+    \caption{Evolution of the \gls{BT} during the execution of the \emph{Inspection Task Tree}}
     \label{fig:Gazebo_InspectTree}
 \end{figure}
 
 Finally, when this task was finished, the \gls{BT} proceeded to execute the \emph{Safety Monitoring} task, which was also carried out without problems (see Fig. \ref{fig:Gazebo_MonitorTree}). This task ends when the operator requests it, so the fake block pretending to be the low-level controller for this task is programmed so that the task never ends. This task remains in the queue until the mission is completed or it is overwritten by a task of another type with the same \gls{ID}, which is a contemplated case for which the planner is prepared and warns the operators that an unfinished task is going to be deleted. Since during planning, tasks are assigned in order, the non-completion of this task is not a problem for the execution of other tasks, but an opportunity to study in a controlled way the emergency protocols and the response of both blocks to different unforeseen events.
 
-% \ref{fig:Gazebo_MonitorTree}: figura con varias caputras que muestren los 3 puntos que visita el UAV en gazebo y la evolucion del MonitorTaskTree
 \begin{figure}[htbp]
     \centering
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
+    \subfloat[Activation of \emph{Go Near Human Target} action after checking \emph{Is Agent Near Human Target?} condition]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTMGNHT.pdf}}
     \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \\
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-        \hfill
-    \subfloat[]{ % <- Caption
-        \includegraphics[width=.45\linewidth]{Results/figures/prov.jpeg}}
-    \caption{Evolution of the simulation during the execution of the \emph{Monitoring Task Tree}}
+    \subfloat[Activation of \emph{Monitor Human Target} action after arriving near Human Target]{
+        \includegraphics[width=.45\linewidth]{Results/figures/BTMMHT.pdf}}
+    \caption{Evolution of the \gls{BT} during the execution of the \emph{Monitoring Task Tree}}
     \label{fig:Gazebo_MonitorTree}
 \end{figure}
 
@@ -251,6 +235,7 @@ Finally, in a new simulation, during a \emph{Safety Monitoring} task, the \emph{
 % Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado. Lista de tareas pendientes. (Terminal)
 % Asignación de las tareas: elección de parámetros, elección de los UAV, como quedan las colas finalmente. (Terminal)
 % Ejecución de los planes: mostrar la evolución de los BT para comparar después con cuando interrumpamos (Groot)
+
 %% Eventos imprevistos: mostrar principalmente que pasa en el planner: como se entera, como reacciona, replanificación, nuevos planes, cambios en los BT
 % Llegada de una nueva tarea: mostrar la reacción del Planner, la replanificación, como quedan las colas y como cambian los BT (transición y nuevo "RP"). (Terminal y Groot)
 % Modificación de los parámetros de una tarea (n de monitor por ejemplo)
