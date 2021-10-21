@@ -34,7 +34,6 @@ At the beginning, the \gls{UAV} has the battery charged, is landed on the chargi
 
 Once the first task arrives the \gls{ACW} starts running. The \gls{BT} now checks which task it is and proceeds with its execution (see Fig. \ref{fig:NoIdle_DeliverToolTaskTree}). At this point the other two tasks were communicated. The \emph{High-Level Planner} performed a replanning for each event, but as the \emph{Tool Delivery} task remained at the top of the queue, the \gls{BT} did not notice the change. Figure \ref{exit:newtaskqueue} shows both the mentioned replanning and the parameters selected by the planner for each of the tasks.
 
-% \ref{fig:newtaskqueue}: Captura del terminal para ver las comunicaciones y las replanificaciones hasta este punto
 \begin{lstlisting}[caption={Feedback of the task planning process and communications between \emph{High-Level Planner} and \emph{Agent Behaviour Manager}}, breaklines=true, label=exit:newtaskqueue]
 	[]
 \end{lstlisting}
@@ -179,18 +178,243 @@ Finally, in a new simulation, during a \emph{Safety Monitoring} task, the \emph{
 
 \section{Phase II: multi-ACW simulations}
 \label{sec:phaseII}
-\AC{He pensado que en esta fase puedo modificar el código para que funcione sin la simulación (porque ahora mismo el nodo Agent espera que el UAL/State signifique "Ready") y hacer pruebas con muchos drones sin que explote mi ordenador. Como además las capturas de Gazebo no darán mucha información, me parece una buena opción. Creo que no habría problema luego con las llamadas a los servicios de UAL. Tengo que comprobarlo, si da error por no tener ningún nodo UAL arrancado sí que va a ser un lío.}
+The tests in this phase consisted of a simulation with five \glspl{ACW} including one \emph{Physical-ACW} (UAV\_1), one \emph{Inspection-ACW} (UAV\_2) and three \emph{Safety-ACWs} (UAV\_3, UAV\_4, UAV\_5). The tests were carried out in a single simulation, which was organised in such a way as to be sufficient to validate the \emph{High-Level Planner} under all circumstances.
 
-%% Tareas: si hago lo de no poner gazebo, las tareas no van a terminar nunca, así quue va a ser más fácil testear planner con todo estático y controlado
-% Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado. Lista de tareas pendientes. (Terminal)
-% Asignación de las tareas: elección de parámetros, elección de los UAV, como quedan las colas finalmente. (Terminal)
-% Ejecución de los planes: mostrar la evolución de los BT para comparar después con cuando interrumpamos (Groot)
+% Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado. Lista de tareas pendientes
+% tareas_1:
+	% @rosrun human_aware_collaboration_planner gesture_task task_1 D hammer human_target_2
+	% @rosrun human_aware_collaboration_planner gesture_task task_2 I 0 0 2 10 10 2 0 10 2 10 0 2
+	% @rosrun human_aware_collaboration_planner gesture_task task_3 M human_target_1 1.5 4
+The first step was to start the simulation. Each \emph{Agent Behaviour Manager} was programmed to wait for ten seconds in order to allow time to send tasks while no \gls{ACW} was connected. The code \ref{exit:NoAgentsCoonectedYet} shows the feedback printed by the terminal up to that point. The function of the centralised module that carries out the task distribution communicated that no \glspl{UAV} were connected yet and postponed the planning.
 
-%% Eventos imprevistos: mostrar principalmente que pasa en el planner: como se entera, como reacciona, replanificación, nuevos planes, cambios en los BT
-% Llegada de una nueva tarea: mostrar la reacción del Planner, la replanificación, como quedan las colas y como cambian los BT (transición y nuevo "RP"). (Terminal y Groot)
+\begin{lstlisting}[caption={Feedback messages printed after the start of the simulation before the ACWs were connected}, breaklines=true, label=exit:NoAgentsCoonectedYet]
+    [ INFO][/task_planner]: [Planner] Initialization complete
+
+    [ INFO][/task_planner]: [incomingTask] Received New Tasks:
+	    task_1: Deliver
+		    Tool: hammer (1.5kg): -2, 5, 0.9
+		    Human Target: human_target_2: -5, 15, 1.8
+	    task_2: Inspect
+		    Positions: (0, 0, 2) (10, 10, 2) (0, 10, 2) (10, 0, 2)
+		    Agent List:
+	    task_3: Monitor (1.5, 4)
+		    Human Target: human_target_1: 0, 10, 1.85
+		    Agent List:
+
+    [ INFO][/task_planner]: [incomingTask] Allocating tasks...
+    [ WARN][/task_planner]: [performTaskAllocation] No Agents connected yet. 3 pending tasks
+\end{lstlisting}
+
+After the ten seconds had elapsed, while the communication between the \emph{High-Level Planner} and the \emph{Agent Behaviour Managers} was established and the first block was calculating the mission plan, the \glspl{BT} went to reload as stipulated when there is an empty queue (see code \ref{exit:IdleCharging}).
+
+\begin{lstlisting}[caption={Feedback messages printed before the ACWs received their new queues}, breaklines=true, label=exit:IdleCharging]
+    [ INFO][/uav_1/agent]: [Recharge] Calling take_off
+    [ INFO][/uav_1/agent]: [Recharge] Moving to recharging station
+    [ INFO][/uav_1/agent]: [Recharge] Calling land
+    [ INFO][/uav_1/agent]: [Recharge] Charging...
+    
+    [ INFO][/uav_2/agent]: [Recharge] Calling take_off
+    [ INFO][/uav_2/agent]: [Recharge] Moving to recharging station
+    [ INFO][/uav_2/agent]: [Recharge] Calling land
+    [ INFO][/uav_2/agent]: [Recharge] Charging...
+    
+    [ INFO][/uav_3/agent]: [Recharge] Calling take_off
+    [ INFO][/uav_3/agent]: [Recharge] Moving to recharging station
+    [ INFO][/uav_3/agent]: [Recharge] Calling land
+    [ INFO][/uav_3/agent]: [Recharge] Charging...
+    
+    [ INFO][/uav_5/agent]: [Recharge] Calling take_off
+    [ INFO][/uav_5/agent]: [Recharge] Moving to recharging station
+    [ INFO][/uav_5/agent]: [Recharge] Calling land
+    [ INFO][/uav_5/agent]: [Recharge] Charging...
+    
+    [ INFO][/uav_4/agent]: [Recharge] Calling take_off
+    [ INFO][/uav_4/agent]: [Recharge] Moving to recharging station
+    [ INFO][/uav_4/agent]: [Recharge] Calling land
+    [ INFO][/uav_4/agent]: [Recharge] Charging...
+\end{lstlisting}
+
+Once the communication was established and the connection of the five \glspl{ACW} was detected, the \emph{High-Level Planner} executed a task allocation. The tasks pending at this point were a \emph{Tool Delivery} task, for which only one \gls{ACW} was capable (UAV\_1), an \emph{Inspection} task, which could be executed by all the connected \glspl{ACW}, but only one of them was of the preferred type (UAV\_2), and a \emph{Safety Monitoring} task that required four \glspl{ACW}, which could be executed by all of them but only three of them were of the preferred type. The code \ref{exit:FirstAllocation} shows the feedback that was printed on the screen after the connection of the \glspl{UAV} and the result of the planning.
+
+\begin{lstlisting}[caption={Feedback messages printed after the connection of the \glspl{UAV} and the planning}, breaklines=true, label=exit:FirstAllocation]
+    [ INFO][/task_planner]: [beaconCallback] New Agent connected: uav_1
+    [ INFO][/task_planner]: [beaconCallback] New Agent connected: uav_2
+    [ INFO][/task_planner]: [beaconCallback] New Agent connected: uav_3
+    [ INFO][/task_planner]: [beaconCallback] New Agent connected: uav_4
+    [ INFO][/task_planner]: [beaconCallback] New Agent connected: uav_5
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Tasks Allocated:
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_1
+    Agent type: PhysicalACW
+    Task list: (1 tasks)
+        task_1: DeliverTool
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_2
+    Agent type: InspectionACW
+    Task list: (2 tasks)
+        task_2: Inspect
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_3
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_4
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_5
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+\end{lstlisting}
+
+% Asignación de las tareas: elección de parámetros, elección de los UAV, como quedan las colas finalmente.
+The outcome of the mission planning was as expected. The highest priority task was assigned to the only \gls{ACW} capable of carrying it out, UAV\_1. The second highest priority task could be assigned by decision of the \emph{High-Level Planner} to more than one \gls{ACW}. It was assigned to a single \gls{ACW}, UAV\_2, which was the only \gls{UAV} of the preferred \gls{ACW} type for this task. Finally, the four \glspl{ACW} selected for the \emph{Safety Monitoring} task were UAV\_2, UAV\_3, UAV\_4 and UAV\_5, three of which were of the preferred type for this task, as they were still free at this point and also this way no \gls{ACW} qualified for another task is occupied. This task was to be started with only three \glspl{ACW} even though four were requested, as there were no more \glspl{ACW} available at that time. The last \gls{ACW} selected was the \emph{Inspection-ACW}, which on the one hand would be the first \gls{ACW} that would be available to execute the task, and on the other hand, it had a lower cost for this task than the \emph{Physical-ACW}, since the latter is the only one capable of executing \emph{Tool Delivery} tasks and it is preferable not to have it busy doing a lower priority task in case a task of this type arrives.
+
+% Ejecución de los planes
+Once the queues were communicated to the \glspl{ACW}, they proceeded with the execution of the first task of their respective queues. Code \ref{exit:ExecutionFirstPlan} shows the messages printed by the \emph{Agent Behaviour Manager} blocks during the execution of the entire plan. These messages were printed from the \gls{BT} nodes, being sufficient to know the status of each one of them.  No screenshots of the \glspl{BT} are shown at this stage because they have already been validated and these messages are enough.
+
+\begin{lstlisting}[caption={Feedback messages printed by \emph{Agent Behaviour Managers} during the plan execution}, breaklines=true, label=exit:ExecutionFirstPlan]
+    [ INFO][/uav_1/agent]: [newTaskList] Received a NewTaskList Action
+    [ INFO][/uav_1/agent]: task_1: DeliverTool
+    [ INFO][/uav_1/agent]: [Recharge] halt requested
+    [ INFO][/uav_1/agent]: [GoNearStation] Moving near Tool...
+    [ INFO][/uav_1/agent]: [PickTool] Calling Lower-level controllers...
+    [ INFO][/uav_1/agent]: [PickTool] PICK TOOL FINISHED
+    [ INFO][/uav_1/agent]: [GoNearHumanTarget] Moving near HT...
+    [ INFO][/uav_1/agent]: [DeliverTool] Calling Lower-level controllers...
+    [ INFO][/uav_1/agent]: [DeliverTool] DELIVER TOOL TASK FINISHED (true)
+    
+    [ INFO][/uav_2/agent]: [newTaskList] Received a NewTaskList Action
+    [ INFO][/uav_2/agent]: task_2: Inspect
+    [ INFO][/uav_2/agent]: [Recharge] halt requested
+    [ INFO][/uav_2/agent]: [GoNearWP] Moving near WP...
+    [ INFO][/uav_2/agent]: [TakeImage] Calling Lower-level controllers...
+    [ INFO][/uav_2/agent]: [TakeImage] INSPECT TASK FINISHED (true)
+    [ INFO][/uav_2/agent]: task_3: Monitor
+    [ INFO][/uav_2/agent]: [GoNearHumanTarget] Moving near HT...
+    [ INFO][/uav_2/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
+    
+    [ INFO][/uav_3/agent]: [newTaskList] Received a NewTaskList Action
+    [ INFO][/uav_3/agent]: task_3: Monitor
+    [ INFO][/uav_3/agent]: [Recharge] halt requested
+    [ INFO][/uav_3/agent]: [GoNearHumanTarget] Moving near HT...
+    [ INFO][/uav_3/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
+    
+    [ INFO][/uav_4/agent]: [newTaskList] Received a NewTaskList Action
+    [ INFO][/uav_4/agent]: task_3: Monitor
+    [ INFO][/uav_4/agent]: [Recharge] halt requested
+    [ INFO][/uav_4/agent]: [GoNearHumanTarget] Moving near HT...
+    [ INFO][/uav_4/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
+    
+    [ INFO][/uav_5/agent]: [newTaskList] Received a NewTaskList Action
+    [ INFO][/uav_5/agent]: task_3: Monitor
+    [ INFO][/uav_5/agent]: [Recharge] halt requested
+    [ INFO][/uav_5/agent]: [GoNearHumanTarget] Moving near HT...
+    [ INFO][/uav_5/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
+\end{lstlisting}
+
+% Replanificaciones cada vez que acaba una tarea (no afecta al plan)
+% 
+\begin{lstlisting}[caption={Feedback messages printed afert \emph{Inspection} task ends}, breaklines=true, label=exit:task_2Ends]
+    [ INFO][/task_planner]: [taskResultCB] task_2(Inspect) SUCCEEDED. Reallocating just in case...
+    [ INFO][/task_planner]: [performTaskAllocation] Tasks Allocated:
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_1
+    Agent type: PhysicalACW
+    Task list: (1 tasks)
+        task_1: DeliverTool
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_2
+    Agent type: InspectionACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_3
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_4
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_5
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+\end{lstlisting}
+
+% Fin de la segunda tarea
+
+\begin{lstlisting}[caption={Feedback messages printed afert \emph{Tool Delivery} task ends}, breaklines=true, label=exit:task_1Ends]
+    [ INFO][/task_planner]: [taskResultCB] task_1(DeliverTool) SUCCEEDED. Reallocating just in case...
+    [ INFO][/task_planner]: [performTaskAllocation] Tasks Allocated:
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_1
+    Agent type: PhysicalACW
+    Task list: (0 tasks)
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_2
+    Agent type: InspectionACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_3
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_4
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+    
+    [ INFO][/task_planner]: [performTaskAllocation] Agent id: uav_5
+    Agent type: SafetyACW
+    Task list: (1 tasks)
+        task_3: Monitor
+\end{lstlisting}
+
+% Llegada de una nueva tarea: mostrar la reacción del Planner, la replanificación, como quedan las colas y como cambian los BT (transición y nuevo "RP")
+% tareas_2:
+	% @rosrun human_aware_collaboration_planner gesture_task task_4 D hammer human_target_2
+	% @rosrun human_aware_collaboration_planner gesture_task task_5 I 0 0 2 10 10 2 0 10 2 10 0 2
+\begin{lstlisting}[caption={Feedback messages printed after }, breaklines=true, label=exit:]
+
+\end{lstlisting}
+
 % Modificación de los parámetros de una tarea (n de monitor por ejemplo)
-% Batería insuficiente (Terminal y Groot)
-% Batería cargada (Terminal y Groot)
-% Desconexión de un Agente (Terminal y Groot)
-% Reconexión de un Agente (decir que es como la conexión de uno nuevo) (Terminal y Groot)
-% Mission over (Terminal y Groot)
+% tareas_3:
+	% @rosrun human_aware_collaboration_planner gesture_task task_3 M human_target_1 3 5
+
+% Batería insuficiente
+% imprevisto_1:
+	% @rostopic pub /uav_2/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "0.2" "0.01" "0.01"
+	% @rostopic pub /uav_3/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "0.2" "0.01" "0.01"
+
+% Batería cargada
+% imprevisto_2:
+	% @rostopic pub /uav_2/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "1" "0.01" "0.01"
+	% @rostopic pub /uav_3/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "1" "0.01" "0.01"
+
+% Desconexión de un Agente
+% imprevisto_3:
+	% @rosnode kill /uav_4/agent
+
+% Reconexión de un Agente (decir que es como la conexión de uno nuevo)
+% imprevisto_4:
+	% @rosrun human_aware_collaboration_planner agent __ns:=uav_4
+
+% Mission over
+% imprevisto_5:
+	% @rostopic pub /mission_over human_aware_collaboration_planner/MissionOver "value: true"
+
+\begin{lstlisting}[caption={Feedback messages printed }, breaklines=true, label=exit:]
+
+\end{lstlisting}
