@@ -725,7 +725,8 @@ The next unforeseen situation that was tested was the modification of the parame
 % imprevisto_1:
 	% @rostopic pub /uav_2/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "0.2" "0.01" "0.01"
 	% @rostopic pub /uav_3/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "0.2" "0.01" "0.01"
-% Aprovechando el escenario anterior se 
+% Aprovechando el escenario resultante de la prueba anterior, en el que todos los ACWs estaban ejecutando alguna tarea, se comprobó la capacidad del sistema de actuar ante una situación de emergencia como es tener un nivel de batería inesperadamente bajo o perder la conexión entre ambos bloques. Aunque el papel principal en este tipo de situaciones lo tiene el BT, y su capacidad para reaccionar a situaciones de emergencia ya ha sido verificada en la sección anterior, se ha simulado el desvanecimiento de la batería de dos de los ACWs para ver la reacción en un escenario con más de un UAV. En el código \ref{exit:BatOff} se puede ver
+
 \begin{lstlisting}[caption={Feedback messages printed after the battery of two \glspl{UAV} unexpectedly ran out of power}, breaklines=true, label=exit:BatOff]
     [ WARN][/uav_2/agent]: [isBatteryEnough] Advertising that battery_enough_ = false
     [ INFO][/uav_2/agent]: [newTaskList] Received a NewTaskList Action
