@@ -88,13 +88,13 @@ The \emph{Tool Delivery Task Tree} functioned perfectly well. In Gazebo, the mov
         \includegraphics[width=.3\linewidth]{Results/figures/GazeboHuman.pdf}}
     \hfill
     \\
-    \subfloat[Activation of \emph{Go Near Station} action after checking \emph{Has ACW the tool?} and \emph{Is ACW near Station?} conditions]{
+    \subfloat[Activation of \emph{Go Near Station} action after checking \emph{Has ACW the tool} and \emph{Is ACW near Station} conditions]{
         \includegraphics[width=.45\linewidth]{Results/figures/BTDTGNS.pdf}}
     \hfill
     \subfloat[Activation of \emph{Pick Tool} action after arriving at the base station]{
         \includegraphics[width=.45\linewidth]{Results/figures/BTDTPT.pdf}}
     \\
-    \subfloat[Activation of \emph{Go Near Human Target} action after having the tool and checking \emph{Is ACW Human Target?} condition]{ 
+    \subfloat[Activation of \emph{Go Near Human Target} action after having the tool and checking \emph{Is ACW Human Target} condition]{ 
         \includegraphics[width=.45\linewidth]{Results/figures/BTDTGNHT.pdf}}
     \hfill
     \subfloat[Activation of \emph{Deliver Tool} action after arriving near human target having the tool]{
@@ -105,7 +105,7 @@ The \emph{Tool Delivery Task Tree} functioned perfectly well. In Gazebo, the mov
 
 \begin{figure}[htbp]
     \centering
-    \subfloat[Activation of \emph{Go Near WP} action after checking \emph{Is Agent Near WP?} condition]{
+    \subfloat[Activation of \emph{Go Near WP} action after checking \emph{Is Agent Near WP} condition]{
         \includegraphics[width=.45\linewidth]{Results/figures/BTIGNWP.pdf}}
     \hfill
     \subfloat[Activation of \emph{Take Image} action after arriving near WP]{
@@ -135,7 +135,7 @@ Finally, when this task was finished, the \gls{BT} proceeded to execute the \emp
 
 \begin{figure}[htbp]
     \centering
-    \subfloat[Activation of \emph{Go Near Human Target} action after checking \emph{Is Agent Near Human Target?} condition]{
+    \subfloat[Activation of \emph{Go Near Human Target} action after checking \emph{Is Agent Near Human Target} condition]{
         \includegraphics[width=.45\linewidth]{Results/figures/BTMGNHT.pdf}}
     \hfill
     \subfloat[Activation of \emph{Monitor Human Target} action after arriving near Human Target]{
@@ -250,7 +250,7 @@ After the success of the previous test, it was tested whether the \emph{High-Lev
     [ INFO][/uav_1/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
 \end{lstlisting}
 
-Next, the battery level was suddenly lowered to check the \gls{BT}'s reaction. The \gls{BT} immediately stopped the execution of the task to make an emergency visit to the charging station as shown in the figure \ref{fig:event_battery}. Note that the halt is not produced by \emph{Is Battery Enough?} condition node, but by the emptying of the task queue as established by the protocol. Thus, the node that stops the execution of the task should always be \emph{Idle}'s \emph{Inverter} node, not \emph{Is Battery Enough?} condition node, which is there to provide the \gls{BT} with additional robustness in case of failure. It can also be seen in the feedback showed in code \ref{exit:event_battery} that the \emph{Agent Behaviour Manager} communicated to the \emph{High-Level Planner} the detection of the unforeseen event, which triggered a replanning on its side. Note that this test was possible thanks to the functions programmed in the block in charge of faking the \gls{UAV}'s battery.
+Next, the battery level was suddenly lowered to check the \gls{BT}'s reaction. The \gls{BT} immediately stopped the execution of the task to make an emergency visit to the charging station as shown in the figure \ref{fig:event_battery}. Note that the halt is not produced by \emph{Is Battery Enough} condition node, but by the emptying of the task queue as established by the protocol. Thus, the node that stops the execution of the task should always be \emph{Idle}'s \emph{Inverter} node, not \emph{Is Battery Enough} condition node, which is there to provide the \gls{BT} with additional robustness in case of failure. It can also be seen in the feedback showed in code \ref{exit:event_battery} that the \emph{Agent Behaviour Manager} communicated to the \emph{High-Level Planner} the detection of the unforeseen event, which triggered a replanning on its side. Note that this test was possible thanks to the functions programmed in the block in charge of faking the \gls{UAV}'s battery.
 
 \begin{figure}[htbp]
     \centering
@@ -326,7 +326,7 @@ Finally, in a new simulation, during a \emph{Safety Monitoring} task, the \emph{
     \subfloat[\emph{Safety Monitoring} tree running]{
         \includegraphics[width=.45\linewidth]{Results/figures/BTMO_1.pdf}}
     \hfill
-    \subfloat[\emph{Safety Monitoring} tree is halted becouse \emph{Mission Over?} condition is true. \emph{Back to Station} node running]{
+    \subfloat[\emph{Safety Monitoring} tree is halted becouse \emph{Mission Over} condition is true. \emph{Back to Station} node running]{
         \includegraphics[width=.45\linewidth]{Results/figures/BTMO_2.pdf}}
     \\
     \subfloat[\emph{Back to Station} node returns \emph{SUCCESS} so \gls{BT}'s root does the same]{
@@ -371,7 +371,7 @@ Finally, in a new simulation, during a \emph{Safety Monitoring} task, the \emph{
 \label{sec:phaseII}
 The tests in this phase consisted of a simulation with five \glspl{ACW} including one \emph{Physical-ACW} (UAV\_1), one \emph{Inspection-ACW} (UAV\_2) and three \emph{Safety-ACWs} (UAV\_3, UAV\_4, UAV\_5). The tests were carried out in a single simulation, which was organised in such a way as to be sufficient to validate the \emph{High-Level Planner} under all circumstances.
 
-% Mostrar capturas del terminal cuando llegan tareas y no hay ningún UAV connectado. Lista de tareas pendientes
+% Llegan tareas y no hay ningún UAV connectado. Lista de tareas pendientes
 % tareas_1:
 	% @rosrun human_aware_collaboration_planner gesture_task task_1 D hammer human_target_2
 	% @rosrun human_aware_collaboration_planner gesture_task task_2 I 0 0 2 10 10 2 0 10 2 10 0 2
@@ -396,7 +396,7 @@ The first step was to start the simulation. Each \emph{Agent Behaviour Manager} 
     [ WARN][/task_planner]: [performTaskAllocation] No Agents connected yet. 3 pending tasks
 \end{lstlisting}
 
-After the ten seconds had elapsed, while the communication between the \emph{High-Level Planner} and the \emph{Agent Behaviour Managers} was established and the first block was calculating the mission plan, the \glspl{BT} went to reload as stipulated when there is an empty queue (see code \ref{exit:IdleCharging}).
+After the ten seconds had elapsed, while the communication between the \emph{High-Level Planner} and the \emph{Agent Behaviour Managers} was established and the first block was calculating the mission plan, the \glspl{BT} guided the \glspl{ACW} to the charging station as stipulated when there is an empty queue (see code \ref{exit:IdleCharging}).
 
 \begin{lstlisting}[caption={Feedback messages printed before the \glspl{ACW} received their new queues}, breaklines=true, label=exit:IdleCharging]
     [ INFO][/uav_1/agent]: [AgentNode] uav_1 initialized.
@@ -484,6 +484,7 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
     [ INFO][/uav_1/agent]: [GoNearHumanTarget] Moving near HT...
     [ INFO][/uav_1/agent]: [DeliverTool] Calling Lower-level controllers...
     [ INFO][/uav_1/agent]: [DeliverTool] DELIVER TOOL TASK FINISHED (true)
+    [ INFO][/task_planner]: [taskResultCB] task_1(DeliverTool) SUCCEEDED. Reallocating just in case...
     [ INFO][/uav_1/agent]: [Recharge] Moving to recharging station
     [ INFO][/uav_1/agent]: [Recharge] Calling land
     [ INFO][/uav_1/agent]: [Recharge] Charging...
@@ -494,6 +495,7 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
     [ INFO][/uav_2/agent]: [GoNearWP] Moving near WP...
     [ INFO][/uav_2/agent]: [TakeImage] Calling Lower-level controllers...
     [ INFO][/uav_2/agent]: [TakeImage] INSPECT TASK FINISHED (true)
+    [ INFO][/task_planner]: [taskResultCB] task_2(Inspect) SUCCEEDED. Reallocating just in case...
     [ INFO][/uav_2/agent]: task_3: Monitor
     [ INFO][/uav_2/agent]: [GoNearHumanTarget] Moving near HT...
     [ INFO][/uav_2/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
@@ -518,7 +520,10 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
 \end{lstlisting}
 
 % Replanificaciones cada vez que acaba una tarea (no afecta al plan)
-% 
+As the \glspl{BT}' ability to execute the assigned plans has already been validated in section \ref{sec:phaseI}, the code \ref{exit:ExecutionFirstPlan} has little to comment on. At the beginning, all \glspl{UAV} started by cancelling the recharging action in order to proceed with the execution of the tasks assigned to them. Each time one of these tasks was completed, it was communicated to the \emph{High-Level Planner}, who took the opportunity to carry out a replanning of the mission. The result of these re-plannings is shown in the codes \ref{exit:task_2Ends} and \ref{exit:task_1Ends}.
+
+The first task to finish was the \emph{Inspection} task as planned. In the code \ref{exit:task_2Ends} you can see how the centralised block received feedback from the distributed block and removed the task from the pending task list. It then performed a re-planning to check that the plan was still the best one. The result was as expected, the plan was not modified, then the \glspl{ACW} continued with their normal execution as planned. 
+
 \begin{lstlisting}[caption={Feedback messages printed afert the \emph{Inspection} task ends}, breaklines=true, label=exit:task_2Ends]
     [ INFO][/task_planner]: [taskResultCB] task_2(Inspect) SUCCEEDED. Reallocating just in case...
     [ INFO][/task_planner]: [performTaskAllocation] Tasks Allocated:
@@ -549,7 +554,7 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
             task_3: Monitor
 \end{lstlisting}
 
-% Fin de la segunda tarea
+At the end of the second task, \emph{Safety Monitoring} remained the only pending task. This task only required four \glspl{ACW}, so one of them was not assigned any task, which was the \emph{Physical-ACW} as expected. In the code \ref{exit:task_1Ends} you can see the results of the re-planning carried out on this occasion, with which, as expected, the plan was not modified either.
 
 \begin{lstlisting}[caption={Feedback messages printed after the \emph{Tool Delivery} task ends}, breaklines=true, label=exit:task_1Ends]
     [ INFO][/task_planner]: [taskResultCB] task_1(DeliverTool) SUCCEEDED. Reallocating just in case...
@@ -584,6 +589,11 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
 % tareas_2:
 	% @rosrun human_aware_collaboration_planner gesture_task task_4 D hammer human_target_2
 	% @rosrun human_aware_collaboration_planner gesture_task task_5 I 0 0 2 10 10 2 0 10 2 10 0 2
+
+Once it had been verified that the \emph{High-Level Planner} was able to manage the development and monitoring of a complete plan in which the tasks were defined from the outset and during which no events occurred other than the completion of the tasks themselves as planned and the connection of the \glspl{ACW}, it was time to start testing for unforeseen events.
+
+As a first unforeseen event, two new tasks were requested, a \emph{Tool Delivery} task and an \emph{Inspection} task. With this unforeseen event, the ability of the centralised block to re-plan the mission and communicate the new orders to the respective \emph{Agent Behaviour Managers} was tested. In the code \ref{exit:NewTasks} the feedback of the arrival of both tasks and the associated re-planning is shown. This result, although good and perfectly valid, was more difficult to predict, as even with the same scenario of tasks and \glspl{ACW} from the initial planning except for the \gls{UAV} positions and battery, the result of the task distribution was not the same.
+
 \begin{lstlisting}[caption={Feedback messages printed after the arrival of new tasks}, breaklines=true, label=exit:NewTasks]
     [ INFO][/task_planner]: [incomingTask] Received New Tasks:
         task_4: Deliver
@@ -624,7 +634,8 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
             task_3: Monitor
 \end{lstlisting}
 
-% Los cambios de los Agents (el 4 y el 5 no cambian)
+On this occasion, the \emph{High-Level Planner} decided to assign the \emph{Inspection} task to two \glspl{ACW} instead of one (see code \ref{exit:NewTasks}). As a consequence, two of the \glspl{ACW} that were executing the \emph{Safety Monitoring} task, which still requires four \glspl{UAV}, cancelled this task and proceeded to execute the \emph{Inspection} task. The selected \glspl{ACW} were an \emph{Inspection-ACW} and a \emph{Safety-ACW}. Although the \emph{Safety Monitoring} task has one less \gls{UAV} in the meantime, the two selected \glspl{ACW} complete the \emph{Inspection} task earlier, as they distribute the \glspl{WP} to be visited, so the four agents required by the other task will also be available earlier. The \emph{Tool Delivery} task was assigned to the only \gls{ACW} capable of it, who was also idle because the planner took this possibility into account in the previous plan.
+
 \begin{lstlisting}[caption={Feedback messages printed by the \emph{Agent Behaviour Manager} during the new plan execution}, breaklines=true, label=exit:NewPlanAgentFeedback]
     [ INFO][/uav_1/agent]: [newTaskList] Received a NewTaskList Action
     [ INFO][/uav_1/agent]: task_4: DeliverTool
@@ -635,6 +646,7 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
     [ INFO][/uav_1/agent]: [GoNearHumanTarget] Moving near HT...
     [ INFO][/uav_1/agent]: [DeliverTool] Calling Lower-level controllers...
     [ INFO][/uav_1/agent]: [DeliverTool] DELIVER TOOL TASK FINISHED (true)
+    [ INFO][/task_planner]: [taskResultCB] task_4(DeliverTool) SUCCEEDED. Reallocating just in case...
     [ INFO][/uav_1/agent]: [Recharge] Moving to recharging station
     [ INFO][/uav_1/agent]: [Recharge] Calling land
     [ INFO][/uav_1/agent]: [Recharge] Charging...
@@ -647,6 +659,7 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
     [ INFO][/uav_2/agent]: [GoNearWP] Moving near WP...
     [ INFO][/uav_2/agent]: [TakeImage] Calling Lower-level controllers...
     [ INFO][/uav_2/agent]: [TakeImage] INSPECT TASK FINISHED (true)
+    [ INFO][/task_planner]: [taskResultCB] task_5(Inspect) SUCCEEDED. Reallocating just in case...
     [ INFO][/uav_2/agent]: task_3: Monitor
     [ INFO][/uav_2/agent]: [GoNearHumanTarget] Moving near HT...
     [ INFO][/uav_2/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
@@ -659,16 +672,19 @@ Once the queues were communicated to the \glspl{ACW}, they proceeded with the ex
     [ INFO][/uav_3/agent]: [GoNearWP] Moving near WP...
     [ INFO][/uav_3/agent]: [TakeImage] Calling Lower-level controllers...
     [ INFO][/uav_3/agent]: [TakeImage] INSPECT TASK FINISHED (true)
+    [ INFO][/task_planner]: [taskResultCB] task_5(Inspect) SUCCEEDED. Reallocating just in case...
     [ INFO][/uav_3/agent]: task_3: Monitor
     [ INFO][/uav_3/agent]: [GoNearHumanTarget] Moving near HT...
     [ INFO][/uav_3/agent]: [MonitorHumanTarget] Calling Lower-level controllers...
 \end{lstlisting}
 
-% Como antes, cuando ambas tareas terminaron en momentos diferentes, se ejecutó una replanificación para comprobar que el plan siguiera siendo el mejor. En ninguno de los dos eventos fué necesario un cambio de planes. Al terminar, el equipo de UAVs estaba organizado como al final de la primera tanda de tareas, el Physical-ACW estaba a la espera de nuevas tareas mientras recargaba, y los otros cuatro estaban ejecutando la tarea de monitorización.
+In the code \ref{exit:NewPlanAgentFeedback} the feedback resulting from the execution of the plans in those agents that have undergone a plan change is shown. It is possible to observe the cancellation of the respective \gls{BT} nodes that were executing at the moment of the arrival of the new task queues, the communication to the \emph{High-Level Planner} of the result of a task every time it finishes, and the sequence executed by each one of them within their \gls{BT}. As in the previous plan, when each task was completed, a re-planning was executed to check that the plan was still the best. In neither event was a change of plan necessary. At the end of the plan, the status of the \glspl{ACW} was the same as at the end of the previous plan, the \emph{Physical-ACW} returned to the charging station, and the rest kept executing the \emph{Safety Monitoring} task.
 
 % Modificación de los parámetros de una tarea (n de monitor por ejemplo)
 % tareas_3:
 	% @rosrun human_aware_collaboration_planner gesture_task task_3 M human_target_1 3 5
+% La siguiente situación imprevista que se puso a prueba fue la modificación de los parámetros de una tarea. 
+
 \begin{lstlisting}[caption={Feedback messages printed after changing the parameters of a task}, breaklines=true, label=exit:paramChange]
     [ INFO][/task_planner]: [incomingTask] Task Params Updated. Allocating tasks...
     [ INFO][/task_planner]: [performTaskAllocation] Tasks Allocated:
