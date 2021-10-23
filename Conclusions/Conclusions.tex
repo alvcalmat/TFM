@@ -7,37 +7,18 @@
 \section{Conclusions}
 \label{sec:Conclusions}
 %% Comentar los objetivos marcados:
-% - Garantizar la utilización de los recursos y la ejecución eficiente de las tareas.
-% - Cumplir con todos los requisitos de seguridad y garantizar la integridad de las plataformas aéreas y el éxito de la misión.
-% - Ser capaz de replanificar en línea para reaccionar a eventos imprevistos.
-% - Implementar la capa de software en el Sistema Operativo del Robot (ROS) y gestionar la comunicación con el resto de capas y módulos de software que conforman la arquitectura arquitectura.
-% - Realizar simulaciones de Software In The Loop (SITL) para demostrar que el algoritmo es capaz de gobernar el comportamiento de la flota de forma eficiente y segura, y que es capaz de reaccionar ante imprevistos de forma dinámica, demostrando sus capacidades cognitivas.
-% - Diseñar el planificador de tareas de forma que sea fácil de mantener, modificar o ampliar, procurando que sea modular y reutilizable para que pueda servir de base para la construcción de planificadores para otras aplicaciones.
+% En este trabajo se ha desarrolado un planificador de tareas con capacidad para realizar la planificación de misiones para equipos multi-UAV. El sistema tiene la capacidad cognitiva suficiente para controlar a múltiples UAVs que funcionen como co-trabajadores en entornos dinámicos de forma segura. Las simulaciones realizadas han demostrado la capacidad que tiene el sistema para detectar situaciones de emergencia y actuar de forma segura ejecutando planes de contingencia de forma autónoma mientras se calcula un nuevo plan a seguir que tenga en cuenta los imprevistos que hayan acontecido. El diseño del sistema dividido en un bloque centralizado en tierra encargado de realizar la planificación óptima de la misión y de bloques distribuidos a bordo de cada uno de los ACWs permite que el sistema presente robustez ante fallos y capacidad cognitiva suficiente para reaccionar ante eventos imprevistos recalculando el plan óptimo. De esta forma, se consigue una ejecución eficiente de las tareas y un mejor aprovechamiento de los recursos, que se traduce en una mayor autonomía conjunta del equipo de UAVs.
 
-% El BT se puede mejorar pero funciona muy bien y sienta las bases para programar comportamientos más complejos en el futuro. Servirá de ejemplo para la comunidad. Permite generar comportamientos complejos y numerosos estados sin que haya que preocuparse de las transiciones entre estados como pasa con las FSM, en las que este crece exponencialmente con el número de estados.
+% El sistema se ha diseñado en ROS y las comunicacioens entre las diferentes capas de software y los diferentes bloques de cada capa se han realizado empleando las herramientas que este ofrece. Esto facilita la integración del sistema desarrollado en otros proyectos de robótica que necesiten de un planificador de tareas con estas características o similares. El uso de BT para el diseño del UAV behaviour manager presenta grandes ventajas frente a las FSM convencionales. Esta técnica permite generar comportamientos complejos con numerosos estados sin que haya que preocuparse por tener en cuenta cada una de las transiciones entre esos estados como pasa con las FSM, en las que el número de transiciones crece exponencialmente con el número de estados. Las características de la librería empleada para programar esta parte del sistema hacen que sea facil de mantener, de modificar o de amplicar. Además, gracias a su caracter modular, este bloque puede ser reutilizado tanto a partes como en su totalidad en cualquier otro proyecto. El BT diseñado, aunque mejorable, ha demostrado en las simulaciones realizadas que funciona bastante bien, sentando las bases para programar comportamientos más complejos en el futuro y sirviendo de ejemplo para la comunidad de robótica aérea, que podrá emplearlo como punto de partida para otras aplicaciones. 
 
-% Optimalidad del planner, funcion de costes, aproximación realizada, simplificaciones realizadas: decir que la aproximación del Planner en casos reales es aceptable
-
-
-% Planificación de recargas: Se podría haber añadido una tarea de tipo Recharge para planificarlas. No planifica teniendo en cuenta las recargas ahora mismo, solo si hay batería suficiente. Eso se puede mejorar.
-
-% Separar el Recharge Action Node en la estructura típica (la de Inspection Task Tree): aproximación a la base por un lado y Recarga por otro.
-
-% El "fallo" que he encontrado en el Tool Delivery Task Tree. Devolver la herramienta a la base en caso de fallo.
-
-% Importancia del battery faker para testear correctamente situaciones de emergencia.
+% Respecto al bloque que se encarga de la planificación de la misión, el High-Level Planner, decir que hasta el momento ha demostrado tener la capacidad para general planes con sentido en las condiciones en las que se le ha puesto a prueba y que además ha demostrado ser capaz de recalcular dichos planes en línea como reacción a eventos imprevistos de diferente naturaleza. La solición alcanzada es capaz de planificar la misión teniento en cuenta resticciones impuestas como el tipo de cada ACW, la prioridad de cada una de las tareas y el nivel de autonomía de cada uno de los UAVs, siendo capaz de calcular planes para misiones formadas por una cantidad indefinida de tareas y ACWs. Respecto a la optimalidad de los planes generados por este bloque hay que decir que no se ha implementado ningún algoritmo que realice una búsqueda o aproximación del plan óptimo, sino que se ha diseñado una solución basada en una funcion de costes que se calcula para cada uno de los ACWs con cada una de las tareas. Sin embargo, este trabajo forma parte de un proyecto que tendrá aplicaciones reales en unas condiciones definidas. Por tanto, está justificado alejarse de análisis académicos en los que se busca aproximar el plan óptimo en misiones con un número indeterminado de tareas y de ACWs y analizar en su lugar al planificador en escenarios compuestos por pocas tareas y ACWs. La solución alcanzada, en este contexto, es una aproximación válida hacia un algoritmo de planificación que genere un plan próximo al óptimo.
 
 \section{Future work}
 \label{sec:FutureWork}
-% Validar las técnicas desarrolladas en un entorno real
+% Como parte del trabajo futuro se realizará una validación en un entorno real con equivos reales de las técnicas desarrolladas en este trabajo. Además, el sistema desarrollado en este trabajo se empleará como punto de partida de una tesis doctoral en la que se tratará de pulir y mejorar el diseño del Agent Behaviour Manager, así como de desarrollar un algoritmo de planificación que genere una aproximación real al plan óptimo de cada situación. Para ello se introducirán al sistema algoritmos heurísticos aleatorios, así como la capacidad para aprender en tiempo real características como el consumo de la batería de los UAVs, anticipándose de esta forma a eventos imprevistos aplicando planes de contingencia, consiguiendo así una mayor robustez ante fallos y extendiendo la autonomía del sistema aún más.
 
-% Task ¿?
-% Planificación de recargas: Se podría haber añadido una tarea de tipo Recharge para planificarlas. No planifica teniendo en cuenta las recargas ahora mismo, solo si hay batería suficiente. Eso se puede mejorar.
+% Una primera mejora para el planificador respecto a la versión actual podría ser la incorporación de tareas de tipo Recarga que, en vez de ser solicitadas por operarios humanos como el resto de las tareas, serían incorporadas por el High-Level Planner a la cola de tareas, separando de esta forma las recargas de emergencia o las recargas que se ejecutan cuando un agente se encuentra ocioso, de las recargas llevadas a cabo como parte del plan. Implementar este cambio en el BT supondría modificar el Perform Task Tree para contemplar esta nueva tarea en el diseño del árbol, cambio que se podría llevar a cabo reutilizando y adaptando ligeramente los árboles empleados para las tareas de Inspection y Safety Monitoring aprovechando la reusabilidad de los BTs.
 
-% Realidad aumentada
-
-% Introducir algoritmos heuristicos aleatorios en el planificador para encontrar el plan óptimo de verdad.
-
-% ¿Redes neuronales?
+% Además, durante la futura tésis, se pretende investigar el uso de tacnologías de realidad mixta también para aplicaciones de inspección con equipos multi-UAV, combinando vistas tomadas desde distintos puntos para recrear entornos visuales más completos para el operario, y mejorando la interacción hombre-máquina del sistema durante tareas colaborativas.
 
 \endinput
