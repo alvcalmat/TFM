@@ -6,19 +6,38 @@
 
 \section{Conclusions}
 \label{sec:Conclusions}
-% Optimalidad del planner, funcion de costes, aproximación realizada, simplificaciones realizadas: decir que la aproximación del Planner en casos reales es aceptable
+%% Comentar los objetivos marcados:
+% - Garantizar la utilización de los recursos y la ejecución eficiente de las tareas.
+% - Cumplir con todos los requisitos de seguridad y garantizar la integridad de las plataformas aéreas y el éxito de la misión.
+% - Ser capaz de replanificar en línea para reaccionar a eventos imprevistos.
+% - Implementar la capa de software en el Sistema Operativo del Robot (ROS) y gestionar la comunicación con el resto de capas y módulos de software que conforman la arquitectura arquitectura.
+% - Realizar simulaciones de Software In The Loop (SITL) para demostrar que el algoritmo es capaz de gobernar el comportamiento de la flota de forma eficiente y segura, y que es capaz de reaccionar ante imprevistos de forma dinámica, demostrando sus capacidades cognitivas.
+% - Diseñar el planificador de tareas de forma que sea fácil de mantener, modificar o ampliar, procurando que sea modular y reutilizable para que pueda servir de base para la construcción de planificadores para otras aplicaciones.
+
 % El BT se puede mejorar pero funciona muy bien y sienta las bases para programar comportamientos más complejos en el futuro. Servirá de ejemplo para la comunidad. Permite generar comportamientos complejos y numerosos estados sin que haya que preocuparse de las transiciones entre estados como pasa con las FSM, en las que este crece exponencialmente con el número de estados.
+
+% Optimalidad del planner, funcion de costes, aproximación realizada, simplificaciones realizadas: decir que la aproximación del Planner en casos reales es aceptable
+
+
 % Planificación de recargas: Se podría haber añadido una tarea de tipo Recharge para planificarlas. No planifica teniendo en cuenta las recargas ahora mismo, solo si hay batería suficiente. Eso se puede mejorar.
-% El "fallo" que he encontrado en el Tool Delivery Task Tree. Devolve la herramienta a la base en caso de fallo.
+
 % Separar el Recharge Action Node en la estructura típica (la de Inspection Task Tree): aproximación a la base por un lado y Recarga por otro.
+
+% El "fallo" que he encontrado en el Tool Delivery Task Tree. Devolver la herramienta a la base en caso de fallo.
+
 % Importancia del battery faker para testear correctamente situaciones de emergencia.
 
 \section{Future work}
 \label{sec:FutureWork}
+% Validar las técnicas desarrolladas en un entorno real
+
 % Task ¿?
 % Planificación de recargas: Se podría haber añadido una tarea de tipo Recharge para planificarlas. No planifica teniendo en cuenta las recargas ahora mismo, solo si hay batería suficiente. Eso se puede mejorar.
+
 % Realidad aumentada
+
 % Introducir algoritmos heuristicos aleatorios en el planificador para encontrar el plan óptimo de verdad.
+
 % ¿Redes neuronales?
 
 \endinput

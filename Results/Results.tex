@@ -725,7 +725,7 @@ The next unforeseen situation that was tested was the modification of the parame
 % imprevisto_1:
 	% @rostopic pub /uav_2/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "0.2" "0.01" "0.01"
 	% @rostopic pub /uav_3/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "0.2" "0.01" "0.01"
-% Aprovechando el escenario resultante de la prueba anterior, en el que todos los ACWs estaban ejecutando alguna tarea, se comprobó la capacidad del sistema de actuar ante una situación de emergencia como es tener un nivel de batería inesperadamente bajo o perder la conexión entre ambos bloques. Aunque el papel principal en este tipo de situaciones lo tiene el BT, y su capacidad para reaccionar a situaciones de emergencia ya ha sido verificada en la sección anterior, se ha simulado el desvanecimiento de la batería de dos de los ACWs para ver la reacción en un escenario con más de un UAV. En el código \ref{exit:BatOff} se puede ver
+Taking advantage of the scenario resulting from the previous test, in which all the \glspl{ACW} were executing some task, the system's capacity to act in an emergency situation such as having an unexpectedly low battery level or losing the connection between the two blocks was tested. Although the main role in this type of situation is played by the \gls{BT}, and its ability to react to emergency situations has already been verified in the previous section, the fading of the battery of two of the \glspl{ACW} has been simulated to see the reaction in a scenario with more than one \gls{UAV}. In the code \ref{exit:BatOff} it is possible to read both the evolution of the \glspl{BT} of the \glspl{ACW} to which the battery level was modified and the replanning executed by the \emph{High-Level Planner} once each of the \emph{Agent Behaviour Managers} communicated the emergency situation. It can be seen that the reaction of the \glspl{BT} was autonomous, following the emergency plan before the planner calculated the new mission plan.
 
 \begin{lstlisting}[caption={Feedback messages printed after the battery of two \glspl{UAV} unexpectedly ran out of power}, breaklines=true, label=exit:BatOff]
     [ WARN][/uav_2/agent]: [isBatteryEnough] Advertising that battery_enough_ = false
@@ -783,6 +783,8 @@ The next unforeseen situation that was tested was the modification of the parame
 % imprevisto_2:
 	% @rostopic pub /uav_2/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "1" "0.01" "0.01"
 	% @rostopic pub /uav_3/mavros/battery_fake/control human_aware_collaboration_planner/BatteryControl "2" "1" "0.01" "0.01"
+After verifying that the system reacted correctly to this emergency situation, the reverse event was tested. Using one of the battery faker block functions again, the battery level of both \glspl{UAV} was set back to one hundred percent, generating an unplanned event to which the \emph{High-Level Planner} responded by calculating a new plan (see code \ref{exit:BatOk}).
+
 \begin{lstlisting}[caption={Feedback messages printed after the battery of two UAVs is fully charged}, breaklines=true, label=exit:BatOk]
     [ WARN][/uav_2/agent]: [isBatteryEnough] Advertising that battery_enough_ = true
     [ WARN][/uav_3/agent]: [isBatteryEnough] Advertising that battery_enough_ = true
@@ -832,6 +834,8 @@ The next unforeseen situation that was tested was the modification of the parame
 % Desconexión de un Agente
 % imprevisto_3:
 	% @rosnode kill /uav_4/agent
+The next test consisted of verifying the \emph{High-Level Planner}'s ability to detect the disconnection of an agent and replan the mission following the security plan. To simulate this event, the process running the \emph{Agent Behaviour Manager} block that controls the UAV\_4 was killed. In the \ref{sec:phaseI} section, the operation of the \gls{BT} in this situation was already validated, this time only the centralised block was being evaluated.  Code \ref{exit:Disconnection} shows the feedback messages printed by the \emph{High-Level Planner} during this event.
+
 \begin{lstlisting}[caption={Feedback messages printed after an \gls{ACW} disconnects}, breaklines=true, label=exit:Disconnection]
     [ WARN][/uav_4/agent]: Shutdown request received.
     [ WARN][/uav_4/agent]: Reason given for shutdown: [user request]
@@ -865,6 +869,8 @@ The next unforeseen situation that was tested was the modification of the parame
 % Reconexión de un Agente (decir que es como la conexión de uno nuevo)
 % imprevisto_4:
 	% @rosrun human_aware_collaboration_planner agent __ns:=uav_4
+After a while, the process controlling UAV\_4 was re-launched. This event was detected without problems by the centralised block as can be seen in the code \ref{exit:Reconnection}. Specifically, it was processed as a new connection, because when an \gls{ACW} disconnects, the \emph{High-Level Planner} removes everything about it from the database. The result of the reconnection was a new mission plan.
+
 \begin{lstlisting}[caption={Feedback messages printed after an \gls{ACW} reconnects}, breaklines=true, label=exit:Reconnection]
     [ INFO][/task_planner]: [beaconCallback] New Agent connected: uav_4
     [ INFO][/task_planner]: [performTaskAllocation] Tasks Allocated:
@@ -898,6 +904,8 @@ The next unforeseen situation that was tested was the modification of the parame
 % Mission over
 % imprevisto_5:
 	% @rostopic pub /mission_over human_aware_collaboration_planner/MissionOver "value: true"
+Finally, the end of the mission was communicated. The feedback of this event is shown in the code \ref{exit:MissionOver}. Since the feedback is repeated for each of the connected \glspl{ACW}, only the messages printed by one of the \glspl{UAV} are shown. It can be seen how both the \emph{High-Level Planner} and the \emph{Agent Behaviour Manager} detected the end-of-mission communication and proceeded with their respective shutdown sequences correctly. On the one hand, the \gls{BT} stopped the task being executed and directed the \gls{ACW} to the base station. Once there, it can be seen how the \gls{BT} proceeded to stop all the nodes and then finished the process. On the other hand, the centralised block waited for all the nodes to finish and disconnect and when this happened, it finished its process as well. 
+
 \begin{lstlisting}[caption={Feedback messages printed after the mission's end has been communicated}, breaklines=true, label=exit:MissionOver]
     [ INFO][/task_planner]: [Planner] Mission Over. Waiting for the agents to finish
 
