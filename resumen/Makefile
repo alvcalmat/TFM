@@ -1,6 +1,6 @@
 
-main = TFM
-tex  = TFM
+main = resumen
+tex  = resumen
 
 tex:
 	pdflatex $(main).tex
@@ -13,9 +13,6 @@ tex:
 	zathura $(main).pdf &
 
 .PHONY: vim
-
-vim:
-	vi "+setlocal spell" "+setlocal spell spelllang=en" "+setlocal spellfile=~/.vim/dict_es.add" $(tex).tex
 
 pdf:
 	zathura $(main).pdf &
