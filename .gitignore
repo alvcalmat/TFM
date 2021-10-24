@@ -17,3 +17,8 @@
 *.glg
 *.gls
 *.ist
+*.acn
+*.idx
+*.lot
+*.synctex(busy)
+*.thm
