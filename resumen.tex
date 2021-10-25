@@ -409,7 +409,7 @@ Eventualmente cada uno de los \glspl{ACW} que participan en la misión se quedar
 
 Además, es posible que los cálculos fallen por algún motivo y la batería se agote antes de lo previsto. Por lo tanto, será necesario leer periódicamente el estado de la batería y realizar una recarga de emergencia y una replanificación si es necesario, reaccionando ante fallos inesperados. Debería haber un módulo de comprobación de la batería a bordo de cada vehículo aéreo, y un protocolo de emergencia en caso de que esto ocurra.
 
-\section{Connection losses}
+\section{Pérdidas de conexión}
 \label{sec:ConnectionLosses}
 Otra consideración importante es la posible pérdida de conexión entre el planificador centralizado, donde se concentra la mayor parte de la capacidad cognitiva, y alguno de los \glspl{ACW}. Esta es una situación potencialmente peligrosa, ya que el \gls{UAV} desconectado podría actuar de forma autónoma según su último plan y provocar un accidente con el resto de agentes que aún están en línea. Por ello, es importante: (i) implementar un sistema de detección de desconexiones desde ambos lados de la comunicación, y (ii) establecer un protocolo de actuación común para que ambos módulos sepan cómo va a actuar el otro, garantizando así la integridad de todos los vehículos y la seguridad de los trabajadores
 
@@ -595,7 +595,7 @@ El \emph{Planificador de alto nivel} es un módulo centralizado que se ejecuta e
 
 El pseudocódigo general de este componente, desde el lanzamiento hasta la terminación, está representado en el código \ref{ps:GeneralPlanner}.
 
-\begin{lstlisting}[caption={General operation of \emph{High-Level Planner}'s code}, breaklines=true, label=ps:GeneralPlanner]
+\begin{lstlisting}[caption={Pseudocódigo del bloque Planificador de alto nivel}, breaklines=true, label=ps:GeneralPlanner]
   1. Leer de un ros::param la dirección del archivo de configuración.
 	2. Leer del archivo de configuración toda la información necesaria.
 	3. Configurar las comunicaciones ROS (Publishers, Subscribers y ActionServers).
@@ -890,14 +890,14 @@ Este \gls{BT} comprueba si la misión ha terminado y si es así dirige el \gls{A
         		\draw[-latex] (DeliverSequence.south) -- (DeliverTree.north);
         		
 		    \end{tikzpicture}}
-		\caption{Behaviour Tree: Perform Task Tree}
+		\caption{Árbol de comportamiento: Árbol de ejecutar tarea}
 		\label{fig:PerformTasksTree}
 	\end{center}
 \end{figure}
 
 El \emph{Árbol de ejecutar tarea} comprueba cuál es la primera tarea de la cola, que es la que debe ejecutarse en ese momento. En las figuras \ref{fig:MonitorTree}, \ref{fig:InspectTree} y \ref{fig:DeliverToolTree} se representan los subárboles que ejecutan las tareas. Se decidió que el control total no se daría a los controladores de bajo nivel hasta que el \gls{ACW} estuviera lo suficientemente cerca de la zona donde se desarrolla la tarea.
 
-\subsection{Inspection task tree}
+\subsection{Árbol de la tarea inspección}
 \label{sec:InspectionTaskTree}
 Este \gls{BT} es bastante sencillo, ya que la tarea consiste simplemente en visitar una serie de puntos y detenerse en cada uno de ellos para tomar fotografías (véase la \ref{fig:InspectTree}). El BT omprueba si el \gls{ACW} está cerca de los puntos a inspeccionar, si es necesario, se ejecuta el nodo para ir cerca de \gls{WP} y una vez allí, se llama al controlador de bajo nivel que ejecuta esta tarea.
 
@@ -920,12 +920,12 @@ Este \gls{BT} es bastante sencillo, ya que la tarea consiste simplemente en visi
         		\node (GoNearWP) at ($(NearWPFallback) + (1.75, -2)$) [text centered, fill=blue!5, draw=blue, rectangle, minimum width=1.5cm, text width=6.5em]{Go near WP};
         		\draw[-latex] (NearWPFallback.south) -- (GoNearWP.north);
 		    \end{tikzpicture}}
-		\caption{Behaviour Tree: sub-tree that controls the inspection tasks}
+		\caption{Árbol de comportamiento: sub-arbol que controla las tareas de inspección}
 		\label{fig:InspectTree}
 	\end{center}
 \end{figure}
 
-\subsection{Monitoring task tree}
+\subsection{Árbol de la tarea de monitorización}
 \label{sec:MonitoringTaskTree}
 Como se puede ver en la Figura \ref{fig:MonitorTree}, este \gls{BT} sigue la misma estructura y funcionamiento que el anterior. Las únicas diferencias son los nodos \emph{Hoja}.
 
@@ -948,13 +948,13 @@ Como se puede ver en la Figura \ref{fig:MonitorTree}, este \gls{BT} sigue la mis
         		\node (GoNearHuman) at ($(NearHumanFallback) + (1.55, -2)$) [text centered, fill=blue!5, draw=blue, rectangle, minimum width=1.5cm, text width=6.5em]{Go near Human Target};
         		\draw[-latex] (NearHumanFallback.south) -- (GoNearHuman.north);
 		    \end{tikzpicture}}
-		\caption{Behaviour Tree: sub-tree that controls the safety monitoring tasks}
+		\caption{Árbol de comportamiento: sub-arbol que controla las tareas de monitorización}
 		\label{fig:MonitorTree}
 	\end{center}
 	\vspace{-1em}
 \end{figure}
 
-\subsection{Tool delivery task tree}
+\subsection{Árbol de la tarea de entrega de herramienta}
 \label{sec:ToolDeliveryTaskTree}
 Este árbol es un poco más complejo, ya que la tarea implica varios pasos (ver Fig. \ref{fig:DeliverToolTree}). En primer lugar, recoge la herramienta solicitada en caso de que el \gls{ACW} no la tenga todavía, luego se realiza la aproximación al operario, y por último el controlador de bajo nivel de esta tarea puede ser activado.
 
@@ -1019,7 +1019,7 @@ Este árbol es un poco más complejo, ya que la tarea implica varios pasos (ver 
         		%\node (DropTool) at ($(TimeoutSequence) + (3.25, -2)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=6.5em]{Drop the Tool};
         		%\draw[-latex] (TimeoutSequence.south) -- (DropTool.north);
 		    \end{tikzpicture}}
-		\caption{Behaviour Tree: sub-tree that controls the tool delivery tasks}
+		\caption{Árbol de comportamiento: sub-árbol que controla la tarea de entrega de herramienta}
 		\label{fig:DeliverToolTree}
 	\end{center}
 \end{figure}
