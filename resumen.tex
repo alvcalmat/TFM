@@ -601,7 +601,7 @@ En el esquema de la arquitectura de software, aunque algunas comunicaciones son 
       
       Batería suficiente & Booleano & Resultado de calcular si un \gls{ACW} tendrá suficiente batería para su tarea actual \\ \hline
 
-	    Información del \gls{BT} & Lista de Cadenas & Estado de cada nodo de \gls{BT} en su última ejecución (Running, IDLE, SUCCESS or FAILURE) \\ \hline
+	    Información del \gls{BT} & Lista de Cadenas & Estado de cada nodo de \gls{BT} en su última ejecución (EN EJECUCIÓN, OCIOSO, ÉXITO o FALLO) \\ \hline
       
       Baliza del Agente & Cadena, Cadena & El primero es el ID único del \gls{ACW} mientras que el segundo define el tipo de \gls{ACW} (SafetyACW, InspectACW, o PhysicalACW). Se utiliza como latido y para detectar nuevos \glspl{ACW} en el Planificador de alto nivel \\ \hline
 
@@ -646,146 +646,140 @@ El pseudocódigo general de este componente, desde el lanzamiento hasta la termi
 
 Dado que el entorno en el que operan los \glspl{UAV} es dinámico, este módulo se ha programado de forma que pueda reaccionar ante los imprevistos y recalcular el plan óptimo. Como se puede deducir del código \ref{ps:GeneralPlanner}, todo funciona a través de funciones de respuesta. Cada vez que llega una comunicación desde otro nodo de \acrshort{ROS}, se activa una respuesta en este nodo. En ella se analiza la información contenida en el mensaje y se decide si es necesaria una replanificación o no. Las situaciones en las que se ha considerado necesaria una replanificación se enumeran en la sección \ref{sec:TaskReplanningSituations}. Las comunicaciones resumidas en las tablas \ref{tab:interfaces} y \ref{tab:shareddata} y en la figura \ref{fig:NodeDiagram} son suficientes para detectar estos imprevistos y poder responder a ellos de la mejor manera posible.
 
-\begin{lstlisting}[caption={Task callback pseudocode}, breaklines=true, label=ps:IncomingTask]
-	1. If the task already exists:
-		1.1. If the new task's type is the same as old one's type:
-			1.1.1. Update parameters, perform a task planning and return.
-		1.2. Else: Warn operators that a pending task is going to be deleted and delete old task.
-	2. Read the type of task and the parameters that apply to it.
-	3. Add the new task to the pending task list.
-	4. Perform a task planning.
+\begin{lstlisting}[caption={Pseudocódico de la respuesta a nueva tarea}, breaklines=true, label=ps:IncomingTask]
+	1. Si la tarea ya existe:
+		1.1. Si el tipo de la nueva tarea es el mismo que el de la antigua:
+			1.1.1. Actualizar los parámetros, realizar una planificación de la tarea y return.
+		1.2. Si no: Avisar a los operadores de que se va a eliminar una tarea pendiente y eliminar la tarea antigua.
+	2. Leer el tipo de tarea y los parámetros que le corresponden.
+	3. Añadir la nueva tarea a la lista de tareas pendientes.
+	4. Realizar una planificación de tareas.
 \end{lstlisting}
 
-There is a callback that is executed when the node \emph{Gesture Recognition} sends a task, which in case the given task is correct, always ends up calling the function in charge of calculating the optimal plan (see Code \ref{ps:IncomingTask}); the mission over callback, whose only action is to change the value of a variable so that the node exits the main while loop; and finally the agent's beacon callback, which is executed every time a \gls{UAV} beacon is received and whose pseudocode is in Code \ref{ps:AgentBeaconCallback}.
+Existe una respuesta que se ejecuta cuando el nodo \emph{Reconocimiento de gestos} envía una tarea, que en caso de que la tarea dada sea correcta, siempre acaba llamando a la función encargada de calcular el plan óptimo (ver código \ref{ps: IncomingTask}); la función respuesta a la señal de fin de misión, cuya única acción es cambiar el valor de una variable para que el nodo salga del bucle while principal; y por último la función respuesta a la baliza del agente, que se ejecuta cada vez que se recibe una baliza \gls{UAV} y cuyo pseudocódigo está en Code \ref{ps:AgentBeaconCallback}.
 
-\begin{lstlisting}[caption={Agent's beacon callback}, breaklines=true, label=ps:AgentBeaconCallback]
-	1. Read the information contained in the beacon.
-	2. If it is a connection of a new UAV:
-		2.1. Register it in the database.
-		2.2. Perform a task planning.
-	3. Else, if it is the heartbeat of an already known UAV:
-		3.1. Reset the timeout timer.
+\begin{lstlisting}[caption={Pseudocódigo de la función respuesta a la baliza del agente}, breaklines=true, label=ps:AgentBeaconCallback]
+	1. Leer la información contenida en la baliza.
+	2. Si se trata de una conexión de un nuevo UAV:
+		2.1. Registrarlo en la base de datos.
+		2.2. Ejecutar una planificación de tareas.
+	3. Si es el latido de un UAV ya conocido:
+		3.1. Reiniciar su temporizador.
 \end{lstlisting}
 
-The action carried out by the agent's beacon callback varies depending on whether it is the beacon of a new \gls{UAV} or the heartbeat of a known \gls{UAV}. For each agent there will be an object in the database that will contain another series of callbacks that will be in charge of receiving the messages coming from the \glspl{ACW} and respond accordingly.
+La acción que realiza la función respuesta de la baliza del agente varía en función de si es la baliza de un nuevo \gls{UAV} o el latido de un \gls{UAV} conocido. Para cada agente habrá un objeto en la base de datos que contendrá otra serie de funciones de respuesta que se encargarán de recibir los mensajes procedentes del \glspl{ACW} y responder en consecuencia.
 
-\begin{lstlisting}[caption={Callback that runs when an \emph{Agent Behaviour Manager} sends battery feedback}, breaklines=true, label=ps:batteryEnoughCB]
-	1. Update the value of the internal flag associated with the battery.
-	2. Perform a task planning.
+\begin{lstlisting}[caption={Funcion de respuesta que se ejecuta cuando un \emph{Gestor de comportamiento} de agente envía información sobre la batería}, breaklines=true, label=ps:batteryEnoughCB]
+	1. Actualizar el valor de la bandera interna asociada a la batería.
+	2. Realizar una planificación de tareas.
 \end{lstlisting}
 
-The \emph{Agent Behaviour Manager} block only sends communications messages indicating the battery status when it is due to an unplanned event. This event can be either an early battery depletion or a faster than expected recharge. In both cases, the callback function, whose pseudocode is Code \ref{ps:batteryEnoughCB}, updates the value of an internal variable used during planning, and recalculates the optimal plan.
+El bloque \emph{Gestor de comportamiento} sólo envía mensajes de comunicación indicando el estado de la batería cuando se debe a un evento no planificado. Este evento puede ser un agotamiento temprano de la batería o una recarga más rápida de lo esperado. En ambos casos, la función de respuesta, cuyo pseudocódigo es el código \ref{ps:batteryEnoughCB}, actualiza el valor de una variable interna utilizada durante la planificación, y recalcula el plan óptimo.
 
-The other possible communication coming from a node of type \emph{Agent Behaviour Manager} with the ability to trigger a reaction in the planner is due to the termination of a task. When a task finishes successfully, it is simply removed from the list of pending tasks. In this case, the emph{Agent Behaviour Manager} block also removes the task from its queue, which is the only case where it does so. In addition, this moment is used to re-evaluate the optimal plan. It is expected that the mission is still within the optimal plan, so in that case the planning result should be the same as the plan that was already being executed. If, instead, conditions have changed since the last planning and there exists a better plan now, it is at this point that the plan is updated. If the task ends with a failure, the callback action will depend on the causes of the failure (note that the interruption of a task will result in a failure). If the interruption is due to the \gls{UAV} battery, it may be planned, in which case no action is required, or it may be unexpected, in which case the corresponding actions are taken by the battery callback. Once it has been verified that the task has not finished due to the battery, a check is made to see if the task was at the beginning of the queue. If so, a failure has indeed occurred, so the operators are warned, the task is removed from the list, and a replanning is executed. Otherwise the task in question would have been moved from the top of the queue due to a change of plans and therefore no action would have to be taken either. The pseudocode corresponding to what has just been explained is in Code \ref{ps:taskResultCB}.
+La otra comunicación posible procedente de un nodo de tipo \emph{Gestor de comportamiento} con capacidad para desencadenar una reacción en el planificador se debe a la finalización de una tarea. Cuando una tarea termina con éxito, simplemente se elimina de la lista de tareas pendientes. En este caso, el bloque \emph{Gestor de comportamiento} también elimina la tarea de su cola, que es el único caso en el que lo hace. Además, este momento se aprovecha para reevaluar el plan óptimo. Se espera que la misión siga estando dentro del plan óptimo, por lo que en ese caso el resultado de la planificación debería ser el mismo que el del plan que ya se estaba ejecutando. Si, en cambio, las condiciones han cambiado desde la última planificación y ahora existe un plan mejor, es en este momento cuando se actualiza el plan. Si la tarea termina con un fallo, la acción de la función de respuesta dependerá de las causas del fallo (tener en cuenta que la interrupción de una tarea dará lugar a un fallo). Si la interrupción se debe a la batería, puede ser planificada, en cuyo caso no se requiere ninguna acción, o puede ser inesperada, en cuyo caso las acciones correspondientes son tomadas por la función de respuesta de la batería. Una vez comprobado que la tarea no ha terminado por culpa de la batería, se comprueba si la tarea estaba al principio de la cola. Si es así, efectivamente se ha producido un fallo, por lo que se avisa a los operadores, se elimina la tarea de la lista y se ejecuta una nueva planificación. En caso contrario, la tarea en cuestión se habría desplazado del principio de la cola debido a un cambio de planes y, por tanto, tampoco habría que realizar ninguna acción. El pseudocódigo correspondiente a lo que se acaba de explicar se encuentra en el Código \ref{ps:taskResultCB}.
 
-\begin{lstlisting}[caption={Callback that runs when an \emph{Agent Behaviour Manager} sends a task result}, breaklines=true, label=ps:taskResultCB]
-	1. Read the information contained in the task result.
-	2. If the task result is SUCCESS:
-		2.1. Delete it from the pending tasks list.
-		2.2. Perform a task planning.
-	3. Else, if the task result is FAILURE:
-		3.1. If the task has been halted because of not having battery enough:
+\begin{lstlisting}[caption={Función de respuesta que se ejecuta cuando un \emph{Gestor de comportamiento} comunica el resultado de una tarea}, breaklines=true, label=ps:taskResultCB]
+	1. Leer la información contenida en el resultado de la tarea.
+	2. Si el resultado de la tarea es ÉXITO:
+		2.1. Eliminarla de la lista de tareas pendientes.
+		2.2. Realizar una planificación de la tarea.
+	3. En caso contrario, si el resultado de la tarea es FALLO:
+		3.1. Si la tarea se ha detenido por no tener batería suficiente:
 			3.1.1. Return.
-		3.2. Else, if the task is on the front of that ACW's task queue:
-			3.2.1. Notify operators that a task has failed and is going to be deleted.
-			3.2.2. Delete task from the pending tasks list.
-			3.2.3. Perform a task planning.
-		3.3. Else:
+		3.2. En caso contrario, si la tarea está al frente de la cola de tareas de ese ACW:
+			3.2.1. Notificar a los operadores que una tarea ha fallado y va a ser eliminada.
+			3.2.2. Eliminar la tarea de la lista de tareas pendientes.
+			3.2.3. Realizar una planificación de tareas.
+		3.3. Si no:
 			3.3.1. Return.
 \end{lstlisting}
 
-The other two communications received by the \emph{High-Level Planner} from the \glspl{ACW} are sensor readings corresponding to the \glspl{UAV}' position and battery percentage. In both cases the only action of the corresponding callback is to update the information with the new values.
+Las otras dos comunicaciones que recibe el \emph{Planificador de alto nivel} de los \glspl{ACW} son las lecturas de los sensores correspondientes a la posición de los \glspl{UAV} y el porcentaje de batería. En ambos casos la única acción del callback correspondiente es actualizar la información con los nuevos valores.
 
-The last function that remains to be explained of those that can potentially request a replanning of the mission is the one in charge of checking the timeout of the agents' beacons. As shown in  Code \ref{ps:GeneralPlanner}, this function is not a callback like the previous ones, instead it is executed periodically in the main while loop. Its operation is shown in Code \ref{ps:checkBeaconsTimeout}. Basically, for each agent connected, it checks that the timeout amount of time has not elapsed since its last beacon was received. If a timeout has occurred, that \gls{ACW} is considered disconnected and is removed from the centralised node data. If, after checking all agents, the number of connected \glspl{UAV} has decreased, i.e. if any of the previously connected \glspl{UAV} has disconnected, a mission replanning is executed.
+La última función que queda por explicar de las que potencialmente pueden solicitar una replanificación de la misión es la encargada de comprobar el tiempo límite de las balizas de los agentes. Como se muestra en el Código \ref{ps:GeneralPlanner}, esta función no es una función de respuesta como las anteriores, sino que se ejecuta periódicamente en el bucle while principal. Su funcionamiento se muestra en el Código \ref{ps:checkBeaconsTimeout}. Básicamente, para cada agente conectado, comprueba que no ha transcurrido el tiempo máxmio desde que se recibió su última baliza. Si ha transcurrido el tiempo máximo, ese \gls{ACW} se considera desconectado y se elimina de la base de datos del nodo centralizado. Si, tras comprobar todos los agentes, el número de \glspl{UAV} conectados ha disminuido, es decir, si alguno de los \glspl{UAV} previamente conectados se ha desconectado, se ejecuta una replanificación de la misión.
 
 % Pseudocódigo de checkBeaconsTimeout
-\begin{lstlisting}[caption={Beacons' timeout check function}, breaklines=true, label=ps:checkBeaconsTimeout]
-	1. For each agent connected:
-		1.1. If the elapsed time since the last beacon is greater than the timeout time:
-			1.1.1. Add that agent's ID to the list of disconnected agents.
-	2. While the list of disconnected agents is not empty:
-		2.1. Take first ID from the list.
-		2.2. Erase from the block's data all information related to that ID.
-	3. If any agent has been disconnected:
-		3.1. Perform a task planning.
+\begin{lstlisting}[caption={Función que comprueba el tiempo límite de las balizas de los agentes}, breaklines=true, label=ps:checkBeaconsTimeout]
+	1. Por cada agente conectado:
+		1.1. Si el tiempo transcurrido desde la última baliza es mayor que el tiempo máximo:
+			1.1.1. Añadir el ID de ese agente a la lista de agentes desconectados.
+	2. Mientras la lista de agentes desconectados no esté vacía:
+		2.1. Tomar el primer ID de la lista.
+		2.2. Borrar de los datos del bloque toda la información relacionada con ese ID.
+	3. Si algún agente se ha desconectado:
+		3.1. Ejecutar una planificación de tareas.
 \end{lstlisting}
 
-%% Explicar como se realiza la planificación y poner psudocódigo de cómo se lleva a cabo. Explicar también como se calcula el coste.
-The pseudocode that is executed when one of these functions deems it necessary to perform a new task planning is summarised in Code \ref{ps:performTaskAllocation}. It is important to remember that some tasks have a higher priority than others, and this depends only on the type of task. To simplify the process, it has been decided to allocate the tasks in order of arrival, assuming that between two tasks of the same type, the one that arrived first will have priority. When a new task is received, it is stored both in a \emph{std::map} that contains all the pending tasks to facilitate the access to the information, and in a \emph{std::vector} with task types, where the order of arrival is maintained. What this simplification allows is to assign tasks one at a time. By having a prioritised list of tasks and assuming that no task can be assigned before a task with a higher priority, the mission planning problem is reduced to calculating the cost of each task individually for each \gls{UAV} with the ability to execute it and assign it to the one with the lowest cost. For monitoring-type tasks, the selection of the required number of agents is strictly cost-based. The \emph{N} agents that cost the least to execute the task are selected. The same is a little more complex for the tasks of type inspect, where the number of agents to select is a parameter to be defined by the planner itself. This value is first set according to the number of points to be inspected. Up to three points, a single \gls{ACW} is selected; up to six points, two are selected; and from seven points onwards, three agents are selected, this being the maximum number imposed by the low-level controller. Moreover, as the low-level controller in charge of this task works, all the \glspl{ACW} selected for this task are required to start executing it simultaneously, so a second approximation of this number is made according to the number of idle \glspl{UAV}. Thus, if they are assigned this as the first task, they will start executing it simultaneously. Academically, this simplification seems to deviate from the optimal solution, but it should be recalled that this work is part of a software architecture that will operate in real situations. In such situations, it is not expected that there will be a large number of \glspl{UAV} connected simultaneously, nor a long list of pending tasks. In such simplified scenarios, this assumption makes sense without deviating too much from the optimal solution. Finally, the number of agents to be selected will be the smaller of the two above, being equal to one when there is no \gls{UAV} idle and zero in case there is no \gls{ACW} with enough battery. In the latter case, the task would be assigned after recharging. Once the number of agents to be selected has been defined, the agents that have the least cost to execute the task are selected from among those that meet the conditions described. Having selected the \gls{ACW} that will carry out the task, all that remains is to distribute among them the \glspl{WP} to be inspected. Although the algorithm in charge of performing the optimal distribution is in the low-level controller of this task, as the rest of the modules that make up the software architecture are not yet available, it has been necessary to program a distribution algorithm in order to be able to carry out the experiments. More details on this will be given in Section \ref{sec:faking}.
+El pseudocódigo que se ejecuta cuando una de estas funciones considera necesario realizar una nueva planificación de tareas se resume en el Código \ref{ps:performTaskAllocation}. Es importante recordar que algunas tareas tienen mayor prioridad que otras, y esto depende únicamente del tipo de tarea. Para simplificar el proceso, se ha decidido asignar las tareas por orden de llegada, asumiendo que entre dos tareas del mismo tipo, tendrá prioridad la que haya llegado primero. Cuando se recibe una nueva tarea, se almacena tanto en un \emph{std::map} que contiene todas las tareas pendientes para facilitar el acceso a la información, como en un \emph{std::vector} con los tipos de tareas, donde se mantiene el orden de llegada. Lo que permite esta simplificación es asignar las tareas de una en una. Al disponer de una lista priorizada de tareas y asumir que ninguna tarea puede ser asignada antes que otra de mayor prioridad, el problema de planificación de la misión se reduce a calcular el coste de cada tarea individualmente para cada \gls{UAV} con capacidad de ejecutarla y asignarla a la de menor coste. En el caso de las tareas de monitorización, la selección del número necesario de agentes se basa estrictamente en el coste. Se seleccionan los \emph{N} agentes a los que menos cueste ejecutar la tarea. Esto es un poco más complejo para las tareas de tipo inspeccionar, donde el número de agentes a seleccionar es un parámetro a definir por el propio planificador. Este valor se establece primero en función del número de puntos a inspeccionar. Hasta tres puntos, se selecciona un único agente; hasta seis puntos, se seleccionan dos; y a partir de siete puntos, se seleccionan tres agentes, siendo éste el número máximo impuesto por el controlador de bajo nivel. Además, tal y como trabaja el controlador de bajo nivel encargado de esta tarea, se requiere que todos los \glspl{ACW} seleccionados para esta tarea comiencen a ejecutarla simultáneamente, por lo que se realiza una segunda aproximación de este número en función del número de \glspl{UAV} ociosos. Así, si se les asigna como primera tarea, comenzarán a ejecutarla simultáneamente. Académicamente, esta simplificación parece desviarse de la solución óptima, pero hay que recordar que este trabajo forma parte de una arquitectura de software que funcionará en situaciones reales. En dichas situaciones, no se espera que haya un gran número de \glspl{UAV} conectados simultáneamente, ni una larga lista de tareas pendientes. En estos escenarios simplificados, esta suposición tiene sentido sin desviarse demasiado de la solución óptima. Finalmente, el número de agentes a seleccionar será el menor de los dos anteriores, siendo igual a uno cuando no haya ningún \gls{UAV} ocioso y cero en caso de que no haya ningún \gls{ACW} con suficiente batería. En este último caso, la tarea se asignaría tras la recarga. Una vez definido el número de agentes a seleccionar, se seleccionan los agentes que tienen menor coste para ejecutar la tarea de entre los que cumplen las condiciones descritas. Una vez seleccionados los \gls{ACW} que van a realizar la tarea, sólo queda distribuir entre ellos los \glspl{WP} a inspeccionar. Aunque el algoritmo encargado de realizar la distribución óptima se encuentra en el controlador de bajo nivel de esta tarea, al no disponer aún del resto de módulos que componen la arquitectura software, ha sido necesario programar un algoritmo de distribución para poder realizar los experimentos. En la sección \ref{sec:faking} se darán más detalles al respecto.
 
-% Explicar como se calcula el coste.
-The cost for each \gls{UAV} is calculated as the weighted sum of three different types of costs. A first cost assesses the type of \gls{ACW} and penalises the assignment of tasks to those \glspl{UAV} designed for another type. It penalises especially the assignment of lower priority tasks to agents designed to perform higher priority tasks. The second cost evaluates the total distance the \gls{UAV} will have to travel from where it is at the beginning of the task to where it should be by the end of the task. This cost is an approximation of the expected battery consumption, although it does not take into account intermediate travel and hoovering times during the mission. The last cost penalises the interruption of the task that was being executed according to the previous plan and rewards the assignment of the same task. This cost is intended to ensure that a task is preferentially assigned to an idle \gls{UAV}, to an \gls{UAV} that is executing a lower priority task, or even to an \gls{UAV} of a different type, rather than interrupting a task unnecessarily just because that \gls{ACW} has to travel a shorter distance, for example.
+El coste de cada \gls{UAV} se calcula como la suma ponderada de tres tipos de costes diferentes. Un primer coste evalúa el tipo de \gls{ACW} y penaliza la asignación de tareas a aquellos \glspl{UAV} diseñados para otro tipo. Penaliza especialmente la asignación de tareas de menor prioridad a agentes diseñados para realizar tareas de mayor prioridad. El segundo coste evalúa la distancia total que tendrá que recorrer el \gls{UAV} desde donde se encuentra al principio de la tarea hasta donde debería estar al final de la misma. Este coste es una aproximación al consumo de batería previsto, aunque no tiene en cuenta los tiempos intermedios de desplazamiento y de vuelo estático durante la tarea. El último coste penaliza la interrupción de la tarea que se estaba ejecutando según el plan anterior y premia la asignación de la misma tarea. Este coste pretende que se asigne preferentemente una tarea a un \gls{UAV} inactivo, a un \gls{UAV} que esté ejecutando una tarea de menor prioridad, o incluso a un \gls{UAV} de distinto tipo, en lugar de interrumpir innecesariamente una tarea sólo porque ese \gls{UAV} tenga que recorrer una distancia menor, por ejemplo.
 
-\begin{lstlisting}[caption={Task planning function's pseudocode}, breaklines=true, label=ps:performTaskAllocation]
-	1. If there is any agent connected:
-		1.1. For each agent connected:
-			1.1.1. Make a copy of the current task queue.
-			1.1.2. Empty the task queue.
-		1.2. For each Tool Delivery task:
-			1.2.1. Compute the cost of the task for each PhysicalACW that has enough battery.
-			1.2.2. Assign the task to the agent for whom the task costs the least (from those who has enough battery).
-			1.2.3. Add the task to that agent's task queue.
-		1.3. For each Inspection task:
-			1.3.1. Extract from the task parameters the list of WP to inspect.
-			1.3.2. For each ACW (any type) that has enough battery:
-				1.3.2.1. Compute the cost of the task for that ACW. 
-				1.3.2.2. Check if that ACW is still idle.
-			1.3.3. Calculate the number of agents to select for the task based on the number of WP and the number of idle agents.
-			1.3.4. If no agent has enough battery, continue.
-			1.3.5. Else, if the number of agents to select is equal to zero, assign the task to the agent that costs the least.
-			1.3.6. Else, select the calculated number of agents for whom the task costs the least.
-			1.3.7. Divide the WP to inspect among the selected agents.
-			1.3.8. For each selected agent:
-				1.3.8.1. Set the remaining task parameters (List of selected ACWs' IDs and divided WP list).
-				1.3.8.2. Add the task to the agent's task queue.
-		1.4. For each Monitoring task:
-			1.4.1. Compute the cost of the task for each ACW (any type) that has enough battery.
-			1.4.2. If the required number of ACWs for the task is zero:
-				1.4.2.1. Warn operators that this parameter can not be zero.
-				1.4.2.2. Delete task from pending tasks.
-			1.4.3. Else, select the requested number of agents for whom the task costs the least.
-			1.4.4. Set the remaining task parameter (List of selected ACWs' IDs)
-			1.4.4. Add the task to each selected agent's task queue.
-		1.5. For each ACW connected, send the new task queue to its Agent Behaviour Manager.
-	2. Else:
-		2.1. Warn operators that no agent is connected.
+\begin{lstlisting}[caption={Pseudocódigo de la función que hace la planifiación de tareas}, breaklines=true, label=ps:performTaskAllocation]
+	1. Si hay algún agente conectado:
+		1.1. Por cada agente conectado:
+			1.1.1. Hacer una copia de la cola de tareas actual.
+			1.1.2. Vaciar la cola de tareas.
+		1.2. Para cada tarea de entrega de herramientas:
+			1.2.1. Calcular el coste de la tarea para cada PhysicalACW que tenga suficiente batería.
+			1.2.2. Asignar la tarea al agente al que le cueste menos la tarea (de los que tienen suficiente batería).
+			1.2.3. Añadir la tarea a la cola de tareas de ese agente.
+		1.3. Para cada tarea de inspección:
+			1.3.1. Extraer de los parámetros de la tarea la lista de WP a inspeccionar.
+			1.3.2. Para cada ACW (de cualquier tipo) que tenga suficiente batería:
+				1.3.2.1. Calcular el coste de la tarea para ese ACW. 
+				1.3.2.2. Comprobar si ese ACW sigue estando inactivo.
+			1.3.3. Calcular el número de agentes a seleccionar para la tarea en función del número de WP y del número de agentes ociosos.
+			1.3.4. Si ningún agente tiene suficiente batería, continuar.
+			1.3.5. Si el número de agentes a seleccionar es igual a cero, se asigna la tarea al agente que menos cuesta.
+			1.3.6. En caso contrario, seleccione el número calculado de agentes para los que la tarea cuesta menos.
+			1.3.7. Dividir el WP a inspeccionar entre los agentes seleccionados.
+			1.3.8. Para cada agente seleccionado:
+				1.3.8.1. Establecer el resto de parámetros de la tarea (Lista de IDs de ACWs seleccionados y lista de WP divididos).
+				1.3.8.2. Añadir la tarea a la cola de tareas del agente.
+		1.4. Para cada tarea de Monitorización:
+			1.4.1. Calcular el coste de la tarea para cada ACW (de cualquier tipo) que tenga suficiente batería.
+			1.4.2. Si el número de ACW necesarios para la tarea es cero:
+				1.4.2.1. Advertir a los operadores que este parámetro no puede ser cero.
+				1.4.2.2. Eliminar la tarea de las tareas pendientes.
+			1.4.3. Si no, seleccionar el número de agentes solicitados para los que la tarea cuesta menos.
+			1.4.4. Establecer el parámetro de la tarea restante (Lista de IDs de ACWs seleccionados)
+			1.4.4. Añadir la tarea a la cola de tareas de cada agente seleccionado.
+		1.5. Por cada ACW conectado, enviar la nueva cola de tareas a su Gestor de comportamiento.
+	2. Si no:
+		2.1. Avisar a los operadores de que no hay ningún agente conectado.
 \end{lstlisting}
 
-Once the calculation of the mission plan has been completed, the new task queues are sent to the corresponding distributed modules. Each \emph{Agent Behaviour Manager} will react to this communication and will take care of executing the newly assigned plan. In the meantime, the \emph{High-Level Planner} block returns to the main while loop to continue waiting until an event that triggers a replanning occurs again.
+Una vez finalizado el cálculo del plan de la misión, las nuevas colas de tareas se envían a los módulos distribuidos correspondientes. Cada \emph{Gestor de comportamiento} reaccionará a esta comunicación y se encargará de ejecutar el nuevo plan asignado. Mientras tanto, el bloque \emph{Planificador de alto nivel} vuelve al bucle while principal para seguir esperando hasta que se produzca de nuevo un evento que desencadene una replanificación.
 
-\section{Distributed module: Agent Behaviour Manager}
+\section{Módulo distribuido: Gestor de comportamiento}
 \label{sec:Distributed module: behaviour manager}
-%% Explicar qué es una drone behavior manager y cual es su función.
-This component is in charge of executing the plan assigned by the \emph{High-Level Planner}, checking the security of the \glspl{UAV} at all times, detecting unforeseen events and communicating them to the centralised node so that it can make a change of plans if needed. The \emph{Agent Behaviour Manager} will communicate with the low-level controllers, handing over control when necessary to complete the assigned plan.
+Este componente se encarga de ejecutar el plan asignado por el \emph{Planificador de alto nivel}, comprobando en todo momento la seguridad de los \glspl{UAV}, detectando los imprevistos y comunicándolos al nodo centralizado para que realice un cambio de planes en caso necesario. El \emph{Gestor de comportamiento} se comunicará con los controladores de bajo nivel, cediendo el control cuando sea necesario para completar el plan asignado.
 
-%% Estructura general del nodo (pseudocodigo). Explicar que se ha hecho con árboles de comportamiento en paralelo a algunos procesos de ros
-The general structure of this module is quite similar to that of the central module. The pseudocode is summarised in Code \ref{ps:GeneralAgent}. Upon initialisation, the \emph{Agent Behaviour Manager} prepares the necessary information to start its operation, configures the necessary communications, declares and initialises the behaviour tree and, once the \gls{UAV} has finished initialising, starts sending beacons to the central node to notify that it is joining the mission. Once the code finishes initialising and reaches the main while loop, the activity of the \emph{Agent Behaviour Manager} concentrates on the execution of callbacks in response to incoming messages, as in the \emph{High-Level Planner}, and on the execution of the behaviour tree, which directs and supervises the \gls{UAV} movement.
+La estructura general de este módulo es bastante similar a la del módulo central. El pseudocódigo se resume en el Código \ref{ps:GeneralAgent}. Tras la inicialización, el \emph{Gestor de comportamiento} prepara la información necesaria para comenzar su funcionamiento, configura las comunicaciones necesarias, declara e inicializa el árbol de comportamiento y, una vez que el \gls{UAV} ha terminado de inicializarse, comienza a enviar balizas al nodo central para notificar que se incorpora a la misión. Una vez que el código termina de inicializarse y llega al bucle while principal, la actividad del \emph{Gestor de comportamiento} se concentra en la ejecución de funciones en respuesta a los mensajes entrantes, como las de el \emph{Planificador de alto nivel}, y en la ejecución del árbol de comportamiento, que dirige y supervisa el movimiento del \gls{UAV}.
 
-\begin{lstlisting}[caption={General operation of \emph{Agent Behaviour Manager}}, breaklines=true, label=ps:GeneralAgent]
-	1. Read from a ros::param the beacon's content (ACW's ID and type).
-	2. Read from a ros::param the address of the configuration file.
-	3. Read from the configuration file all necessary information.
-	4. Configure ROS communications (Publishers, Subscribers and ActionServers).
-	5. Set the loop rate.
-	6. Declare the behaviour tree.
-	7. Initialise each BT node.
-	8. Start BT loggers to facilitate debugging and monitoring of the node's performance.
-	9. Wait until the ACW fully initialises.
-	10. Main "while" loop. While ros::ok() and BT status is running:
-		10.1. If a timeout of Planner's beacons has not ocurred:
-			10.1.1. Publish a new Agent beacon.
-		10.2. Check if battery is enough for the current task.
-		10.3. Check for pending incoming communications (ros::spinOnce).
-		10.4. Sleep the remaining time to send the next beacon.
+\begin{lstlisting}[caption={Pseudocódigo del bloque \emph{Gestor de comportamiento}}, breaklines=true, label=ps:GeneralAgent]
+	1. Leer de un ros::param el contenido de la baliza (ID y tipo de ACW).
+	2. Leer de un ros::param la dirección del archivo de configuración.
+	3. Leer del archivo de configuración toda la información necesaria.
+	4. Configurar las comunicaciones de ROS (Publishers, Subscribers y ActionServers).
+	5. Configurar la frecuencia del bucle.
+	6. Declarar el árbol de comportamiento.
+	7. Inicializar cada nodo del BT.
+	8. Iniciar los registradores del BT para facilitar la depuración y el seguimiento del rendimiento del nodo.
+	9. Esperar a que el ACW se inicialice completamente.
+	10. Bucle "while" principal. Mientras ros::ok() y el estado de BT es EN EJECUCIÓN:
+		10.1. Si no se ha producido un timeout de las balizas del Planificador:
+			10.1.1. Publicar una nueva baliza del Agente.
+		10.2. Compruebar si la batería es suficiente para la tarea actual.
+		10.3. Compruebar si hay comunicaciones entrantes pendientes (ros::spinOnce).
+		10.4. Dormir el tiempo restante para enviar la siguiente baliza.
 \end{lstlisting}
 
-%% Explicar lo que es un árbol de comportamiento y compararlo con una máquina de estados.
-The \glspl{BT} are who governs the \glspl{ACW} to perform each of the assigned tasks. Each \gls{BT} monitors its \gls{ACW}'s battery and task status and reacts to any possible failure or unexpected event, requesting a new re-planning to the \emph{High-Level Planner} in case of need. A \gls{BT} can be defined as an improved \gls{FSM}. They are a more advanced mechanism to implement behaviours, especially because of their advantages in terms of scalability, modularity, readability and reusability, facilitating the creation of more complex behaviours with less effort.
+Los \glspl{BT} son quienes gobiernan a los \glspl{ACW} para realizar cada una de las tareas asignadas. Cada \gls{BT} monitoriza el estado de la batería y de las tareas de su \gls{ACW} y reacciona ante cualquier posible fallo o imprevisto, solicitando una nueva replanificación al \emph{Planificador de alto nivel} en caso de necesidad. Un \gls{BT} puede definirse como una máquina finita de estados (\gls{FSM}) mejorada. Son un mecanismo más avanzado para implementar comportamientos, especialmente por sus ventajas en términos de escalabilidad, modularidad, legibilidad y reutilización, facilitando la creación de comportamientos más complejos con menos esfuerzo.
 
-%% Diseño del árbol de comportamiento.
-Despite this, the process of designing a state machine is quite different from the process of designing a behaviour tree. Designing behaviour trees without ever having done it before is not a trivial task. Moreover, there will be more than one valid implementation to achieve the same behaviour, which makes it more complicated to design this type of solution when you do not still have enough intuition to know which one is better. Taking advantage of the fact that the use of \glspl{BT} is widespread in the videogame industry, information about them was gathered and studied to try to develop enough knowledge and intuition to design from scratch a \gls{BT} that meets the needs of the mission. For that, previous examples found in \cite{BT-CPP-doc, colledanchise2018behavior, BT-AI} were very useful.
+A pesar de esto, el proceso de diseño de una \gls{FSM} es bastante diferente al proceso de diseño de un \gls{BT}. Diseñar \glspl{BT} sin haberlo hecho antes no es una tarea trivial. Además, habrá más de una implementación válida para conseguir el mismo comportamiento, lo que hace más complicado diseñar este tipo de soluciones cuando aún no se tiene la suficiente intuición para saber cuál es la mejor. Aprovechando que el uso de \glspl{BT} está muy extendido en la industria de los videojuegos, se recopiló y estudió información sobre ellos para intentar desarrollar el conocimiento y la intuición suficientes para diseñar desde cero un \gls{BT} que cumpla con las necesidades de la misión. Para ello, fueron muy útiles los ejemplos previos encontrados en \cite{BT-CPP-doc, colledanchise2018behavior, BT-AI}.
 
-Before proceeding with the explanation of the designed \gls{BT}, the types of nodes that can be found in the selected C++ library (see Figure~\ref{fig:BTnodes}) and the functioning of each of them will be briefly discussed.
+Antes de proceder a la explicación del \gls{BT} diseñado, se comentarán brevemente los tipos de nodos que se pueden encontrar en la biblioteca C++ seleccionada (ver Figura~\ref{fig:BTnodes}) y el funcionamiento de cada uno de ellos.
 
 %% Tipos de nodos de BT
 \begin{figure}[htbp]
@@ -831,25 +825,23 @@ Before proceeding with the explanation of the designed \gls{BT}, the types of no
         \begin{tikzpicture}
 			\node (MainTree) at (0,0) [text centered, fill=blue!5, draw=blue, ellipse, minimum width=2cm, minimum height=0.75cm, text width=2em]{};
 		\end{tikzpicture}}
-    \caption{Different types of nodes that can be present in an \gls{BT}}
+    \caption{Diferentes tipos de nodos que pueden estar presentes en un \gls{BT}}
     \label{fig:BTnodes}
 \end{figure}
 
- Behaviour Trees are made up of \emph{Control} nodes, \emph{Decorator} nodes, and \emph{Leaf} nodes. \emph{Control} nodes could be either \emph{Fallback} nodes, represented with a question mark (see subfigure \ref{subfig:Fallback}), which try success calling one by one each of their children; or \emph{Sequence} nodes, represented with an arrow (see subfigure \ref{subfig:Sequence}), which call their children in order if the previous one has succeeded. On the one hand, \emph{Fallback} nodes return \emph{SUCCESS} if one of its children does it, \emph{FAILURE} if none of them success, and \emph{RUNNING} if one of its children returns \emph{RUNNING}. On the other hand, \emph{Sequence} nodes return \emph{SUCCESS} when all children have been called in order and have returned \emph{SUCCESS}. If any of them returns \emph{FAILURE}, the sequence is broken and the \emph{Sequence} node returns \emph{FAILURE} too. When a child returns \emph{RUNNING}, the \emph{Sequence} node does it too. \emph{Control} nodes are represented in a black rectangular box when they are the standard ones (see subfigure \ref{subfig:Common}), but they could also be \emph{Reactive} control nodes, represented by a magenta box (see subfigure \ref{subfig:Reactive}), which means that its already called children will be called again in the next iteration. This is very useful for generating behaviours where an action is constantly reattempted, or where it is necessary to check that the required conditions are still met. A \emph{Child} node could be another \emph{Control} node, a \emph{Decorator} node, a \emph{Leaf} node or a whole sub-tree. A \emph{Decorator} node, represented in an orange box (see subfigure \ref{subfig:Decorator}), can only have one child (of any type) and its function is programmable (e.g., modifying its child result or retrying calling its child a number of times). \emph{Leaf} nodes, represented in blue, could be \emph{Condition} nodes, represented in a blue elliptical shaped box (see subfigure \ref{subfig:Condition}), that check a condition and return either \emph{SUCCESS} or \emph{FAILURE}; or \emph{Action} nodes, represented in a blue rectangular box (see subfigure \ref{subfig:Action}), that execute code that takes longer and therefore these nodes could also return \emph{RUNNING}.
+Los Árboles de Comportamiento están formados por nodos de \emph{Control}, nodos \emph{Decoradores} y nodos \emph{Hoja}. Los nodos de \emph{Control} pueden ser nodos de \emph{Alternativa}, representados con un signo de interrogación (ver subfigura \ref{subfig:Fallback}), que intentan tener éxito llamando uno a uno a cada uno de sus hijos; o nodos \emph{Secuancia}, representados con una flecha (ver subfigura \ref{subfig:Sequence}), que llaman a sus hijos en orden si el anterior ha tenido éxito. Por un lado, los nodos \emph{Alternativa} devuelven \emph{ÉXITO} si uno de sus hijos lo hace, \emph{FALLO} si ninguno tiene éxito, y \emph{EN EJECUCIÓN} si uno de sus hijos devuelve \emph{EN EJECUCIÓN}. Por otro lado, los nodos \emph{Secuencia} devuelven \emph{ÉXITO} cuando todos los hijos han sido llamados en orden y han devuelto \emph{ÉXITO}. Si alguno de ellos devuelve \emph{FALLO}, la secuencia se rompe y el nodo \emph{Secuencia} devuelve \emph{FALLO} también. Cuando un hijo devuelve \emph{EN EJECUCIÓN}, el nodo \emph{Secuencia} también lo hace. Los nodos de \emph{Control} se representan con un recuadro rectangular negro cuando son comunes (ver subfigura \ref{subfig:Common}), pero también pueden ser nodos de control \emph{Reactivos}, representados por un recuadro magenta (ver subfigura \ref{subfig:Reactive}), lo que significa que sus hijos ya llamados serán llamados de nuevo en la siguiente iteración. Esto es muy útil para generar comportamientos en los que una acción se reintenta constantemente, o en los que es necesario comprobar que se siguen cumpliendo las condiciones requeridas. Un nodo \emph{Hijo} puede ser otro nodo de \emph{Control}, un nodo \emph{Decorador}, un nodo \emph{Hoja} o un subárbol completo. Un nodo \emph{Decorador}, representado en un recuadro naranja (véase la subfigura \ref{subfig:Decorator}), sólo puede tener un hijo (de cualquier tipo) y su función es programable (por ejemplo, modificar el resultado de su hijo o reintentar llamar a su hijo un número de veces). Los nodos \emph{Hoja}, representados en azul, pueden ser nodos de \emph{Condición}, representados en una caja azul de forma elíptica (véase la subfigura \ref{fig:Condition}), que comprueban una condición y devuelven \emph{ÉXITO} o \emph{FALLO}; o nodos de \emph{Acción}, representados en una caja rectangular azul (véase la subfigura \ref{subfig:Action}), que ejecutan un código que lleva más tiempo y, por tanto, estos nodos también podrían devolver \emph{EN EJECUCIÓN}.
 
-\subsection{Main tree}
+\subsection{Árbol principal}
 \label{sec:MainTree}
-In general, the design of both the behaviour tree and the \emph{Agent Behaviour Manager} has been made with the aim of concentrating as less intelligence as possible, to ensure the success of the mission and the safety of the \glspl{UAV} and the workers. That is why the only task of the callback functions that are executed when different messages come in is to update the value of the corresponding internal variables. 
+En general, el diseño tanto del \gls{BT} como del \emph{Gestor de comportamiento} se ha realizado con el objetivo de concentrar la menor inteligencia posible que garantice el éxito de la misión y la seguridad de los \glspl{UAV} y de los trabajadores. Por ello, la única tarea de las funciones de respuesta que se ejecutan cuando llegan diferentes mensajes es actualizar el valor de las variables internas correspondientes. 
 
-However, not all intelligence and decision-making can be placed in the ground station node. There has to be some decision-making capability on board \glspl{UAV} in case the connection to the central node is lost. That is why there is a predefined protocol to act when this happens or when the battery runs out of power earlier than expected. These two factors are periodically checked in the main while loop (see Code \ref{ps:GeneralAgent}). In the case of the battery, if the function in charge determines that there is not enough battery to complete the current task, what happens is that the task queue is emptied and the value of the internal flag associated with the battery is updated. In addition, the event is communicated to the task planner in case the connection is still alive to generate a new plan. Similarly, if a connection loss is detected, the task queue is emptied and the corresponding flag is updated. In this case the \emph{High-Level Planner} node will execute a replanning when it also detects the connection loss.
+Sin embargo, no toda la inteligencia y la toma de decisiones pueden situarse en el nodo de la estación de tierra. Tiene que haber cierta capacidad de decisión a bordo de los \glspl{UAV} en caso de que se pierda la conexión con el nodo central. Por eso hay un protocolo predefinido para actuar cuando esto ocurre o cuando la batería se agota antes de lo previsto. Estos dos factores se comprueban periódicamente en el bucle while principal (véase el código \ref{ps:GeneralAgent}). En el caso de la batería, si la función encargada determina que no hay suficiente batería para completar la tarea actual, lo que ocurre es que se vacía la cola de tareas y se actualiza el valor de la bandera interna asociado a la batería. Además, el evento se comunica al planificador de tareas en caso de que la conexión siga viva para generar un nuevo plan. Del mismo modo, si se detecta una pérdida de conexión, se vacía la cola de tareas y se actualiza la bandera correspondiente. En este caso, el bloque \emph{Planificador de alto nivel} ejecutará una replanificación cuando también detecte la pérdida de conexión.
 
-The behaviour tree is designed in such a way that, when the task queue is emptied and the respective flags are updated, the corresponding \gls{UAV} goes to the battery charging station, which is the established emergency protocol. In order to justify this decision, each of the cases will be analysed separately below.
+El \gls{BT} está diseñado de forma que, cuando la cola de tareas se vacía y se actualizan las banderas respectivas, el \gls{UAV} correspondiente se dirige a la estación de carga de baterías, que es el protocolo de emergencia establecido. Para justificar esta decisión, a continuación se analizará cada uno de los casos por separado.
 
-In case the connection between the two nodes is still active but there is not enough battery, the aim of the contingency plan is to eliminate risks to the \gls{UAV} while the \emph{High-Level Planner} generates new instructions. In addition, the new plan is likely to involve recharging the battery as a first step. Besides, there is a possibility that the connection may be lost at this point.
+En el caso de que la conexión entre los dos nodos siga activa pero no haya suficiente batería, el objetivo del plan de contingencia es eliminar los riesgos para el \gls{UAV} mientras el \emph{Planificador de alto nivel} genera nuevas instrucciones. Además, es probable que el nuevo plan implique la recarga de la batería como primer paso. Además, existe la posibilidad de que la conexión se pierda en este punto.
 
-The danger of connection loss is that the \emph{High-Level Planner} will replan the mission without the disconnected \gls{ACW}, so that the tasks previously assigned to it will now be executed by others. If in this scenario the disconnected \gls{ACW} continues with the last assigned plan, collisions could occur. The emergency protocol ensures that the disconnected \gls{UAV} does not interfere with the new plans. In addition, the time until the connection is re-established is used by recharging the battery, which is positive for the mission.
-
-%%%%%%%%%%%%%%%%%%% El Agent Behavior Manager no elimina nunca una tarea de la cola en la revión actual. ¿Eso lo omito o debería explicarlo?
+El peligro de la pérdida de la conexión es que el \emph{Planificador de alto nivel} volverá a planificar la misión sin el \gls{ACW} desconectado, por lo que las tareas que le fueron asignadas anteriormente serán ahora ejecutadas por otros. Si en este escenario el \gls{ACW} desconectado continúa con el último plan asignado, podrían producirse colisiones. El protocolo de emergencia garantiza que el \gls{UAV} desconectado no interfiera con los nuevos planes. Además, el tiempo hasta el restablecimiento de la conexión se aprovecha para recargar la batería, lo que es positivo para la misión.
 
 \glspl{BT} operate recursively. All nodes, regardless of their type, have a function that executes their content, the \emph{tick} function. When the root node is \emph{ticked} from the main while loop, it propagates the \emph{tick} among its children following the operation rules described in Section \ref{sec:Distributed module: behaviour manager} until eventually a \emph{leaf} node returns one of three possible responses (\emph{SUCCESS}, \emph{RUNNING} or \emph{FAILURE}), which will be propagated back, to obtain a final result that the root node will return. 
 
