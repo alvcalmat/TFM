@@ -19,3 +19,11 @@ vim:
 
 pdf:
 	zathura $(main).pdf &
+
+resumen:
+	pdflatex resumen.tex
+	pdflatex resumen.tex
+	makeindex -s resumen.ist -t resumen.glg -o resumen.gls resumen.glo
+	pdflatex resumen.tex
+	pdflatex resumen.tex
+	zathura resumen.pdf &
