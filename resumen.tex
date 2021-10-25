@@ -220,41 +220,29 @@ twoside}
 \frontmatter
 \pagenumbering{Roman} %Pone la numeración en mayúscula (En español parece que es obligatorio)
 
-%\include{dedicatoria/dedicatoria}%¿Comentar para proyectos/tesis?
-%\include{Acknowledgment/Acknowledgment}
-\chapter*{Agradecimientos}
-%\pagestyle{especial}
-\pagestyle{empty}
-%\chaptermark{Acknowledgment}
-\phantomsection
-%\addcontentsline{toc}{listasf}{Acknowledgment}
-%\vspace{1cm}
-%{\huge{Acknowledgment}}
-%\vspace{1cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \chapter*{Agradecimientos}
+% \pagestyle{empty}
+% \phantomsection
 
-\lettrine[lraise=-0.1, lines=2, loversize=0.25]{}{}
-% Tutor del proyecto:
-A mi asesor, Jesús, por guiarme en este proyecto, por confiar en mí para formar parte del grupo de investigación al que pertenece, por apoyarme en mi decisión de incorporarme a un programa de doctorado, por buscar siempre lo mejor para nosotros a pesar de sus preferencias y por su amabilidad. 
+% \lettrine[lraise=-0.1, lines=2, loversize=0.25]{}{}
+% A mi asesor, Jesús, por guiarme en este proyecto, por confiar en mí para formar parte del grupo de investigación al que pertenece, por apoyarme en mi decisión de incorporarme a un programa de doctorado, por buscar siempre lo mejor para nosotros a pesar de sus preferencias y por su amabilidad. 
 
-% Compañeros del departamento
-A todos los compañeros de departamento que me han ayudado cada vez que lo he necesitado y a todos los que se han ofrecido como voluntarios para apoyarme. En particular, quiero agradecer a Fran y Arturo todo el tiempo que han dedicado a ayudarme. 
+% A todos los compañeros de departamento que me han ayudado cada vez que lo he necesitado y a todos los que se han ofrecido como voluntarios para apoyarme. En particular, quiero agradecer a Fran y Arturo todo el tiempo que han dedicado a ayudarme. 
 
-A Damián, por acompañarme en los momentos fáciles y difíciles, pero sobre todo, por ser mi amigo, y estar ahí incondicionalmente para lo que necesitara. 
+% A Damián, por acompañarme en los momentos fáciles y difíciles, pero sobre todo, por ser mi amigo, y estar ahí incondicionalmente para lo que necesitara. 
 
-% Compañeros de clase, por acompañarde durante todo el camino
-A mis compañeros de clase, que a pesar de ser un año difícil con distanciamiento social, han estado tan unidos como siempre.
+% A mis compañeros de clase, que a pesar de ser un año difícil con distanciamiento social, han estado tan unidos como siempre.
 
-% Amigos
-A todos mis amigos, por ser tan buenos amigos. 
+% A todos mis amigos, por ser tan buenos amigos. 
 
-% La familia
-A toda mi familia, por su amor y apoyo incondicional, y por su paciencia y comprensión. 
+% A toda mi familia, por su amor y apoyo incondicional, y por su paciencia y comprensión. 
 
-\vspace{1.3cm}
-Gracias por todo
-{\flushleft{\hfill \emph{Álvaro Calvo Matos}}}%
-%{\flushleft{\hfill \emph{Máster en Ingeniería Electrónica, Robótica y Automática}}}
-{\flushleft{\hfill \emph{Sevilla, 2021}}}%
+% \vspace{1.3cm}
+% Gracias por todo
+% {\flushleft{\hfill \emph{Álvaro Calvo Matos}}}
+% {\flushleft{\hfill \emph{Sevilla, 2021}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %PFC/PFM/TESIS
 %\include{Abstract/Abstract} 
@@ -325,11 +313,11 @@ Con el aumento de la demanda mundial de electricidad, ha surgido el reto para la
     \label{fig:helicopter}
 \end{figure}
 
-La estrategia que suelen utilizar las compañías eléctricas para reducir los cortes de energía es programar operaciones periódicas de mantenimiento en las líneas activas. Este es el método más adecuado si se quiere asegurar el correcto funcionamiento del sistema y cuando la sustitución de un circuito es inaceptable \cite{CausasDeLosCortesDeEnergía}. Estas misiones de mantenimiento son realizadas por tripulaciones experimentadas a bordo de helicópteros y equipadas con trajes de seguridad y arneses, entre otras cosas, que evitan que los operarios reciban una descarga eléctrica (véase la figura \ref{fig:helicóptero}). El problema de esta solución es que estas actividades son peligrosas para los operarios, ya que trabajan a gran altura y en líneas electrificadas, consumen mucho tiempo, son muy caras (1.500 dólares por hora) y están sujetas a errores humanos.
+La estrategia que suelen utilizar las compañías eléctricas para reducir los cortes de energía es programar operaciones periódicas de mantenimiento en las líneas activas. Este es el método más adecuado si se quiere asegurar el correcto funcionamiento del sistema y cuando la sustitución de un circuito es inaceptable \cite{PowerOutagesCauses}. Estas misiones de mantenimiento son realizadas por tripulaciones experimentadas a bordo de helicópteros y equipadas con trajes de seguridad y arneses, entre otras cosas, que evitan que los operarios reciban una descarga eléctrica (véase la figura \ref{fig:helicopter}). El problema de esta solución es que estas actividades son peligrosas para los operarios, ya que trabajan a gran altura y en líneas electrificadas, consumen mucho tiempo, son muy caras (1.500 dólares por hora) y están sujetas a errores humanos \cite{MaintenanceCost}.
 
-Estas son las razones por las que las empresas de distribución tienen la necesidad de desarrollar métodos de mantenimiento más eficientes y seguros. Se han propuesto múltiples soluciones para automatizar esta tarea \cite{SolucionesDeMantenimiento}, pero la mejor parece ser el uso de \glspl{UAV}, debido a su flexibilidad y capacidad para inspeccionar a diferentes niveles \cite{CausasDeCorteDeEnergía}. Para ello, todavía hay que superar algunas barreras importantes, como la limitada autonomía de estos aparatos, las fuertes interferencias electromagnéticas a las que estarían sometidos por estar cerca de las líneas eléctricas, y la capacidad de detectar y evitar los obstáculos de distinta naturaleza que se podrían encontrar en este tipo de entornos \cite{CosteDeMantenimiento}. Dotar a los \glspl{UAV} de la capacidad cognitiva necesaria para operar de forma autónoma en entornos tan dinámicos y con presencia humana, y dotarles de un método de planificación rápida en línea \cite{FastOnlinePlanning}, es clave para hacer frente a estas complejidades y cumplir con seguridad y éxito la misión asignada con las flotas de \gls{UAV}.
+Estas son las razones por las que las empresas de distribución tienen la necesidad de desarrollar métodos de mantenimiento más eficientes y seguros. Se han propuesto múltiples soluciones para automatizar esta tarea \cite{MaintenanceSolutions}, pero la mejor parece ser el uso de \glspl{UAV}, debido a su flexibilidad y capacidad para inspeccionar a diferentes niveles \cite{PowerOutagesCauses}. Para ello, todavía hay que superar algunas barreras importantes, como la limitada autonomía de estos aparatos, las fuertes interferencias electromagnéticas a las que estarían sometidos por estar cerca de las líneas eléctricas, y la capacidad de detectar y evitar los obstáculos de distinta naturaleza que se podrían encontrar en este tipo de entornos \cite{MaintenanceCost}. Dotar a los \glspl{UAV} de la capacidad cognitiva necesaria para operar de forma autónoma en entornos tan dinámicos y con presencia humana, y dotarles de un método de planificación rápida en línea \cite{FastOnlinePlanning}, es clave para hacer frente a estas complejidades y cumplir con seguridad y éxito la misión asignada con las flotas de \gls{UAV}.
 
-Una arquitectura de software versátil y fiable es esencial para integrar e interconectar todos los componentes heterogéneos que componen estos sistemas cognitivos multi-\gls{UAV}. En \cite{AerialCoreMulti-Layer}, como parte del proyecto europeo AERIAL-CORE{\footnote{Página principal del proyecto europeo AERIAL-CORE: \url{https://aerial-core.eu/}}, se presenta una arquitectura de software multicapa para llevar a cabo este tipo de misiones de forma cooperativa entre operadores humanos y una flota de quadrotors. Uno de los componentes de software implicados es un planificador de tareas de alto nivel. Su función es coordinar toda la flota de \glspl{UAV} para generar comportamientos de alto nivel con el fin de completar de forma eficiente, segura y exitosa la misión de mantenimiento o inspección. Este tipo de trabajos tienen la característica de ser dinámicos, ya que no es posible conocer de antemano cuál será el resultado de la inspección como tal para planificarla fuera de línea, sino que, a medida que se desarrolla la misión, surgirán nuevas tareas que la flota deberá atender. Por lo tanto, el planificador de tareas debe ser capaz de reaccionar ante eventos inesperados (nuevas tareas, fallo de un \gls{UAV}, pérdida de conexión, menos autonomía de la calculada, etc.) y volver a planificar en línea. Así, este planificador de alto nivel será el principal bloque cognitivo del sistema \cite{AerialCoreMulti-Layer}.
+Una arquitectura de software versátil y fiable es esencial para integrar e interconectar todos los componentes heterogéneos que componen estos sistemas cognitivos multi-\gls{UAV}. En \cite{AerialCoreMulti-Layer}, como parte del proyecto europeo AERIAL-CORE\footnote{Página principal del proyecto europeo AERIAL-CORE: \url{https://aerial-core.eu/}}, se presenta una arquitectura de software multicapa para llevar a cabo este tipo de misiones de forma cooperativa entre operadores humanos y una flota de quadrotors. Uno de los componentes de software implicados es un planificador de tareas de alto nivel. Su función es coordinar toda la flota de \glspl{UAV} para generar comportamientos de alto nivel con el fin de completar de forma eficiente, segura y exitosa la misión de mantenimiento o inspección. Este tipo de trabajos tienen la característica de ser dinámicos, ya que no es posible conocer de antemano cuál será el resultado de la inspección como tal para planificarla fuera de línea, sino que, a medida que se desarrolla la misión, surgirán nuevas tareas que la flota deberá atender. Por lo tanto, el planificador de tareas debe ser capaz de reaccionar ante eventos inesperados (nuevas tareas, fallo de un \gls{UAV}, pérdida de conexión, menos autonomía de la calculada, etc.) y volver a planificar en línea. Así, este planificador de alto nivel será el principal bloque cognitivo del sistema \cite{AerialCoreMulti-Layer}.
 
 \section{Objetivos}
 \label{sec:Objectives}
@@ -390,7 +378,7 @@ Como ya se ha dicho, en el proyecto se contemplan tres tipos de tareas diferente
 
 \subsection{Tareas de inspección}
 \label{subsec:InspectionTasks}
-Esta tarea puede ser realizada por los tres tipos de \glspl{ACW}. Es la segunda tarea más prioritaria, siendo la tarea de entrega de herramientas la única que la supera. Consiste en realizar una inspección detallada de las zonas especificadas de las líneas de alta tensión (ver Fig. \ref{fig:tarea_de_inspección}). La capa inmediatamente superior al planificador de tareas se encarga de pasarle una lista de \glspl{WP} que definen la tarea de inspección, y el planificador se encarga de decidir cuántos \glspl{ACW} recluta para ejecutar la tarea y a cuáles de los \glspl{ACW} disponibles se la asigna. Dividir la lista total de \gls{WP} a inspeccionar en subconjuntos y asignar cada uno a uno de los \glspl{ACW} seleccionados para la tarea es el trabajo de un controlador de bajo nivel. Por tanto, una vez ejecutada la planificación, las tareas de este tipo se transmiten a las capas inferiores con la lista total de \glspl{WP} a inspeccionar y una lista con las identificaciones (\glspl{ID}) de los \glspl{UAV} seleccionados.
+Esta tarea puede ser realizada por los tres tipos de \glspl{ACW}. Es la segunda tarea más prioritaria, siendo la tarea de entrega de herramientas la única que la supera. Consiste en realizar una inspección detallada de las zonas especificadas de las líneas de alta tensión (ver Fig. \ref{fig:inspection_task}). La capa inmediatamente superior al planificador de tareas se encarga de pasarle una lista de \glspl{WP} que definen la tarea de inspección, y el planificador se encarga de decidir cuántos \glspl{ACW} recluta para ejecutar la tarea y a cuáles de los \glspl{ACW} disponibles se la asigna. Dividir la lista total de \gls{WP} a inspeccionar en subconjuntos y asignar cada uno a uno de los \glspl{ACW} seleccionados para la tarea es el trabajo de un controlador de bajo nivel. Por tanto, una vez ejecutada la planificación, las tareas de este tipo se transmiten a las capas inferiores con la lista total de \glspl{WP} a inspeccionar y una lista con las identificaciones (\glspl{ID}) de los \glspl{UAV} seleccionados.
 
 Todas las comunicaciones mencionadas se realizarán de forma asíncrona, ya que la creación de la tarea por parte de los trabajadores, que desencadena toda la secuencia de acciones, se realiza de esta forma.
 
@@ -480,21 +468,21 @@ Tal y como se indica en el capítulo \ref{ch:Introduction}, el planificador de t
 
 \begin{figure}[ht]
     \hspace{-1cm}
-	\scalebox{0.7}{
+	\scalebox{0.63}{
 		\begin{tikzpicture}
     		% WP7 block
-    		\node (WP7-Box) at (8.35,0) [fill=gray!15,rounded corners, draw=black!70, densely dotted, minimum height=5cm, minimum width=19.5cm]{}; 
+    		\node (WP7-Box) at (10.4,0) [fill=gray!15,rounded corners, draw=black!70, densely dotted, minimum height=5cm, minimum width=24cm]{}; 
 
 			% Task planner box
-    		\node (TaskPlannerBox) at ($(WP7-Box)+(0,0)$) [fill=teal!15,rounded corners, draw=black!70, densely dotted, minimum height=4.5cm, minimum width=14cm]{};
+    		\node (TaskPlannerBox) at ($(WP7-Box)+(0.25,0)$) [fill=teal!15,rounded corners, draw=black!70, densely dotted, minimum height=4.5cm, minimum width=18cm]{};
     		
     		% Gesture Recognition
-    		\node (GestureRecognition) at (0,0) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=5.5em]{Reconocimiento\\de Gestos};
+    		\node (GestureRecognition) at (0,0) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=6.5em]{Reconocimiento\\de Gestos};
     		
-    		\draw[-latex] ($(GestureRecognition) - (1.8,0)$) -- (GestureRecognition);
+    		\draw[-latex] ($(GestureRecognition) - (2,0)$) -- (GestureRecognition);
  
     		% High-Level Planner
-    		\node (HighLevelPlannerBox) at ($(GestureRecognition) + (3.5,0.25)$) [fill=orange!15,rounded corners, draw=black!70, densely dotted, minimum height=2cm, minimum width=2.5cm]{}; 
+    		\node (HighLevelPlannerBox) at ($(GestureRecognition) + (4,0.25)$) [fill=orange!15,rounded corners, draw=black!70, densely dotted, minimum height=2cm, minimum width=2.5cm]{}; 
     		\node (HighLevelPlanner) at ($(HighLevelPlannerBox) + (0,-0.25)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=5.5em]{Planificador\\de alto nivel};
     		\node (Centralised) at ($(HighLevelPlanner) + (0,0.75)$) [text centered]{\small Centralizado};
     		
@@ -502,13 +490,13 @@ Tal y como se indica en el capítulo \ref{ch:Introduction}, el planificador de t
     		
     		%%%%%%%%%%%%%%%%%%%
     		% UAV 1
-    		\node (UAV1) at ($(HighLevelPlanner) + (6.75,1.25)$) [fill=lime!20,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
+    		\node (UAV1) at ($(HighLevelPlanner) + (9,1.25)$) [fill=lime!20,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
     		\node (AgentBehaviourManager1) at ($(UAV1) + (0,-0.25)$) [fill=white, draw, rectangle, text centered, text width=12em]{Gestor de comportamiento};
     		\node (UAV1-Text) at ($(AgentBehaviourManager1) + (0,0.75)$) [text centered]{\small A bordo del ACW-$1$};	
 
-    		\draw[fill=black] ($ (HighLevelPlanner.east) + (1.715,0) $) arc(-180:180:0.05);
-    		\draw[-latex] (HighLevelPlanner.east) -- ($ (HighLevelPlanner.east) + (1.75,0) $) -- ($ (HighLevelPlanner.east) + (1.75,1) $) -- node[above]{Lista de} node[below]{tareas} (AgentBehaviourManager1.west);
-    		\draw[-latex] ($ (HighLevelPlanner.east) + (1.75,0) $) -- node[above]{Retroalimentación} (HighLevelPlanner.east);
+    		\draw[fill=black] ($ (HighLevelPlanner.east) + (3.465,0) $) arc(-180:180:0.05);
+    		\draw[-latex] (HighLevelPlanner.east) -- ($ (HighLevelPlanner.east) + (3.5,0) $) -- ($ (HighLevelPlanner.east) + (3.5,1) $) -- node[above]{Lista de} node[below]{tareas} (AgentBehaviourManager1.west);
+    		\draw[-latex] ($ (HighLevelPlanner.east) + (3.5,0) $) -- node[above]{Retroalimentación} (HighLevelPlanner.east);
     		
     		%%%%%%%%%%%%%%%%%%%
     		
@@ -518,28 +506,28 @@ Tal y como se indica en el capítulo \ref{ch:Introduction}, el planificador de t
     		%%%%%%%%%%%%%%%%%%%
     		
     		% UAV N
-    		\node (UAVN) at ($(HighLevelPlanner) + (6.75,-1.25)$) [fill=lime!20,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
+    		\node (UAVN) at ($(HighLevelPlanner) + (9,-1.25)$) [fill=lime!20,rounded corners, draw=black!70, densely dotted, minimum height=1.7cm, minimum width=5cm]{}; 
     		\node (AgentBehaviourManagerN) at ($(UAVN) + (0,-0.25)$) [fill=white, draw, rectangle, text centered, text width=12em]{Gestor de comportamiento};
     		\node (UAVN-Text) at ($(AgentBehaviourManagerN) + (0,0.75)$) [text centered]{\small A bordo del ACW-$N$};	
 
-    		\draw[-latex] (HighLevelPlanner.east) -- ($ (HighLevelPlanner.east) + (1.75,0) $) -- ($ (HighLevelPlanner.east) + (1.75,-1.5) $) -- node[above]{Lista de} node[below]{tareas} (AgentBehaviourManagerN.west);
+    		\draw[-latex] (HighLevelPlanner.east) -- ($ (HighLevelPlanner.east) + (3.5,0) $) -- ($ (HighLevelPlanner.east) + (3.5,-1.5) $) -- node[above]{Lista de} node[below]{tareas} (AgentBehaviourManagerN.west);
     		
     		%%%%%%%%%%%%%%%%%%%
     		
     		% Lower-Level Controllers
-    		\node (LowerLevelControllers) at ($(HighLevelPlanner) + (13.25,0)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=5.5em]{Controladores\\de nivel inferior};
+    		\node (LowerLevelControllers) at ($(HighLevelPlanner) + (17,0)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=5.5em]{Controladores\\de nivel inferior};
     		
     		\draw[-latex] (LowerLevelControllers.east) -- ($(LowerLevelControllers) + (1.8,0)$);
     		
-    		\draw[fill=black] ($ (LowerLevelControllers.west) + (-1.535,0) $) arc(-180:180:0.05);
-    		\draw[-latex] (AgentBehaviourManager1.east) -- ($ (LowerLevelControllers.west) + (-1.5,1) $) -- ($ (LowerLevelControllers.west) + (-1.5,0) $) --  node[above]{Parámetros} node[below]{de la tarea}	(LowerLevelControllers.west);
-    		\draw[-latex] (LowerLevelControllers.west) -- ($ (LowerLevelControllers.west) + (-1.5,0) $) -- ($ (LowerLevelControllers.west) + (-1.5,1) $) -- node[above]{Resultado} node[below]{de la tarea}	(AgentBehaviourManager1.east);
-    		\draw[-latex] (AgentBehaviourManagerN.east) -- ($ (LowerLevelControllers.west) + (-1.5,-1.5) $) -- ($ (LowerLevelControllers.west) + (-1.5,0) $) -- (LowerLevelControllers.west);
-    		\draw[-latex] (LowerLevelControllers.west) -- ($ (LowerLevelControllers.west) + (-1.5,0) $) -- ($ (LowerLevelControllers.west) + (-1.5,-1.5) $) -- node[above]{Resultado} node[below]{de la tarea} (AgentBehaviourManagerN.east);
+    		\draw[fill=black] ($ (LowerLevelControllers.west) + (-2.285,0) $) arc(-180:180:0.05);
+    		\draw[-latex] (AgentBehaviourManager1.east) -- ($ (LowerLevelControllers.west) + (-2.25,1) $) -- ($ (LowerLevelControllers.west) + (-2.25,0) $) --  node[above]{Parámetros} node[below]{de la tarea}	(LowerLevelControllers.west);
+    		\draw[-latex] (LowerLevelControllers.west) -- ($ (LowerLevelControllers.west) + (-2.25,0) $) -- ($ (LowerLevelControllers.west) + (-2.25,1) $) -- node[above]{Resultado} node[below]{de la tarea}	(AgentBehaviourManager1.east);
+    		\draw[-latex] (AgentBehaviourManagerN.east) -- ($ (LowerLevelControllers.west) + (-2.25,-1.5) $) -- ($ (LowerLevelControllers.west) + (-2.25,0) $) -- (LowerLevelControllers.west);
+    		\draw[-latex] (LowerLevelControllers.west) -- ($ (LowerLevelControllers.west) + (-2.25,0) $) -- ($ (LowerLevelControllers.west) + (-2.25,-1.5) $) -- node[above]{Resultado} node[below]{de la tarea} (AgentBehaviourManagerN.east);
     		
     		%%%%%%%%%%%%%%%%%%%%%
     		
-    		\node (RealUAVs) at ($(WP7-Box.south) + (2,-1.25)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=6em]{Autopilodo\\de los ACWs};
+    		\node (RealUAVs) at ($(WP7-Box.south) + (2,-1.25)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=6em]{Autopiloto\\de los ACWs};
     		\node (Humans) at ($(WP7-Box.south) + (-2,-1.25)$) [text centered, fill=white, draw, rectangle, minimum width=1.5cm, text width=6em]{Localizador\\de humanos};
     		
     		\draw[-latex] (RealUAVs.north) -- node[right]{Pose, Batería, Estado} ($(WP7-Box.south) + (2,0)$);
@@ -562,9 +550,9 @@ En el esquema de la arquitectura de software, aunque algunas comunicaciones son 
     \begin{tabular}{|p{0.25\columnwidth}|p{0.25\columnwidth}|p{0.4\columnwidth}|}
       \hline
       \multicolumn{1}{|c}{\textbf{Nombre del módulo}} & \multicolumn{1}{|c|}{\textbf{Dato de entrada}} & \multicolumn{1}{c|}{\textbf{Dato de salida}}\\ \hline \hline
-      Reconocimiento de Gestos & Imágenes & \textbf{Task, defined by:} ID de la tarea, Tipo de la tarea, Distancia de monitorización, Número de monitorización, Lista de WPs, ID de la herramienta (algunos parámetros de tarea serán ignorados dependiendo del tipo de tarea) \\ \hline
+      Reconocimiento de Gestos & Imágenes & \textbf{Tarea, definida por:} ID de la tarea, Tipo de la tarea, Distancia de monitorización, Número de monitorización, Lista de WPs, ID de la herramienta (algunos parámetros de tarea serán ignorados dependiendo del tipo de tarea) \\ \hline
       
-     Planificador de alto nivel & Tarea, Retroalimentación (Resultado de la tarea, Batería suficiente, información del \gls{BT}), Pose del humano, Pose del \glspl{ACW}, Batería y Estado, y Baliza del agente & Lista de tareas añadiendo a cada una sus parámetros extra resultado de la planificación (Formación y/o Lista de IDs de los \glspl{ACW}) y Baliza del planificador\\\hline
+     Planificador de alto nivel & Tarea, Retroalimentación (Resultado de la tarea, Batería suficiente, información del árbol de comportamiento (\gls{BT})), Pose del humano, Pose del \glspl{ACW}, Batería y Estado, y Baliza del agente & Lista de tareas añadiendo a cada una sus parámetros extra resultado de la planificación (Formación y/o Lista de IDs de los \glspl{ACW}) y Baliza del planificador\\\hline
       
       Gestor de comportamiento & Lista de tareas, Resultado del nivel inferior, Pose del humano, Pose del \glspl{ACW}, Batería y Estado & Parámetros necesarios para los controladores de bajo nivel (en función del tipo de tarea), Retroalimentación (resultado de la tarea, batería suficiente, información del BT) y Baliza del agente \\ \hline
       
